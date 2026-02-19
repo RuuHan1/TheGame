@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a399f29bca28e6429a18b6851da17b9, type: 3}
   m_Name: Speed 2
   m_EditorClassIdentifier: Assembly-CSharp::CardViewSO
-  CardData: {fileID: 11400000, guid: d62b40e2b816f1e48b94e85e93709740, type: 2}
-  CardName: Speed 1
-  CardDescription: Increase projectile speed by x 1.2
+  CardData: {fileID: 11400000, guid: ce720747a018c95418f50adefc7875f2, type: 2}
+  CardName: Speed 2
+  CardDescription: Increase projectile speed by x 1.5
   CardBgImage: {fileID: 0}
   CardFgImage: {fileID: 0}
