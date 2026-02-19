@@ -1,0 +1,86 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class CardPanel : MonoBehaviour, IDropHandler
+{
+    [SerializeField] private int maxSlot = 10;
+    [SerializeField] private bool isWeaponSlot = false;
+
+    private List<CardVisualizer> cardsOnList = new();
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        CardVisualizer card = eventData.pointerDrag?.GetComponent<CardVisualizer>();
+        if (card == null)
+            return;
+
+        if (!HasCapacity())
+        {
+            card.ReturnToOriginalParent();
+            return;
+        }
+
+        AddCard(card, eventData);
+    }
+
+    public bool HasCapacity()
+    {
+        return transform.childCount < maxSlot;
+    }
+
+    private void AddCard(CardVisualizer card, PointerEventData eventData)
+    {
+        card.transform.SetParent(transform, false);
+
+        int index = GetDropIndex(eventData);
+        card.transform.SetSiblingIndex(index);
+
+        card.SetCurrentSlot(this);
+
+        RecalculateOrder();
+    }
+
+    private void RecalculateOrder()
+    {
+        cardsOnList.Clear();
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            CardVisualizer card = transform.GetChild(i).GetComponent<CardVisualizer>();
+            if (card != null)
+            {
+                cardsOnList.Add(card);
+                card.SetIndex(i);
+            }
+        }
+
+        SendEvent();
+    }
+
+    private void SendEvent()
+    {
+        List<CardViewSO> data = new();
+
+        foreach (var card in cardsOnList)
+            data.Add(card.cardData);
+
+        if (isWeaponSlot)
+            GameEvents.WeaponSlotChanged?.Invoke(data);
+        else
+            GameEvents.HandChanged?.Invoke(data);
+    }
+
+    private int GetDropIndex(PointerEventData eventData)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            RectTransform child = transform.GetChild(i) as RectTransform;
+
+            if (eventData.position.x < child.position.x)
+                return i;
+        }
+
+        return transform.childCount;
+    }
+}
