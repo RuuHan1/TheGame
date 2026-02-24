@@ -89,7 +89,7 @@ MonoBehaviour:
   cardDescription: {fileID: 2203903005802942249}
   cardBgImage: {fileID: 7399883593206350892}
   cardFgImage: {fileID: 704445761123414532}
-  cardScaleSize: 1.5
+  cardScaleSize: 1.2
   hoverUpAmount: 100
   hoverDelay: 0.1
   parentToReturnTo: {fileID: 0}

@@ -14,6 +14,7 @@ public class CardUIManager : MonoBehaviour
         GameEvents.HandChanged += InitializeHand;
         inputReference.action.Enable();
         inputReference.action.performed += TogglePanels;
+
     }
 
     private void OnDisable()
@@ -23,6 +24,10 @@ public class CardUIManager : MonoBehaviour
         inputReference.action.performed -= TogglePanels;
     }
 
+    private void Start()
+    {
+        
+    }
     private void TogglePanels(InputAction.CallbackContext context)
     {
         bool active = handPanel.activeSelf;
@@ -46,4 +51,5 @@ public class CardUIManager : MonoBehaviour
             visual.Setup(card);
         }
     }
+    
 }

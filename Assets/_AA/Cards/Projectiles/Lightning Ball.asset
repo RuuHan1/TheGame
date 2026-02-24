@@ -17,3 +17,4 @@ MonoBehaviour:
   Damage: 20
   Speed: 5
   CastDelay: 2
+  Radius: 0.5

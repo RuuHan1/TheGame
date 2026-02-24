@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: Speed 2
   CardDescription: Increase projectile speed by x 1.5
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: -7572770614201310996, guid: e8edf336aacbbd34c8a1a49303925d10, type: 3}

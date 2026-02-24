@@ -8,6 +8,6 @@ public class CardViewSO : ScriptableObject
     [TextArea] public string CardName;
     public string CardDescription;
     [SerializeField] public Image CardBgImage;
-    [SerializeField] public Image CardFgImage;
+    [SerializeField] public Sprite CardFgImage;
 
 }

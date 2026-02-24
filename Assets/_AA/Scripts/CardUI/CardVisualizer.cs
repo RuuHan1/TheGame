@@ -45,16 +45,11 @@ public class CardVisualizer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetCurrentSlot(CardPanel slot)
     {
         currentSlot = slot;
-        //List<CardViewSO> list = new List<CardViewSO>();
-        //foreach (CardVisualizer card in slot.cardsOnList)
-        //{
-        //    list.Add(card.cardData);
-        //}
-        //GameEvents.HandChanged?.Invoke(list);
-        //GameEvents.WeaponSlotChanged?.Invoke(list);
-        //list.Clear();
     }
-
+    public CardPanel GetCurrentSlot()
+    {
+        return currentSlot;
+    }
     public void SetIndex(int i)
     {
         slotIndex = i;
@@ -85,12 +80,11 @@ public class CardVisualizer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         cardName.text = cardData.CardName;
         cardDescription.text = cardData.CardDescription;
-        //if (cardData.CardFgImage != null)
-        //{
-        //    cardBgImage.sprite = cardData.CardBgImage.sprite;
-        //    cardFgImage.sprite = cardData.CardFgImage.sprite;
-        //}
-        Debug.Log("Setup");
+        if (cardData.CardFgImage != null)
+        {
+            //cardBgImage.sprite = cardData.CardBgImage.sprite;
+            cardFgImage.sprite = cardData.CardFgImage;
+        }
     }
     private void CreatePlaceholder()
     {

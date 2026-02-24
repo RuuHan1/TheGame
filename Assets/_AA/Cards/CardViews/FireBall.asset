@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: FireBall
   CardDescription: 
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: 7764353328152917117, guid: a81f6b44beafc8c46b0f3d057299aba8, type: 3}

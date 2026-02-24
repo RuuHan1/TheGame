@@ -1,14 +1,33 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CardPanel : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private int maxSlot = 10;
+    private int maxSlot;
     [SerializeField] private bool isWeaponSlot = false;
-
     private List<CardVisualizer> cardsOnList = new();
+    [Header("Events")]
+    [SerializeField] private WeaponState weaponState;
+    [SerializeField] private WeaponChangedEvent weaponChangedEvent;
 
+
+    private void OnEnable()
+    {
+        weaponChangedEvent.OnEventRaised += OnWeaponChanged;
+        OnWeaponChanged(weaponState.CurrentSlot);
+    }
+
+    private void OnWeaponChanged(int obj)
+    {
+        maxSlot = weaponState.CurrentSlot;
+    }
+
+    private void OnDisable()
+    {
+        weaponChangedEvent.OnEventRaised -= OnWeaponChanged;
+    }
     public void OnDrop(PointerEventData eventData)
     {
         CardVisualizer card = eventData.pointerDrag?.GetComponent<CardVisualizer>();
@@ -83,4 +102,6 @@ public class CardPanel : MonoBehaviour, IDropHandler
 
         return transform.childCount;
     }
+
+    
 }

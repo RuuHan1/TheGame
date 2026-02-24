@@ -95,7 +95,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        Debug.Log(CurrentHealth);
         GameEvents.PlayerHealthChanged?.Invoke(damage,CurrentHealth);
         if (CurrentHealth < 0)
         {

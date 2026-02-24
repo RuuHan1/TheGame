@@ -119,6 +119,43 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31065318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31065319}
+  m_Layer: 0
+  m_Name: WeaponCardPanelParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &31065319
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31065318}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1375794642}
+  - {fileID: 1442760241}
+  m_Father: {fileID: 926973749}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &50751926
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +166,6 @@ GameObject:
   m_Component:
   - component: {fileID: 50751927}
   - component: {fileID: 50751929}
-  - component: {fileID: 50751928}
   m_Layer: 0
   m_Name: LevelUpTextPool
   m_TagString: Untagged
@@ -150,35 +186,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 878772801}
+  m_Father: {fileID: 903589513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50751928
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50751926}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &50751929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,8 +277,9 @@ MonoBehaviour:
   instances: []
   enemyStats: {fileID: 11400000, guid: 6e98ba43eeba3924c949a691a7e1054f, type: 2}
   target: {fileID: 0}
-  SpawnRate: 5
+  SpawnRate: 2
   spawnRadius: 10
+  enemyPool: {fileID: 382854720}
 --- !u!4 &186054154
 Transform:
   m_ObjectHideFlags: 0
@@ -295,7 +305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 323142354}
   - component: {fileID: 323142356}
-  - component: {fileID: 323142355}
   m_Layer: 0
   m_Name: XpPool
   m_TagString: Untagged
@@ -318,33 +327,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 878772801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &323142355
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323142353}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &323142356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +362,6 @@ GameObject:
   m_Component:
   - component: {fileID: 382854720}
   - component: {fileID: 382854722}
-  - component: {fileID: 382854721}
   m_Layer: 0
   m_Name: EnemyPool
   m_TagString: Untagged
@@ -403,33 +384,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 878772801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &382854721
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382854719}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &382854722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +419,6 @@ GameObject:
   m_Component:
   - component: {fileID: 403822309}
   - component: {fileID: 403822311}
-  - component: {fileID: 403822310}
   m_Layer: 0
   m_Name: 'LightningBall Pool '
   m_TagString: Untagged
@@ -486,35 +439,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 878772801}
+  m_Father: {fileID: 1783153596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &403822310
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403822308}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &403822311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::XpManager
   xpPrefab: {fileID: 3089479994543546126, guid: 555901610a27edf43bf76f66084db298, type: 3}
+  xpPool: {fileID: 323142354}
 --- !u!4 &466097020
 Transform:
   m_ObjectHideFlags: 0
@@ -1108,13 +1035,44 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 995565701}
-  - {fileID: 403822309}
-  - {fileID: 1806055745}
-  - {fileID: 382854720}
   - {fileID: 323142354}
-  - {fileID: 50751927}
+  - {fileID: 382854720}
+  - {fileID: 1783153596}
+  - {fileID: 903589513}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &903589512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903589513}
+  m_Layer: 0
+  m_Name: UIObjectsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &903589513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903589512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 50751927}
+  - {fileID: 1806055745}
+  m_Father: {fileID: 878772801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &912681025
 GameObject:
@@ -1231,8 +1189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d29e521187d77d4585034d209bcc2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardPanel
-  maxSlot: 10
   isWeaponSlot: 0
+  weaponState: {fileID: 11400000, guid: 7cefd9e64184027458b9d8190feef9d6, type: 2}
+  weaponChangedEvent: {fileID: 11400000, guid: b1abe086b0ce31d41954110f368fcdfc, type: 2}
 --- !u!1 &926973748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,7 +1225,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 912681026}
-  - {fileID: 1442760241}
+  - {fileID: 31065319}
   m_Father: {fileID: 1237263325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1287,7 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardUIManager
   handPanel: {fileID: 912681025}
-  weaponSlotPanel: {fileID: 1442760240}
+  weaponSlotPanel: {fileID: 31065318}
   cardPrefab: {fileID: 3472980360041762365, guid: c88627b0b13e03341a66a99ba23b9eaa, type: 3}
   inputReference: {fileID: 1963019382}
 --- !u!114 &926973751
@@ -1363,7 +1322,6 @@ GameObject:
   m_Component:
   - component: {fileID: 995565701}
   - component: {fileID: 995565700}
-  - component: {fileID: 995565702}
   m_Layer: 0
   m_Name: FireBall Pool
   m_TagString: Untagged
@@ -1409,35 +1367,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 878772801}
+  m_Father: {fileID: 1783153596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &995565702
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995565699}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1081053371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1446,7 @@ MonoBehaviour:
   levelUpTextPrefab: {fileID: 4768370152054950452, guid: f2e1006994342354982c3b652eb0935c, type: 3}
   enemyDeathText: {fileID: 1745776594}
   playerHealthImage: {fileID: 1584457945}
+  uIPrefabPool: {fileID: 903589513}
 --- !u!4 &1237263325
 Transform:
   m_ObjectHideFlags: 0
@@ -1624,6 +1556,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1375794641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375794642}
+  - component: {fileID: 1375794643}
+  - component: {fileID: 1375794644}
+  m_Layer: 0
+  m_Name: TileGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1375794642
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375794641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 31065319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -60}
+  m_SizeDelta: {x: 0, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1375794643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375794641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830e2b0f6291c914bac33cb9b37d2955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileGenerator
+  tilePrefab: {fileID: 6157251047479334403, guid: 53651aa7924a9e04190d58da35460dfd, type: 3}
+  weaponState: {fileID: 11400000, guid: 7cefd9e64184027458b9d8190feef9d6, type: 2}
+  weaponChangedEvent: {fileID: 11400000, guid: b1abe086b0ce31d41954110f368fcdfc, type: 2}
+--- !u!114 &1375794644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375794641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 50
+    m_Right: 50
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 50, y: 0}
+  m_Constraint: 2
+  m_ConstraintCount: 1
 --- !u!1 &1407042949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,15 +1662,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   allCards:
-  - {fileID: 11400000, guid: 90291ef21457aef43ab120aa6c626cfd, type: 2}
-  - {fileID: 11400000, guid: 3abd1dc5f9bfc854280af117860412bf, type: 2}
   - {fileID: 11400000, guid: b864bb87c7c8e40418439fe3a6077f56, type: 2}
   - {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
   - {fileID: 11400000, guid: 1d7042b778a4be247b120b69ef3b47de, type: 2}
   - {fileID: 11400000, guid: e0e484d2b846eed438812ae8a162cfe8, type: 2}
   - {fileID: 11400000, guid: 879d3672df5a874469b8e210cd1ce58a, type: 2}
-  - {fileID: 11400000, guid: 866454fa1068e1947a6f961c03dde1f4, type: 2}
   - {fileID: 11400000, guid: 3819bf64d2fa3b748b261623a18d2efe, type: 2}
+  - {fileID: 11400000, guid: e85aea4742cdae947abfdc96e6594617, type: 2}
+  - {fileID: 11400000, guid: 5e2fbf7543129234fa5f81dd0fb5f920, type: 2}
+  - {fileID: 11400000, guid: 6a8fe5eb3e84b264fae2949be08bf2d5, type: 2}
+  - {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
   Hand: []
   WeaponSlot: []
 --- !u!4 &1407042951
@@ -2101,10 +2110,12 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  range: 5
+  range: 7
   bulletSpawnPoint: {fileID: 67607733}
   currentWeaponSO: {fileID: 11400000, guid: 86ef002ebfbf379408b0a55674b88539, type: 2}
   cardsInSlots: []
+  weaponChangedEvent: {fileID: 11400000, guid: b1abe086b0ce31d41954110f368fcdfc, type: 2}
+  weaponState: {fileID: 11400000, guid: 7cefd9e64184027458b9d8190feef9d6, type: 2}
 --- !u!1 &1442760240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,15 +2127,15 @@ GameObject:
   - component: {fileID: 1442760241}
   - component: {fileID: 1442760244}
   - component: {fileID: 1442760243}
-  - component: {fileID: 1442760242}
   - component: {fileID: 1442760245}
+  - component: {fileID: 1442760246}
   m_Layer: 11
   m_Name: WeaponCardPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1442760241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2132,44 +2143,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442760240}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 926973749}
+  m_Father: {fileID: 31065319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -62.7312}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 1920, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1442760242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442760240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
-  m_Padding:
-    m_Left: 100
-    m_Right: 100
-    m_Top: 20
-    m_Bottom: 20
-  m_ChildAlignment: 0
-  m_Spacing: 30
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!114 &1442760243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2183,7 +2168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8301887, g: 0.30153078, b: 0.30153078, a: 0.8156863}
+  m_Color: {r: 0.41509432, g: 0.3350339, b: 0.2917408, a: 0.8156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2220,8 +2205,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d29e521187d77d4585034d209bcc2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCardPanel
-  maxSlot: 10
   isWeaponSlot: 1
+  weaponState: {fileID: 11400000, guid: 7cefd9e64184027458b9d8190feef9d6, type: 2}
+  weaponChangedEvent: {fileID: 11400000, guid: b1abe086b0ce31d41954110f368fcdfc, type: 2}
+--- !u!114 &1442760246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442760240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 50
+    m_Right: 50
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 50, y: 0}
+  m_Constraint: 2
+  m_ConstraintCount: 1
 --- !u!1 &1584457943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2573,6 +2583,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &1783153595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783153596}
+  m_Layer: 0
+  m_Name: ProjectilePools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1783153596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783153595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 995565701}
+  - {fileID: 403822309}
+  m_Father: {fileID: 878772801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806055744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2626,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1806055745}
   - component: {fileID: 1806055747}
-  - component: {fileID: 1806055746}
   m_Layer: 0
   m_Name: DamageTextPool
   m_TagString: Untagged
@@ -2604,35 +2646,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 878772801}
+  m_Father: {fileID: 903589513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1806055746
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806055744}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1806055747
 MonoBehaviour:
   m_ObjectHideFlags: 0

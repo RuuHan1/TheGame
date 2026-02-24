@@ -9,15 +9,21 @@ public class ProjectileContainer
     public float Speed = 1;
     //0 a yaklastikca mermi duz gider
     public float Spread = 0;
-    public float Lifetime = 5;
+    public float Lifetime = 5f;
     public float CastDelay = 0;
     public bool IsTriggered = false;
     public List<ProjectileContainer> OnHitPayloads = new List<ProjectileContainer>();
     //kac kere castlencek
     public int CastCount = 1;
+    public int FragmentCount = 0;
     public int SplitCount = 0;
     public float DamageMultiplier = 1;
     public float SpeedMultiplier = 1;
+    public float AirSplitTime = 0;
+    //
+    public float SpiralSpeed = 0;
+    public bool IsChildProjectile =false;
+    public float SplitSpreadAngle = 40f;
     public void SetMultipliers()
     {
         Damage *= DamageMultiplier;
@@ -31,13 +37,18 @@ public class ProjectileContainer
         Radius = 0;
         Speed = 1;
         Spread = 0;
-        Lifetime = 5;
+        Lifetime = 5f;
         CastDelay = 0;
         CastCount = 1;
         DamageMultiplier = 1;
         SpeedMultiplier = 1;
         IsTriggered = false;
+        IsChildProjectile = false;
+    FragmentCount = 0;
+        AirSplitTime = 0;
         SplitCount = 0;
+        SpiralSpeed = 0;
+        SplitSpreadAngle = 40f;
         OnHitPayloads.Clear();
     }
 
@@ -54,8 +65,13 @@ public class ProjectileContainer
         newContainer.DamageMultiplier = DamageMultiplier;
         newContainer.SpeedMultiplier = SpeedMultiplier;
         newContainer.ProjectilePrefab = ProjectilePrefab;
-        newContainer.IsTriggered = IsTriggered;
         newContainer.SplitCount = SplitCount;
+        newContainer.AirSplitTime = AirSplitTime;
+        newContainer.SpiralSpeed = SpiralSpeed;
+        newContainer.IsTriggered = IsTriggered;
+        newContainer.FragmentCount = FragmentCount;
+        newContainer.IsChildProjectile = IsChildProjectile;
+        newContainer.SplitSpreadAngle = SplitSpreadAngle;
         if (OnHitPayloads != null)
         {
             foreach (var payload in this.OnHitPayloads)

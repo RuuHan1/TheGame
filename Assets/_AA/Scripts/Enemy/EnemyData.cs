@@ -8,4 +8,6 @@ public struct EnemyData
     public float damage;
     public bool isAlive;
     public float XpWorth;
+    public float radius;
+    public Vector3 velocity;
 }

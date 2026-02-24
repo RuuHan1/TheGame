@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card System/Card")]
+//[CreateAssetMenu(fileName = "New Card", menuName = "Card System/Card")]
 public abstract class CardSO : ScriptableObject
 {
     public CardType CardType;
@@ -16,5 +16,6 @@ public enum CardType
     Modifier,
     //carpinca tetikleme yapar
     Augment,
+    Utility
 
 }

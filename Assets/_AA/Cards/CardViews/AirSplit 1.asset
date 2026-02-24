@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a399f29bca28e6429a18b6851da17b9, type: 3}
+  m_Name: AirSplit 1
+  m_EditorClassIdentifier: Assembly-CSharp::CardViewSO
+  CardData: {fileID: 11400000, guid: 0a70d768447c5a44690ca0e3fa959ece, type: 2}
+  CardName: Mid-Air Split 1
+  CardDescription: Projectile splits mid-air after a short delay.
+  CardBgImage: {fileID: 0}
+  CardFgImage: {fileID: 382436522572257219, guid: 5b2132b035b247f4ead10e90935ae83a, type: 3}

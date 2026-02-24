@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: ReduceCastDelay
   CardDescription: reduce cast delay -0.2 second
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: 8476742191713195817, guid: 8355af25045a6664d9a29b0684eb95f9, type: 3}

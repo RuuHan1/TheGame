@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: LightningBall
   CardDescription: 
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: -4016819516717956580, guid: 63f8c085d2b928646aa1517c90b051ea, type: 3}

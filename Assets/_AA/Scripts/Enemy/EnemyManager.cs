@@ -12,6 +12,7 @@ public class EnemyManager : MonoBehaviour
     public float SpawnRate = 1f;
     private float _spawnTimer = 0f;
     [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private Transform enemyPool;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
@@ -44,8 +45,15 @@ public class EnemyManager : MonoBehaviour
 
     private void Move()
     {
+        if (target == null) return;
+
         float dt = Time.deltaTime;
         Vector3 targetPos = target.position;
+
+        float separationRadius = 1f;
+        float separationStrength = 6f;
+        float acceleration = 12f;
+        float drag = 4f;
 
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -54,8 +62,40 @@ public class EnemyManager : MonoBehaviour
 
             EnemyData e = enemies[i];
 
-            Vector3 dir = (targetPos - e.position).normalized;
-            e.position += dir * e.speed * dt;
+            Vector3 desiredVelocity =
+                (targetPos - e.position).normalized * e.speed;
+
+            Vector3 separation = Vector3.zero;
+
+            for (int j = 0; j < enemies.Count; j++)
+            {
+                if (i == j) continue;
+                if (!enemies[j].isAlive) continue;
+
+                Vector3 diff = e.position - enemies[j].position;
+                float dist = diff.magnitude;
+
+                if (dist < separationRadius && dist > 0.001f)
+                {
+                    separation += diff.normalized *
+                                  (separationRadius - dist);
+                }
+            }
+
+            separation *= separationStrength;
+
+            Vector3 steering = desiredVelocity + separation;
+            e.velocity = Vector3.Lerp(
+                e.velocity,
+                steering,
+                acceleration * dt
+            );
+            e.velocity = Vector3.Lerp(
+                e.velocity,
+                Vector3.zero,
+                drag * dt
+            );
+            e.position += e.velocity * dt;
 
             enemies[i] = e;
         }
@@ -104,7 +144,7 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = target.position + (Vector3)randomPoint;
-        GameObject newEnemy = LeanPool.Spawn(enemyStats.EnemyPrefab, spawnPos, Quaternion.identity);
+        GameObject newEnemy = LeanPool.Spawn(enemyStats.EnemyPrefab, spawnPos, Quaternion.identity,enemyPool);
         enemies.Add(new EnemyData
         {
             position = spawnPos,
@@ -112,7 +152,8 @@ public class EnemyManager : MonoBehaviour
             health = enemyStats.MaxHealth,
             damage = enemyStats.Damage,
             isAlive = true,
-            XpWorth = enemyStats.XpValue
+            XpWorth = enemyStats.XpValue,
+            velocity = Vector3.zero,
         });
        
         instances.Add(newEnemy.GetComponent<EnemyInstance>());
@@ -124,5 +165,11 @@ public class EnemyManager : MonoBehaviour
         float damage = enemies[index].damage;
 
         GameEvents.PlayerDamaged?.Invoke(damage);
+    }
+    public void ApplyKnockback(int index, Vector3 force)
+    {
+        EnemyData e = enemies[index];
+        e.velocity += force;
+        enemies[index] = e;
     }
 }

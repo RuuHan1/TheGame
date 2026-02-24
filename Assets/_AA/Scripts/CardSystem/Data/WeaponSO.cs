@@ -9,15 +9,20 @@ public class WeaponSO : ScriptableObject
     public List<ProjectileContainer> triggerContainers = new List<ProjectileContainer>();
     public float RechargeTime;
     public int Slots;
+    public int MultiCastCount = 1;
 
 
     //cast caountunu arttirmak yerine ayni projectile ct den 1 tane daha koyabiliriz
     public void AddContainer(ProjectileContainer projectileContainer)
     {
-        
             Containers.Add(projectileContainer);
-        
     }
 
-    
+
+    public void ResetWeapon()
+    {
+        MultiCastCount = 1;
+        triggerContainers.Clear();
+    }
+
 }

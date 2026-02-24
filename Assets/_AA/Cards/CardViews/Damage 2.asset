@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: Damage 2
   CardDescription: 
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: 4845302649840900986, guid: c35976a591e5ea7439888fad2e1368e5, type: 3}

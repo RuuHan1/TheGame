@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: Trigger
   CardDescription: Your projectile trigger when next projectile collide enemy
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: 713025084311940234, guid: 204f3c18ff8507f4ea87d58c7bdd467f, type: 3}

@@ -7,6 +7,7 @@ public class XpManager : MonoBehaviour
     private List<XpData> xpsOnWorld = new();
     private List<Xp> xpsInnstance = new();
     [SerializeField]private GameObject xpPrefab;
+    [SerializeField] private Transform xpPool;
     private void OnEnable()
     {
         GameEvents.EnemyDiedXp += SpawnXp;
@@ -17,7 +18,7 @@ public class XpManager : MonoBehaviour
     }
     private void SpawnXp(Vector3 vector, float arg2)
     {
-        GameObject newXp = LeanPool.Spawn(xpPrefab, vector, Quaternion.identity);
+        GameObject newXp = LeanPool.Spawn(xpPrefab, vector, Quaternion.identity,xpPool);
         XpData newXpData = new XpData
         {
             position = vector,

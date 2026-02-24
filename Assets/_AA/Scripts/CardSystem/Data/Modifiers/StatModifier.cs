@@ -11,7 +11,7 @@ public class StatModifier : ModifierSO
         container.DamageMultiplier += DamageMultiplier;
         container.SpeedMultiplier += SpeedMultiplier;
         container.CastDelay += CastDelay;
-        container.SplitCount += splitCount;
+        container.FragmentCount += splitCount;
         container.SetMultipliers();
     }
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   CardName: Double It
   CardDescription: Your next projectile casts twice.
   CardBgImage: {fileID: 0}
-  CardFgImage: {fileID: 0}
+  CardFgImage: {fileID: -3040775169380936757, guid: fa3895cd59f9f51408f22dc9331d6b2f, type: 3}

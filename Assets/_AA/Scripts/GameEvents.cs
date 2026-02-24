@@ -15,4 +15,5 @@ public static class GameEvents
     public static Action<List<CardViewSO>> HandChanged;
     public static Action<List<CardViewSO>> WeaponSlotChanged;
     public static Action<bool> GameStatesChanged;
+    public static Action<int> WeaponChanged;
 }

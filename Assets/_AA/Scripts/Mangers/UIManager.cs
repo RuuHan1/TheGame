@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject levelUpTextPrefab;
     [SerializeField] private TextMeshProUGUI enemyDeathText;
     [SerializeField] private Image playerHealthImage;
+    [SerializeField] private Transform uIPrefabPool;
     private int _diedEnemies = 0;
     //[SerializeField] private GameObject weaponRechargeTime;
     private void OnEnable()
@@ -22,7 +23,7 @@ public class UIManager : MonoBehaviour
     private void SpawnPlayerLevelUpText(Transform playerTransform)
     {
         Vector2 spawnPos = playerTransform.position + Vector3.up;
-        GameObject levelUpText = LeanPool.Spawn(levelUpTextPrefab,spawnPos,Quaternion.identity);
+        GameObject levelUpText = LeanPool.Spawn(levelUpTextPrefab,spawnPos,Quaternion.identity,uIPrefabPool);
     }
 
     private void OnDisable()
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
     private void HandleEnemyDamaged(Vector3 vector, float arg2, bool arg3)
     {
         Vector2 spawnPos = vector + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0f, 1f), 0);
-        GameObject damageText = LeanPool.Spawn(damageTextPrefab, spawnPos, Quaternion.identity);
+        GameObject damageText = LeanPool.Spawn(damageTextPrefab, spawnPos, Quaternion.identity,uIPrefabPool);
 
         damageText.GetComponent<DamageText>().Initialize(arg2, arg3);
     }

@@ -7,7 +7,7 @@ public abstract class ProjectileSO : CardSO
     public float Damage;
     public float Speed;
     public float CastDelay = 0.5f;
-
+    public float Radius = 0;
 
     public override void UpdateContainer(ProjectileContainer container, WeaponSO weapon)
     {
