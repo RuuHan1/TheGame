@@ -4,8 +4,8 @@ using UnityEngine;
 public abstract class CardSO : ScriptableObject
 {
     public CardType CardType;
-
-
+    public CardTier CardTier;
+    public CardRarity CardRarity;
     public abstract void UpdateContainer(ProjectileContainer container,WeaponSO weapon);
 }
 public enum CardType
@@ -16,6 +16,15 @@ public enum CardType
     Modifier,
     //carpinca tetikleme yapar
     Augment,
+
     Utility
 
+}
+public enum CardTier
+{
+    Tier1, Tier2,Tier3,Tier4,Tier5
+}
+public enum CardRarity
+{
+    Common, Uncommon , Rare , Legendary 
 }

@@ -1672,6 +1672,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e2fbf7543129234fa5f81dd0fb5f920, type: 2}
   - {fileID: 11400000, guid: 6a8fe5eb3e84b264fae2949be08bf2d5, type: 2}
   - {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
+  AllCardDatas:
+  - {fileID: 11400000, guid: 7780f54e610405d48a2f32b4701e7ca4, type: 2}
+  - {fileID: 11400000, guid: 0a70d768447c5a44690ca0e3fa959ece, type: 2}
+  - {fileID: 11400000, guid: 21ad1f02765966c47b1af21005aa5154, type: 2}
+  - {fileID: 11400000, guid: 4fabe3091e719974f82ab3b7b70a5b22, type: 2}
+  - {fileID: 11400000, guid: 3b75fe90aff9c5042ac92dba254e5cf8, type: 2}
+  - {fileID: 11400000, guid: a7a7beae762985b408875b8e5c243fb1, type: 2}
+  - {fileID: 11400000, guid: 65815432949fddc4281eae1110c31d36, type: 2}
+  - {fileID: 11400000, guid: d62b40e2b816f1e48b94e85e93709740, type: 2}
+  - {fileID: 11400000, guid: ce720747a018c95418f50adefc7875f2, type: 2}
+  - {fileID: 11400000, guid: 592922abb3a79774d9e0f80a0affd5e3, type: 2}
+  - {fileID: 11400000, guid: 3d5a02e3fbde02641875839431b8aa12, type: 2}
+  - {fileID: 11400000, guid: 0ce0c10d709aa924d8664ece83d87676, type: 2}
+  - {fileID: 11400000, guid: cbcf0495b96cf144f9bb029499e4d65d, type: 2}
+  - {fileID: 11400000, guid: e9817ec5265785446a8925339ddb2af4, type: 2}
+  - {fileID: 11400000, guid: 1a6b815e0fe9e9f47bc1c50a266758d1, type: 2}
   Hand: []
   WeaponSlot: []
 --- !u!4 &1407042951
@@ -2851,7 +2867,7 @@ SceneRoots:
   - {fileID: 878772801}
   - {fileID: 1237263325}
   - {fileID: 186054154}
-  - {fileID: 466097020}
   - {fileID: 1407042951}
   - {fileID: 1081053373}
   - {fileID: 1322608136}
+  - {fileID: 466097020}
