@@ -33,6 +33,8 @@ public class Weapon : MonoBehaviour
     {
         if (currentWeaponSO != null)
         {
+            GameEvents.CardAwarded?.Invoke(currentWeaponSO.DefaultProjectile);
+            Debug.Log("Default Projectile");
             ApplyCards();
             SetWeapon(currentWeaponSO.Slots);
         }
@@ -123,7 +125,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = LeanPool.Spawn(
             container.ProjectilePrefab,
             bulletSpawnPoint.position,
-            Quaternion.identity);
+            Quaternion.identity,this.transform);
 
         bullet.GetComponent<Bullet>().Initialize(container);
 

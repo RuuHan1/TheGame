@@ -44,6 +44,11 @@ public class CardVisualizer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SetCurrentSlot(CardPanel slot)
     {
+
+        if (currentSlot != null && currentSlot != slot)
+        {
+            currentSlot.NotifyCardRemoved(this);
+        }
         currentSlot = slot;
     }
     public CardPanel GetCurrentSlot()
@@ -148,6 +153,7 @@ public class CardVisualizer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         transform.SetParent(GetComponentInParent<Canvas>().transform, true);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
+
 
     public void OnEndDrag(PointerEventData eventData)
     {

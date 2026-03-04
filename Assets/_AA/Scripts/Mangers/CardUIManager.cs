@@ -49,6 +49,13 @@ public class CardUIManager : MonoBehaviour
             CardVisualizer visual = go.GetComponent<CardVisualizer>();
             visual.cardData = card;
             visual.Setup(card);
+            
+            CardPanel panel = handPanel.GetComponent<CardPanel>();
+            if (panel != null)
+            {
+                visual.SetCurrentSlot(panel);
+                Debug.Log("Seted");
+            }
         }
     }
     

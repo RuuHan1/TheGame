@@ -28,6 +28,10 @@ public class CardPanel : MonoBehaviour, IDropHandler
     {
         weaponChangedEvent.OnEventRaised -= OnWeaponChanged;
     }
+    public void NotifyCardRemoved(CardVisualizer card)
+    {
+        RecalculateOrder();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         CardVisualizer card = eventData.pointerDrag?.GetComponent<CardVisualizer>();

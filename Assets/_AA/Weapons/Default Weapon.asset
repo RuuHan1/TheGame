@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3a6f2df7673dc468411bd333580fdb, type: 3}
   m_Name: Default Weapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  _defaultProjectile: {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
   RechargeTime: 2
   Slots: 10
+  MultiCastCount: 1

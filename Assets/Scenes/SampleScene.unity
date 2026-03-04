@@ -1661,33 +1661,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcca15f3fc21dcc4092c8d7cbcdbbd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
-  allCards:
+  _allCardViews:
+  - {fileID: 11400000, guid: 6f72fc60d2f8b4e4cb0604a95e6b98b7, type: 2}
+  - {fileID: 11400000, guid: e85aea4742cdae947abfdc96e6594617, type: 2}
+  - {fileID: 11400000, guid: 90291ef21457aef43ab120aa6c626cfd, type: 2}
+  - {fileID: 11400000, guid: 3abd1dc5f9bfc854280af117860412bf, type: 2}
   - {fileID: 11400000, guid: b864bb87c7c8e40418439fe3a6077f56, type: 2}
   - {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
   - {fileID: 11400000, guid: 1d7042b778a4be247b120b69ef3b47de, type: 2}
   - {fileID: 11400000, guid: e0e484d2b846eed438812ae8a162cfe8, type: 2}
   - {fileID: 11400000, guid: 879d3672df5a874469b8e210cd1ce58a, type: 2}
-  - {fileID: 11400000, guid: 3819bf64d2fa3b748b261623a18d2efe, type: 2}
-  - {fileID: 11400000, guid: e85aea4742cdae947abfdc96e6594617, type: 2}
+  - {fileID: 11400000, guid: 866454fa1068e1947a6f961c03dde1f4, type: 2}
   - {fileID: 11400000, guid: 5e2fbf7543129234fa5f81dd0fb5f920, type: 2}
+  - {fileID: 11400000, guid: 3819bf64d2fa3b748b261623a18d2efe, type: 2}
   - {fileID: 11400000, guid: 6a8fe5eb3e84b264fae2949be08bf2d5, type: 2}
-  - {fileID: 11400000, guid: af2f0c43da4f7f643a4a2353eb30ad95, type: 2}
-  AllCardDatas:
-  - {fileID: 11400000, guid: 7780f54e610405d48a2f32b4701e7ca4, type: 2}
-  - {fileID: 11400000, guid: 0a70d768447c5a44690ca0e3fa959ece, type: 2}
-  - {fileID: 11400000, guid: 21ad1f02765966c47b1af21005aa5154, type: 2}
-  - {fileID: 11400000, guid: 4fabe3091e719974f82ab3b7b70a5b22, type: 2}
-  - {fileID: 11400000, guid: 3b75fe90aff9c5042ac92dba254e5cf8, type: 2}
-  - {fileID: 11400000, guid: a7a7beae762985b408875b8e5c243fb1, type: 2}
-  - {fileID: 11400000, guid: 65815432949fddc4281eae1110c31d36, type: 2}
-  - {fileID: 11400000, guid: d62b40e2b816f1e48b94e85e93709740, type: 2}
-  - {fileID: 11400000, guid: ce720747a018c95418f50adefc7875f2, type: 2}
-  - {fileID: 11400000, guid: 592922abb3a79774d9e0f80a0affd5e3, type: 2}
-  - {fileID: 11400000, guid: 3d5a02e3fbde02641875839431b8aa12, type: 2}
-  - {fileID: 11400000, guid: 0ce0c10d709aa924d8664ece83d87676, type: 2}
-  - {fileID: 11400000, guid: cbcf0495b96cf144f9bb029499e4d65d, type: 2}
-  - {fileID: 11400000, guid: e9817ec5265785446a8925339ddb2af4, type: 2}
-  - {fileID: 11400000, guid: 1a6b815e0fe9e9f47bc1c50a266758d1, type: 2}
+  _allCardDatas: []
   Hand: []
   WeaponSlot: []
 --- !u!4 &1407042951

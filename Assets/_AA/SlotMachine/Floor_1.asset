@@ -12,3 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7416b8c35bc6c547be02b61f8ae2463, type: 3}
   m_Name: Floor_1
   m_EditorClassIdentifier: Assembly-CSharp::FloorSO
+  _rarityRatioList:
+  - Rarity: 0
+    weight: 75
+  - Rarity: 1
+    weight: 15
+  - Rarity: 2
+    weight: 5
+  - Rarity: 3
+    weight: 0
+  _possibleCardTypes: 00000000010000000200000003000000

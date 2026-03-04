@@ -44,8 +44,10 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void CollectXp(float value)
     {
         _currentXp += value * xpGainMultiplier;
-        if (_currentXp >= xpForNextLevel)
+
+        while (_currentXp >= xpForNextLevel)
         {
+            _currentXp -= xpForNextLevel;
             LevelUp();
         }
     }
@@ -75,7 +77,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
         if (CurrentHealth < MaxHealth)
         {
-            Debug.Log("regen");
             CurrentHealth += healthRegenRate;
             CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
             GameEvents.PlayerHealthChanged?.Invoke(0, CurrentHealth);
@@ -95,8 +96,13 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        GameEvents.PlayerHealthChanged?.Invoke(damage,CurrentHealth);
-        if (CurrentHealth < 0)
+        CurrentHealth = Mathf.Max(CurrentHealth, 0);
+
+        _healthRegenTimer = Time.time + healthRegenInterval; // regen gecikmesi
+
+        GameEvents.PlayerHealthChanged?.Invoke(damage, CurrentHealth);
+
+        if (CurrentHealth <= 0)
         {
             Die();
         }

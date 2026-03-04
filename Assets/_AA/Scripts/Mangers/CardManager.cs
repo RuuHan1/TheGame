@@ -7,29 +7,33 @@ using Random = UnityEngine.Random;
 
 public class CardManager : MonoBehaviour
 {
-    [SerializeField] private List<CardViewSO> _allCardViews = new();
+    [SerializeField] private CardLibrarySO _cardLibrary;
+    
+    
     [SerializeField] private List<CardSO> _allCardDatas;
     [HideInInspector] public IReadOnlyList<CardSO> AllCards => _allCardDatas;
-    [HideInInspector] public IReadOnlyList<CardViewSO> AllCardViews => _allCardViews;
+    //sadece izlemek icin ,  daha sonra private yapilabilir
     public List<CardViewSO> Hand = new();
     public List<CardViewSO> WeaponSlot = new();
     private void OnEnable()
     {
         GameEvents.HandChanged += UpdateHand;
         GameEvents.WeaponSlotChanged += UpdateWeapon;
+        GameEvents.CardAwarded += AddCardToHand;
     }
 
     private void OnDisable()
     {
         GameEvents.HandChanged -= UpdateHand;
         GameEvents.WeaponSlotChanged -= UpdateWeapon;
+        GameEvents.CardAwarded -= AddCardToHand;
     }
 
-    private void Start()
-    {
-        Hand = new List<CardViewSO>(_allCardViews);
-        GameEvents.HandChanged?.Invoke(Hand);
-    }
+    //private void Start()
+    //{
+    //    AddCardToHand(_cardLibrary.CardViews[0]);
+    //    GameEvents.HandChanged?.Invoke(Hand);
+    //}
 
     private void UpdateHand(List<CardViewSO> list)
     {
@@ -39,7 +43,10 @@ public class CardManager : MonoBehaviour
     public void AddCardToHand(CardViewSO card)
     {
         Hand.Add(card);
+        Debug.Log("Hand Count: " + Hand.Count);
+        Debug.Log("Weapon Count: " + WeaponSlot.Count);
         GameEvents.HandChanged?.Invoke(Hand);
+        
     }
     private void UpdateWeapon(List<CardViewSO> list)
     {
