@@ -125,11 +125,12 @@ public class Weapon : MonoBehaviour
         GameObject bullet = LeanPool.Spawn(
             container.ProjectilePrefab,
             bulletSpawnPoint.position,
-            Quaternion.identity,this.transform);
+            Quaternion.identity);
 
-        bullet.GetComponent<Bullet>().Initialize(container);
+        var bulletComp = bullet.GetComponent<Bullet>();
+        var rb = bullet.GetComponent<Rigidbody2D>();
 
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bulletComp.Initialize(container);
 
         Vector2 baseDirection = (targetPos - (Vector2)bulletSpawnPoint.position).normalized;
 

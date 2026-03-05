@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SpeedModifier 1
   m_EditorClassIdentifier: Assembly-CSharp::StatModifier
   CardType: 1
+  CardTier: 0
+  CardRarity: 0
   DamageMultiplier: 0
-  SpeedMultiplier: 1.2
+  SpeedMultiplier: 0.2
   CastDelay: 0
   splitCount: 0

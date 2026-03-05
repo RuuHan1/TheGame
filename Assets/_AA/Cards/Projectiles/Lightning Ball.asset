@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Lightning Ball
   m_EditorClassIdentifier: Assembly-CSharp::LigthningBall
   CardType: 0
+  CardTier: 0
+  CardRarity: 0
   ProjectilePrefab: {fileID: 496897988165915155, guid: d583c6fe43b26ad4983b3bc3e5c9f4cf, type: 3}
-  Damage: 20
+  Damage: 30
   Speed: 5
   CastDelay: 2
   Radius: 0.5

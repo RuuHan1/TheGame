@@ -90,8 +90,7 @@ public class Bullet : MonoBehaviour
             ProjectileContainer splitContainer = Container.CopyContainer();
             splitContainer.FragmentCount = 0;
             float currentAngle = i * angleStep;
-            Vector2 direction =
-                -(Quaternion.Euler(0, 0, currentAngle) * baseDirection);
+            Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * baseDirection;
             Vector2 spawnPos = hitPoint + direction * spawnOffset;
             GameObject fragment = LeanPool.Spawn(
                 splitContainer.ProjectilePrefab,

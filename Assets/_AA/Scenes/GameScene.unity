@@ -277,9 +277,12 @@ MonoBehaviour:
   instances: []
   enemyStats: {fileID: 11400000, guid: 6e98ba43eeba3924c949a691a7e1054f, type: 2}
   target: {fileID: 0}
-  SpawnRate: 2
+  SpawnRate: 5
   spawnRadius: 10
   enemyPool: {fileID: 382854720}
+  spawnScaling: 0.25
+  hpScaling: 0.5
+  speedScaling: 0.15
 --- !u!4 &186054154
 Transform:
   m_ObjectHideFlags: 0

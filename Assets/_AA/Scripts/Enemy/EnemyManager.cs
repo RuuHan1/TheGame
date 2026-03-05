@@ -13,6 +13,12 @@ public class EnemyManager : MonoBehaviour
     private float _spawnTimer = 0f;
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private Transform enemyPool;
+    [Header("Difficulty Scaling")]
+    private float difficulty = 1f;
+
+    [SerializeField] float spawnScaling = 0.25f;
+    [SerializeField] float hpScaling = 0.5f;
+    [SerializeField] float speedScaling = 0.15f;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
@@ -32,17 +38,21 @@ public class EnemyManager : MonoBehaviour
     }
     void Update()
     {
-        Move();
+        UpdateDifficulty();
 
+        Move();
 
         _spawnTimer -= Time.deltaTime;
         if (_spawnTimer <= 0)
         {
             SpawnEnemy();
-            _spawnTimer = SpawnRate;
+            _spawnTimer = SpawnRate / difficulty;
         }
     }
-
+    void UpdateDifficulty()
+    {
+        difficulty = 1f + Time.timeSinceLevelLoad / 60f;
+    }
     private void Move()
     {
         if (target == null) return;
@@ -144,18 +154,24 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = target.position + (Vector3)randomPoint;
-        GameObject newEnemy = LeanPool.Spawn(enemyStats.EnemyPrefab, spawnPos, Quaternion.identity,enemyPool);
+
+        GameObject newEnemy = LeanPool.Spawn(enemyStats.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
+
+        float scaledHP = enemyStats.MaxHealth * (1 + difficulty * hpScaling);
+        float scaledSpeed = enemyStats.MoveSpeed * (1 + difficulty * speedScaling);
+        float scaledDamage = enemyStats.Damage * (1 + difficulty * 0.2f);
+
         enemies.Add(new EnemyData
         {
             position = spawnPos,
-            speed = enemyStats.MoveSpeed,
-            health = enemyStats.MaxHealth,
-            damage = enemyStats.Damage,
+            speed = scaledSpeed,
+            health = scaledHP,
+            damage = scaledDamage,
             isAlive = true,
             XpWorth = enemyStats.XpValue,
             velocity = Vector3.zero,
         });
-       
+
         instances.Add(newEnemy.GetComponent<EnemyInstance>());
         instances[^1].manger = this;
         instances[^1].index = enemies.Count - 1;
