@@ -18,4 +18,11 @@ public static class GameEvents
     public static Action<int> WeaponChanged;
     public static Action SlotMachineTaken;
     public static Action<CardViewSO> CardAwarded;
+    //UI
+    //xp ve level icin
+    public static Action<float, float,int> PlayerXpChanged;
+    //timer icin
+    public static Action SecondPassed;
+    //weapon slot sayisini degistiren kart kullaninca
+    public static Action<int> WeaponSlotCountChanged;
 }

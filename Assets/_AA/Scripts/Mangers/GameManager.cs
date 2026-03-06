@@ -1,16 +1,25 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public float Timer { get; private set; } = 0f;
     private void OnEnable()
     {
         GameEvents.GameStatesChanged += OnGameStateChanged;
     }
-
+    private void Start()
+    {
+        StartCoroutine(TimerRoutine());
+    }
     private void OnDisable()
     {
         GameEvents.GameStatesChanged -= OnGameStateChanged;
+    }
+    private void Update()
+    {
+        Timer += Time.deltaTime;
     }
     private void OnGameStateChanged(bool obj)
     {
@@ -24,5 +33,15 @@ public class GameManager : MonoBehaviour
 
         }
 
+    }
+    private IEnumerator TimerRoutine()
+    {
+        WaitForSeconds oneSecond = new WaitForSeconds(1f);
+
+        while (true)
+        {
+            yield return oneSecond;
+            GameEvents.SecondPassed?.Invoke();
+        }
     }
 }

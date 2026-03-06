@@ -43,8 +43,6 @@ public class CardManager : MonoBehaviour
     public void AddCardToHand(CardViewSO card)
     {
         Hand.Add(card);
-        Debug.Log("Hand Count: " + Hand.Count);
-        Debug.Log("Weapon Count: " + WeaponSlot.Count);
         GameEvents.HandChanged?.Invoke(Hand);
         
     }

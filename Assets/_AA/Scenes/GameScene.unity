@@ -2875,7 +2875,7 @@ GameObject:
   - component: {fileID: 1991517961}
   - component: {fileID: 1991517960}
   m_Layer: 0
-  m_Name: Bg
+  m_Name: PlayerHealthBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

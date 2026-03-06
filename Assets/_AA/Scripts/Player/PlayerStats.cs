@@ -6,14 +6,14 @@ public class PlayerStats : MonoBehaviour, IDamagable
 {
     public float MaxHealth = 100f;
     public float CurrentHealth { get; private set; }
-    public float healthRegenRate = 1f;
+    public float healthRegenRate = 0.2f;
     public float MoveSpeed = 5f;
     public float pickupRadius = 2f;
     public float xpGainMultiplier = 1f;
     public float xpForNextLevel = 100f;
     private float _currentXp = 0f;
     [SerializeField] private float xpGapPerLevel = 70f;
-    public int Level = 1;
+    [SerializeField] private int _level = 1;
     [SerializeField] private float healthRegenInterval = 1f;
     private float _healthRegenTimer = 0f;
 
@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     {
         CurrentHealth = MaxHealth;
         GameEvents.PlayerHealthChanged?.Invoke(0, CurrentHealth);
-
+        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp,_level);
     }
 
 
@@ -44,7 +44,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void CollectXp(float value)
     {
         _currentXp += value * xpGainMultiplier;
-
+        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel,_currentXp,_level);
         while (_currentXp >= xpForNextLevel)
         {
             _currentXp -= xpForNextLevel;
@@ -54,8 +54,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     private void LevelUp()
     {
-        Level++;
-        xpForNextLevel += xpGapPerLevel * Level;
+        _level++;
+        xpForNextLevel += xpGapPerLevel * _level;
         IncreasePlayerStats();
         GameEvents.PlayerLevelUp?.Invoke(this.transform);
         //efekt icin event tetikle

@@ -23,10 +23,12 @@ public class Weapon : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.WeaponSlotChanged += OnWeaponSlotChanged;
+        GameEvents.WeaponSlotCountChanged += OnWeaponSlotAmountChanged;
     }
     private void OnDisable()
     {
         GameEvents.WeaponSlotChanged -= OnWeaponSlotChanged;
+        GameEvents.WeaponSlotCountChanged -= OnWeaponSlotAmountChanged;
     }
 
     private void Start()
@@ -34,9 +36,8 @@ public class Weapon : MonoBehaviour
         if (currentWeaponSO != null)
         {
             GameEvents.CardAwarded?.Invoke(currentWeaponSO.DefaultProjectile);
-            Debug.Log("Default Projectile");
             ApplyCards();
-            SetWeapon(currentWeaponSO.Slots);
+            SetWeapon(currentWeaponSO.TotalSlots);
         }
     }
 
@@ -181,9 +182,14 @@ public class Weapon : MonoBehaviour
         }
 
     }
-    
+    public void OnWeaponSlotAmountChanged(int count)
+    {
+        currentWeaponSO.BonusSlots += count;
+        SetWeapon(currentWeaponSO.TotalSlots);
+    }
     public void SetWeapon(int slot)
     {
+       
         weaponState.SetSlot(slot);
         weaponChangedEvent.RaiseEvent(slot);
     }

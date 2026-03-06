@@ -9,8 +9,10 @@ public class WeaponSO : ScriptableObject
     [HideInInspector]public CardViewSO DefaultProjectile => _defaultProjectile;
     public List<ProjectileContainer> Containers = new List<ProjectileContainer>();
     public List<ProjectileContainer> triggerContainers = new List<ProjectileContainer>();
+    [SerializeField] private int _baseSlots;
+    [HideInInspector]public int BonusSlots;
     public float RechargeTime;
-    public int Slots;
+    public int TotalSlots => _baseSlots + BonusSlots;
     public int MultiCastCount = 1;
     
 
@@ -24,7 +26,13 @@ public class WeaponSO : ScriptableObject
     public void ResetWeapon()
     {
         MultiCastCount = 1;
+        BonusSlots = 0;
         triggerContainers.Clear();
+    }
+
+    public void AddSlot(int amount)
+    {
+        BonusSlots = amount;
     }
 
 }
