@@ -8,7 +8,7 @@ public class FloorSO : ScriptableObject
     [SerializeField] private List<CardType> _possibleCardTypes = new();
     public IReadOnlyList<RarityRatio> RarityRatioList => _rarityRatioList;
     public IReadOnlyList<CardType> CardTypes => _possibleCardTypes;
-    private int floorIndex = 0;
+   // private int floorIndex = 0;
 
     public float GetTotalRatio()
     {

@@ -6,7 +6,7 @@ public abstract class CardSO : ScriptableObject
     public CardType CardType;
     public CardTier CardTier;
     public CardRarity CardRarity;
-    public abstract void UpdateContainer(ProjectileContainer container,WeaponSO weapon);
+    public abstract void UpdateContainer(ProjectileContainer container,WeaponInstance weapon);
 }
 public enum CardType
 {

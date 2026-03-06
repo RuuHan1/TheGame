@@ -6,7 +6,7 @@ public class StatModifier : ModifierSO
     public float SpeedMultiplier = 0f;
     public float CastDelay = 0f;
     public int splitCount = 0;
-    public override void UpdateContainer(ProjectileContainer container, WeaponSO weapon)
+    public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         container.DamageMultiplier += DamageMultiplier;
         container.SpeedMultiplier += SpeedMultiplier;

@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpiralSpeedModifier : ModifierSO
 {
     public float rotationSpeed = 180f;
-    public override void UpdateContainer(ProjectileContainer container, WeaponSO weapon)
+    public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         container.SpiralSpeed = rotationSpeed;
         container.Lifetime += 2f;

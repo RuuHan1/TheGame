@@ -1,10 +1,7 @@
 using UnityEngine;
 using Lean.Pool;
-using NUnit.Framework;
 using System.Collections.Generic;
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private LayerMask enemyLayer;
@@ -13,13 +10,15 @@ public class Weapon : MonoBehaviour
 
     private float _fire = 0f;
     //suanlik deaktif
-    [SerializeField] private WeaponSO currentWeaponSO;
-    [SerializeField] private List<CardSO> cardsInSlots = new List<CardSO>();
+    [SerializeField] private WeaponSO _currentWeaponSO;
+    [SerializeField] private List<CardSO> _cardsInSlots = new List<CardSO>();
     private bool _isFiring = false;
     [Header("Events")]
     [SerializeField] private WeaponChangedEvent weaponChangedEvent;
     [SerializeField] private WeaponState weaponState;
-
+    private WeaponInstance _weaponInstance;
+    private LineRenderer _lineRenderer;
+    [SerializeField] private int segments = 60;
     private void OnEnable()
     {
         GameEvents.WeaponSlotChanged += OnWeaponSlotChanged;
@@ -30,39 +29,53 @@ public class Weapon : MonoBehaviour
         GameEvents.WeaponSlotChanged -= OnWeaponSlotChanged;
         GameEvents.WeaponSlotCountChanged -= OnWeaponSlotAmountChanged;
     }
-
+    private void Awake()
+    {
+        if (_currentWeaponSO != null)
+        {
+            _weaponInstance = new WeaponInstance(_currentWeaponSO);
+        }
+        _lineRenderer = GetComponentInParent<LineRenderer>();
+        if (_lineRenderer != null)
+        {
+            
+            Debug.Log("LineRenderer component found in parent.");
+        }
+    }
     private void Start()
     {
-        if (currentWeaponSO != null)
+
+        if (_weaponInstance != null)
         {
-            GameEvents.CardAwarded?.Invoke(currentWeaponSO.DefaultProjectile);
+            GameEvents.CardAwarded?.Invoke(_weaponInstance.DefaultProjectile);
             ApplyCards();
-            SetWeapon(currentWeaponSO.TotalSlots);
+            SetWeapon(_weaponInstance.TotalSlots);
         }
     }
 
     private void OnWeaponSlotChanged(List<CardViewSO> list)
     {
-        cardsInSlots.Clear();
+        _cardsInSlots.Clear();
         var temp = new List<CardViewSO>(list);
-        foreach (CardViewSO card in temp) 
+        foreach (CardViewSO card in temp)
         {
-            cardsInSlots.Add(card.CardData);
+            _cardsInSlots.Add(card.CardData);
         }
-        
-        
+
+
     }
 
     private void Update()
     {
         if (Time.time < _fire) return;
-        if (currentWeaponSO.Containers == null) return;
+        if (_weaponInstance.Containers == null) return;
         CheckDistance();
     }
     private void CheckDistance()
     {
         if (_isFiring) return;
 
+        DrawRangeCircle(range);
         var enemy = Physics2D.OverlapCircle(transform.position, range, enemyLayer);
         if (enemy == null) return;
         Transform enemyObj = enemy.GetComponent<Transform>();
@@ -75,12 +88,12 @@ public class Weapon : MonoBehaviour
     {
         _isFiring = true;
 
-        var containers = currentWeaponSO.Containers;
-        var triggers = currentWeaponSO.triggerContainers;
+        var containers = _weaponInstance.Containers;
+        var triggers = _weaponInstance.triggerContainers;
         float multiCastSpreadAngle = 10f;
         for (int i = 0; i < containers.Count;)
         {
-            int batchCount = Mathf.Max(1, currentWeaponSO.MultiCastCount);
+            int batchCount = Mathf.Max(1, _weaponInstance.MultiCastCount);
             int remaining = containers.Count - i;
             batchCount = Mathf.Min(batchCount, remaining);
 
@@ -109,25 +122,21 @@ public class Weapon : MonoBehaviour
 
                 SpawnBullet(container, pos, angleOffset);
             }
-            
+
             float delay = Mathf.Max(0.05f, containers[i].CastDelay);
             yield return new WaitForSeconds(delay);
 
             i += batchCount;
         }
-        currentWeaponSO.ResetWeapon();
+        _weaponInstance.ResetWeapon();
         _isFiring = false;
         ApplyCards();
-        _fire = Time.time + currentWeaponSO.RechargeTime;
+        _fire = Time.time + _weaponInstance.RechargeTime;
     }
 
     private void SpawnBullet(ProjectileContainer container, Vector2 targetPos, float angleOffset)
     {
-        GameObject bullet = LeanPool.Spawn(
-            container.ProjectilePrefab,
-            bulletSpawnPoint.position,
-            Quaternion.identity);
-
+        GameObject bullet = LeanPool.Spawn(container.ProjectilePrefab,bulletSpawnPoint.position,Quaternion.identity);
         var bulletComp = bullet.GetComponent<Bullet>();
         var rb = bullet.GetComponent<Rigidbody2D>();
 
@@ -152,31 +161,31 @@ public class Weapon : MonoBehaviour
 
     private void ApplyCards()
     {
-        if (currentWeaponSO.Containers == null)
+        if (_weaponInstance.Containers == null)
         {
-            currentWeaponSO.Containers = new List<ProjectileContainer>();
+            _weaponInstance.Containers = new List<ProjectileContainer>();
         }
 
-        currentWeaponSO.Containers.Clear();
+        _weaponInstance.Containers.Clear();
 
         List<CardSO> pendingCards = new List<CardSO>();
 
-        foreach (var card in cardsInSlots)
+        foreach (var card in _cardsInSlots)
         {
-            if(card.CardType == CardType.Modifier || card.CardType == CardType.Augment || card.CardType == CardType.Utility)
+            if (card.CardType == CardType.Modifier || card.CardType == CardType.Augment || card.CardType == CardType.Utility)
             {
                 pendingCards.Add(card);
             }
             else if (card.CardType == CardType.Projectile)
             {
                 ProjectileContainer newContainer = new ProjectileContainer();
-                card.UpdateContainer(newContainer, currentWeaponSO);
+                card.UpdateContainer(newContainer, _weaponInstance);
                 foreach (var pendingCard in pendingCards)
                 {
-                    pendingCard.UpdateContainer(newContainer, currentWeaponSO);
+                    pendingCard.UpdateContainer(newContainer, _weaponInstance);
                 }
                 pendingCards.Clear();
-                currentWeaponSO.Containers.Add(newContainer);
+                _weaponInstance.Containers.Add(newContainer);
             }
 
         }
@@ -184,14 +193,30 @@ public class Weapon : MonoBehaviour
     }
     public void OnWeaponSlotAmountChanged(int count)
     {
-        currentWeaponSO.BonusSlots += count;
-        SetWeapon(currentWeaponSO.TotalSlots);
+        _weaponInstance.BonusSlots += count;
+        SetWeapon(_weaponInstance.TotalSlots);
     }
     public void SetWeapon(int slot)
     {
-       
+
         weaponState.SetSlot(slot);
         weaponChangedEvent.RaiseEvent(slot);
     }
+    public void DrawRangeCircle(float radius)
+    {
+        if (_lineRenderer == null) return;
 
+        _lineRenderer.loop = true;
+        _lineRenderer.positionCount = segments;
+
+        float angleStep = 360f / segments;
+
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = i * angleStep * Mathf.Deg2Rad;
+            float x = Mathf.Cos(angle) * radius;
+            float y = Mathf.Sin(angle) * radius;
+            _lineRenderer.SetPosition(i, new Vector3(x, y, 0));
+        }
+    }
 }

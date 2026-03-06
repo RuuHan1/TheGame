@@ -4,7 +4,7 @@ using UnityEngine;
 public class MultiCastUtility : UtilitySO
 {
     [SerializeField] private int multiCast = 0;
-    public override void UpdateContainer(ProjectileContainer container, WeaponSO weapon)
+    public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         weapon.MultiCastCount += multiCast;
     }

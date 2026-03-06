@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     [Header("Difficulty Scaling")]
     private float difficulty = 1f;
 
-    [SerializeField] float spawnScaling = 0.25f;
+    //[SerializeField] float spawnScaling = 0.25f;
     [SerializeField] float hpScaling = 0.5f;
     [SerializeField] float speedScaling = 0.15f;
     private void OnEnable()

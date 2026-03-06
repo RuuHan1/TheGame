@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Trigger Augment", menuName = "Card System/Augments/Trigger Augment")]
 public class TriggerAugment : AugmentSO
 {
-    public override void UpdateContainer(ProjectileContainer container, WeaponSO weapon)
+    public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         container.IsTriggered = true;
     }

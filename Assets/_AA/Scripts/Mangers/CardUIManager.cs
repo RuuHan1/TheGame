@@ -54,7 +54,6 @@ public class CardUIManager : MonoBehaviour
             if (panel != null)
             {
                 visual.SetCurrentSlot(panel);
-                Debug.Log("Seted");
             }
         }
     }

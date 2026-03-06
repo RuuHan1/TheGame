@@ -14,8 +14,8 @@ public class CardVisualizer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private Image cardFgImage;
     [Header("Card Action Settings")]
     [SerializeField] private float cardScaleSize = 1.2f;
-    [SerializeField] private float hoverUpAmount = 100f;
-    [SerializeField] private float hoverDelay = 0.1f;
+    //[SerializeField] private float hoverUpAmount = 100f;
+    //[SerializeField] private float hoverDelay = 0.1f;
     [HideInInspector] public Transform parentToReturnTo = null;
     [HideInInspector] public Transform placeholderParent = null;
     private GameObject placeholder = null;
