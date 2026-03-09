@@ -36,11 +36,7 @@ public class Weapon : MonoBehaviour
             _weaponInstance = new WeaponInstance(_currentWeaponSO);
         }
         _lineRenderer = GetComponentInParent<LineRenderer>();
-        if (_lineRenderer != null)
-        {
-            
-            Debug.Log("LineRenderer component found in parent.");
-        }
+
     }
     private void Start()
     {

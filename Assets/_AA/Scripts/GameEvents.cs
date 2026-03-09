@@ -27,4 +27,6 @@ public static class GameEvents
     public static Action<int> WeaponSlotCountChanged;
     //vfx icin
     public static Action<string,Vector2> PlayVFX_Projectile;
+    //Camera
+    public static Action<float> ShakeCamera_EnemyManager;
 }

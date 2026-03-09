@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: CastDelayModifier
   m_EditorClassIdentifier: Assembly-CSharp::StatModifier
   CardType: 1
+  CardTier: 0
+  CardRarity: 0
   DamageMultiplier: 0
   SpeedMultiplier: 0
   CastDelay: -0.2
   splitCount: 0
+  _knockbackForce: 0
+  _homingStrength: 0
+  _homingRange: 0
+  _isHoming: 0

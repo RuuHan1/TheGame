@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     private bool isDespawned = false;
     private Rigidbody2D rb;
     private bool _hasExploded = false;
+    private float _hoomingDelay = 0.3f;
+    private float _elapsedTime = 0;
     private void OnEnable()
     {
         isDespawned = false;
@@ -23,6 +25,12 @@ public class Projectile : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        _elapsedTime += Time.fixedDeltaTime;
+        if (_container.IsHoming && _elapsedTime >= _hoomingDelay)
+        {
+            ApplyHoming();
+
+        }
         if (_container != null && _container.RotationSpeed != 0)
         {
             float rotationAmount = _container.RotationSpeed * Time.fixedDeltaTime;
@@ -60,6 +68,11 @@ public class Projectile : MonoBehaviour
                 if (_container.KnockbackForce > 0)
                 {
                     collider.GetComponent<IKnockbackable>()?.ApplyKnockback(knockbackDir * _container.KnockbackForce);
+                }
+                if (_container.SlowDuration > 0f)
+                {
+                    collider.GetComponent<ISlowable>()?.ApplySlow(_container.SlowMultiplier, _container.SlowDuration);
+
                 }
             }
             _hasExploded = true;
@@ -199,5 +212,35 @@ public class Projectile : MonoBehaviour
 
         isDespawned = true;
         LeanPool.Despawn(this.gameObject);
+    }
+    private void ApplyHoming()
+    {
+        if (_container.RotationSpeed != 0) return;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _container.HomingRange);
+
+        if (hits.Length == 0) return;
+
+        Transform closest = null;
+        float minDist = float.MaxValue;
+        foreach (var hit in hits)
+        {
+            float dist = Vector2.SqrMagnitude(hit.transform.position - transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = hit.transform;
+            }
+        }
+
+        if (closest == null) return;
+
+        Vector2 desired = (closest.position - transform.position).normalized * _container.Speed;
+        Vector2 steering = Vector2.Lerp(rb.linearVelocity.normalized, desired.normalized,
+                                         _container.HomingStrength * Time.fixedDeltaTime);
+
+        rb.linearVelocity = steering.normalized * _container.Speed;
+
+        float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

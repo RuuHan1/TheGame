@@ -19,3 +19,7 @@ MonoBehaviour:
   SpeedMultiplier: 0.5
   CastDelay: 0
   splitCount: 0
+  _knockbackForce: 0
+  _homingStrength: 0
+  _homingRange: 0
+  _isHoming: 0

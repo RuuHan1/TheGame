@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f600cad076db784d91318515b94faca, type: 3}
-  m_Name: Knockback
+  m_Name: Hooming
   m_EditorClassIdentifier: Assembly-CSharp::StatModifier
   CardType: 1
   CardTier: 0
@@ -19,7 +19,7 @@ MonoBehaviour:
   SpeedMultiplier: 0
   CastDelay: 0
   splitCount: 0
-  _knockbackForce: 15
-  _homingStrength: 0
-  _homingRange: 0
-  _isHoming: 0
+  _knockbackForce: 0
+  _homingStrength: 5
+  _homingRange: 5
+  _isHoming: 1

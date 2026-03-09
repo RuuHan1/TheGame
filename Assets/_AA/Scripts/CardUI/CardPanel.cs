@@ -38,7 +38,7 @@ public class CardPanel : MonoBehaviour, IDropHandler
         if (card == null)
             return;
 
-        if (!HasCapacity())
+        if (!HasCapacity() && isWeaponSlot)
         {
             card.ReturnToOriginalParent();
             return;

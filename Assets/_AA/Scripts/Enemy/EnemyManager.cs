@@ -17,8 +17,14 @@ public class EnemyManager : MonoBehaviour
     private float difficulty = 1f;
 
     //[SerializeField] float spawnScaling = 0.25f;
-    [SerializeField] float hpScaling = 0.5f;
-    [SerializeField] float speedScaling = 0.15f;
+    [SerializeField] float hpScaling = 0.7f;
+    [SerializeField] float speedScaling = 0.2f;
+
+    private int _recentKillCount = 0;
+    private float _killWindowTimer = 0f;
+    private const float KillWindow = 1f;    
+    private const int ShakeThreshold = 3;
+    private const int MaxKillsForShake = 20;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
@@ -47,6 +53,16 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnEnemy();
             _spawnTimer = SpawnRate / difficulty;
+        }
+        if (_killWindowTimer > 0)
+        {
+
+            _killWindowTimer -= Time.deltaTime;
+        }
+        else
+        {
+            _recentKillCount = 0;
+
         }
     }
     void UpdateDifficulty()
@@ -149,6 +165,12 @@ public class EnemyManager : MonoBehaviour
 
         enemies[index] = temp;
         LeanPool.Despawn(instances[index].gameObject);
+        _recentKillCount++;
+        _killWindowTimer = KillWindow;
+
+        float t = Mathf.Clamp01((float)_recentKillCount / 20f); // 20 kill = max force
+        float force = Mathf.Lerp(0.1f, 3f, t);
+        GameEvents.ShakeCamera_EnemyManager?.Invoke(force);
     }
 
 

@@ -23,11 +23,14 @@ public class ProjectileContainer
     //
     public float RotationSpeed = 0;
     public bool IsChildProjectile = false;
-    public float SplitSpreadAngle = 40f;
+    public float SplitSpreadAngle = 50f;
     public string VFXKey;
     public float KnockbackForce = 0;
     public float SlowMultiplier = 1f;
     public float SlowDuration = 0f;
+    public bool IsHoming = false;
+    public float HomingStrength = 0;
+    public float HomingRange = 0f;
     public void SetMultipliers()
     {
         Damage *= DamageMultiplier;
@@ -52,11 +55,14 @@ public class ProjectileContainer
         AirSplitTime = 0;
         SplitCount = 0;
         RotationSpeed = 0;
-        SplitSpreadAngle = 40f;
+        SplitSpreadAngle = 50f;
         VFXKey = null;
         KnockbackForce = 0;
         SlowMultiplier = 1f;
         SlowDuration = 0f;
+        IsHoming = false;
+        HomingStrength = 0;
+        HomingRange = 0f;
         OnHitPayloads.Clear();
     }
 
@@ -84,6 +90,9 @@ public class ProjectileContainer
         newContainer.KnockbackForce = KnockbackForce;
         newContainer.SlowMultiplier = SlowMultiplier;
         newContainer.SlowDuration = SlowDuration;
+        newContainer.IsHoming = IsHoming;
+        newContainer.HomingStrength = HomingStrength;
+        newContainer.HomingRange = HomingRange;
         if (OnHitPayloads != null)
         {
             foreach (var payload in this.OnHitPayloads)

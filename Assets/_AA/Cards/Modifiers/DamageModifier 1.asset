@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: DamageModifier 1
   m_EditorClassIdentifier: Assembly-CSharp::StatModifier
   CardType: 1
-  DamageMultiplier: 1.2
+  CardTier: 0
+  CardRarity: 0
+  DamageMultiplier: 0.2
   SpeedMultiplier: 0
   CastDelay: 0
   splitCount: 0
+  _knockbackForce: 0
+  _homingStrength: 0
+  _homingRange: 0
+  _isHoming: 0
