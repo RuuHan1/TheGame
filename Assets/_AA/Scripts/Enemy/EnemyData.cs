@@ -10,4 +10,6 @@ public struct EnemyData
     public float XpWorth;
     public float radius;
     public Vector3 velocity;
+    public float slowMultiplier;  // 1 = normal, 0.5 = yarý hýz
+    public float slowTimer;
 }

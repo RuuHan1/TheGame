@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CardLibrary_1
   m_EditorClassIdentifier: Assembly-CSharp::CardLibrarySO
   _cardViews:
+  - {fileID: 11400000, guid: 59c604782eee23c42a4b81dbdb4a1f08, type: 2}
   - {fileID: 11400000, guid: 6f72fc60d2f8b4e4cb0604a95e6b98b7, type: 2}
   - {fileID: 11400000, guid: e85aea4742cdae947abfdc96e6594617, type: 2}
   - {fileID: 11400000, guid: 90291ef21457aef43ab120aa6c626cfd, type: 2}
@@ -24,5 +25,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 879d3672df5a874469b8e210cd1ce58a, type: 2}
   - {fileID: 11400000, guid: 866454fa1068e1947a6f961c03dde1f4, type: 2}
   - {fileID: 11400000, guid: 5e2fbf7543129234fa5f81dd0fb5f920, type: 2}
+  - {fileID: 11400000, guid: 41331242572b407428f9635a44e97754, type: 2}
   - {fileID: 11400000, guid: 3819bf64d2fa3b748b261623a18d2efe, type: 2}
   - {fileID: 11400000, guid: 6a8fe5eb3e84b264fae2949be08bf2d5, type: 2}
+  - {fileID: 11400000, guid: 3d561fbf57671b0409cd56d28971459b, type: 2}
+  - {fileID: 11400000, guid: dbd738b9df87ce645bc6aac2e5b9f541, type: 2}

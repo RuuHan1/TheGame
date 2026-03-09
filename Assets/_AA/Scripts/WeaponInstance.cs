@@ -31,12 +31,14 @@ public class WeaponInstance
     {
         MultiCastCount = 1;
         BonusSlots = 0;
+        //slotu sifirla ve event at
+        AddSlot(0);
         triggerContainers.Clear();
     }
 
     public void AddSlot(int amount)
     {
-        BonusSlots = amount;
+        GameEvents.WeaponSlotCountChanged?.Invoke(amount);
     }
 
 }

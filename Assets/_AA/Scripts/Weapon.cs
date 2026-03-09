@@ -137,7 +137,7 @@ public class Weapon : MonoBehaviour
     private void SpawnBullet(ProjectileContainer container, Vector2 targetPos, float angleOffset)
     {
         GameObject bullet = LeanPool.Spawn(container.ProjectilePrefab,bulletSpawnPoint.position,Quaternion.identity);
-        var bulletComp = bullet.GetComponent<Bullet>();
+        var bulletComp = bullet.GetComponent<Projectile>();
         var rb = bullet.GetComponent<Rigidbody2D>();
 
         bulletComp.Initialize(container);

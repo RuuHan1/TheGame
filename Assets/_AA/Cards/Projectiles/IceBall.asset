@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e99aa9db6548846acb6a5e1ef2024b, type: 3}
+  m_Name: IceBall
+  m_EditorClassIdentifier: Assembly-CSharp::IcaBall
+  CardType: 0
+  CardTier: 0
+  CardRarity: 0
+  ProjectilePrefab: {fileID: 496897988165915155, guid: 2b6b90b1d1a5a09429dbe16e1b1114b1, type: 3}
+  Damage: 15
+  Speed: 12
+  CastDelay: 1
+  Radius: 1
+  VFXKey: IceBallHit
+  _slowMultiplier: 0.415
+  _slowDuration: 2

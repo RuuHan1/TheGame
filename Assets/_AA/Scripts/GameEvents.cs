@@ -25,4 +25,6 @@ public static class GameEvents
     public static Action SecondPassed;
     //weapon slot sayisini degistiren kart kullaninca
     public static Action<int> WeaponSlotCountChanged;
+    //vfx icin
+    public static Action<string,Vector2> PlayVFX_Projectile;
 }

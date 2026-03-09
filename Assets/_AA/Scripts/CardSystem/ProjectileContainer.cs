@@ -21,9 +21,13 @@ public class ProjectileContainer
     public float SpeedMultiplier = 1;
     public float AirSplitTime = 0;
     //
-    public float SpiralSpeed = 0;
-    public bool IsChildProjectile =false;
+    public float RotationSpeed = 0;
+    public bool IsChildProjectile = false;
     public float SplitSpreadAngle = 40f;
+    public string VFXKey;
+    public float KnockbackForce = 0;
+    public float SlowMultiplier = 1f;
+    public float SlowDuration = 0f;
     public void SetMultipliers()
     {
         Damage *= DamageMultiplier;
@@ -44,11 +48,15 @@ public class ProjectileContainer
         SpeedMultiplier = 1;
         IsTriggered = false;
         IsChildProjectile = false;
-    FragmentCount = 0;
+        FragmentCount = 0;
         AirSplitTime = 0;
         SplitCount = 0;
-        SpiralSpeed = 0;
+        RotationSpeed = 0;
         SplitSpreadAngle = 40f;
+        VFXKey = null;
+        KnockbackForce = 0;
+        SlowMultiplier = 1f;
+        SlowDuration = 0f;
         OnHitPayloads.Clear();
     }
 
@@ -67,11 +75,15 @@ public class ProjectileContainer
         newContainer.ProjectilePrefab = ProjectilePrefab;
         newContainer.SplitCount = SplitCount;
         newContainer.AirSplitTime = AirSplitTime;
-        newContainer.SpiralSpeed = SpiralSpeed;
+        newContainer.RotationSpeed = RotationSpeed;
         newContainer.IsTriggered = IsTriggered;
         newContainer.FragmentCount = FragmentCount;
         newContainer.IsChildProjectile = IsChildProjectile;
         newContainer.SplitSpreadAngle = SplitSpreadAngle;
+        newContainer.VFXKey = VFXKey;
+        newContainer.KnockbackForce = KnockbackForce;
+        newContainer.SlowMultiplier = SlowMultiplier;
+        newContainer.SlowDuration = SlowDuration;
         if (OnHitPayloads != null)
         {
             foreach (var payload in this.OnHitPayloads)

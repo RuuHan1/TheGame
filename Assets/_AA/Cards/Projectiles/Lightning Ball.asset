@@ -19,4 +19,5 @@ MonoBehaviour:
   Damage: 30
   Speed: 5
   CastDelay: 2
-  Radius: 0.5
+  Radius: 2
+  VFXKey: LightningBallHit

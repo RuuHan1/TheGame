@@ -72,8 +72,8 @@ public class EnemyManager : MonoBehaviour
 
             EnemyData e = enemies[i];
 
-            Vector3 desiredVelocity =
-                (targetPos - e.position).normalized * e.speed;
+            float currentSpeed = e.speed * (e.slowTimer > 0 ? e.slowMultiplier : 1f);
+            Vector3 desiredVelocity = (targetPos - e.position).normalized * currentSpeed;
 
             Vector3 separation = Vector3.zero;
 
@@ -105,6 +105,8 @@ public class EnemyManager : MonoBehaviour
                 Vector3.zero,
                 drag * dt
             );
+            if (e.slowTimer > 0)
+                e.slowTimer -= dt;
             e.position += e.velocity * dt;
 
             enemies[i] = e;
@@ -186,6 +188,15 @@ public class EnemyManager : MonoBehaviour
     {
         EnemyData e = enemies[index];
         e.velocity += force;
+        enemies[index] = e;
+    }
+    public void ApplySlow(int index, float multiplier, float duration)
+    {
+        EnemyData e = enemies[index];
+        // Daha güçlü slow varsa yoksay
+        if (e.slowTimer > 0 && multiplier > e.slowMultiplier) return;
+        e.slowMultiplier = multiplier;
+        e.slowTimer = duration;
         enemies[index] = e;
     }
 }
