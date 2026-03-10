@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcaBall
   CardType: 0
   CardTier: 0
-  CardRarity: 0
+  CardRarity: 1
   ProjectilePrefab: {fileID: 496897988165915155, guid: 2b6b90b1d1a5a09429dbe16e1b1114b1, type: 3}
   Damage: 15
   Speed: 12

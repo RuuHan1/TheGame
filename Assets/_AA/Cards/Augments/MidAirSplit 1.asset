@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: MidAirSplit 1
   m_EditorClassIdentifier: Assembly-CSharp::MidAirSplitAugment
   CardType: 2
+  CardTier: 0
+  CardRarity: 2
   splitCount: 2
   splitTime: 0.2

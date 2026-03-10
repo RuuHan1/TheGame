@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: DoubleIt
   m_EditorClassIdentifier: Assembly-CSharp::CastCountAugment
   CardType: 2
+  CardTier: 0
+  CardRarity: 1
   additionalCastCount: 1

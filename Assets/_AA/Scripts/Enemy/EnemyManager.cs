@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     public List<EnemyData> enemies = new();
     public List<EnemyInstance> instances = new();
-    [SerializeField] private EnemyStatsSO enemyStats;
+    [SerializeField] private List<EnemyStatsSO> _enemyStats = new();
     [HideInInspector] public Transform target;
     public float SpawnRate = 1f;
     private float _spawnTimer = 0f;
@@ -178,12 +178,14 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = target.position + (Vector3)randomPoint;
+        EnemyStatsSO enemyStatsSO; 
+        int dice = UnityEngine.Random.Range(0,11);
+        enemyStatsSO = dice >= 10 ? _enemyStats[1] : _enemyStats[0];
+        GameObject newEnemy = LeanPool.Spawn(enemyStatsSO.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
 
-        GameObject newEnemy = LeanPool.Spawn(enemyStats.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
-
-        float scaledHP = enemyStats.MaxHealth * (1 + difficulty * hpScaling);
-        float scaledSpeed = enemyStats.MoveSpeed * (1 + difficulty * speedScaling);
-        float scaledDamage = enemyStats.Damage * (1 + difficulty * 0.2f);
+        float scaledHP = enemyStatsSO.MaxHealth * (1 + difficulty * hpScaling);
+        float scaledSpeed = enemyStatsSO.MoveSpeed * (1 + difficulty * speedScaling);
+        float scaledDamage = enemyStatsSO.Damage * (1 + difficulty * 0.2f);
 
         enemies.Add(new EnemyData
         {
@@ -192,7 +194,7 @@ public class EnemyManager : MonoBehaviour
             health = scaledHP,
             damage = scaledDamage,
             isAlive = true,
-            XpWorth = enemyStats.XpValue,
+            XpWorth = enemyStatsSO.XpValue,
             velocity = Vector3.zero,
         });
 

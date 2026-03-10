@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ab4c4deb8874834a82c71dd079a9d13, type: 3}
-  m_Name: MidAirSplit 2
-  m_EditorClassIdentifier: Assembly-CSharp::MidAirSplitAugment
-  CardType: 2
+  m_Script: {fileID: 11500000, guid: 3975dabda1a96854993e7387f161ce7b, type: 3}
+  m_Name: AddWallBehavior
+  m_EditorClassIdentifier: Assembly-CSharp::AddWallBehavior
+  CardType: 3
   CardTier: 0
-  CardRarity: 2
-  splitCount: 3
-  splitTime: 0.2
+  CardRarity: 1
+  _wallStopDelay: 0.6
+  _isWall: 1

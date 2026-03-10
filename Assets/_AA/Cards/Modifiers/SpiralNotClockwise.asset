@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: SpiralNotClockwise
   m_EditorClassIdentifier: Assembly-CSharp::SpiralSpeedModifier
   CardType: 1
-  rotationSpeed: 180
+  CardTier: 0
+  CardRarity: 1
+  RotationSpeed: 180

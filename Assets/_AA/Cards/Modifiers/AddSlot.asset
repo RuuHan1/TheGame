@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSlotCountModifier
   CardType: 1
   CardTier: 0
-  CardRarity: 0
+  CardRarity: 2
   slotCountIncrease: 2

@@ -13,6 +13,7 @@ public class SlotMachineManager : MonoBehaviour
     [SerializeField] private float _spawnRadius = 10f;
     private float _spawnTimer;
     private float _diedEnemyCounter;
+    private float _spawnRate = 20;
 
     private Transform _playerTransform;
     private void OnEnable()
@@ -31,10 +32,11 @@ public class SlotMachineManager : MonoBehaviour
     private void OnEnemyDied(int obj)
     {
         _diedEnemyCounter++;
-        if (_diedEnemyCounter >= 15)
+        if (_diedEnemyCounter >= _spawnRate)
         {
             SpawnSlotMachine();
             _diedEnemyCounter = 0;
+            _spawnRate += 5; // Increase the spawn rate for the next slot machine
         }
     }
 
@@ -92,41 +94,68 @@ public class SlotMachineManager : MonoBehaviour
 
     private CardType GetCardType()
     {
-        var cardTypes = _floorData.CardTypes;
+        float total = _floorData.GetTotalTypeRatio();
+        float roll = UnityEngine.Random.Range(0f, total);
+        float cumulative = 0f;
 
-        if (cardTypes == null || cardTypes.Count == 0)
+        foreach (var ratio in _floorData.TypeRatioList)
         {
-            Debug.LogError("CardTypes listesi boþ veya null.");
-            return default;
+            cumulative += ratio.Weight;
+            if (roll <= cumulative)
+                return ratio.Type;
         }
 
-        int randomIndex = UnityEngine.Random.Range(0, cardTypes.Count);
-
-        return cardTypes[randomIndex];
+        return _floorData.TypeRatioList[^1].Type; // fallback
     }
 
 
 
     public CardViewSO SpinWheel(IReadOnlyList<CardViewSO> list)
     {
-        CardType targetType = GetCardType();
-        CardRarity targetRarity = GetCardRarity();
+        CardType[] spins = new CardType[3];
+        for (int i = 0; i < spins.Length; i++)
+            spins[i] = GetCardType();
 
-        var validCardViews = list
-            .Where(x => x.CardData.CardType == targetType && x.CardData.CardRarity == targetRarity);
-        int count = validCardViews.Count();
+        CardType targetType;
+        CardRarity targetRarity;
 
-        if (count > 0)
+        if (spins[0] == spins[1] && spins[1] == spins[2])
         {
-            int randomIndex = UnityEngine.Random.Range(0, count);
-            CardViewSO selectedCardView = validCardViews.ElementAt(randomIndex);
-
-            Debug.Log($"Rarity : {selectedCardView.CardData.CardRarity} / Type : {selectedCardView.CardData.CardType}");
-            return selectedCardView;
+            targetType = spins[0];
+            targetRarity = CardRarity.Rare;
+        }
+        else if (spins[0] == spins[1] || spins[1] == spins[2])
+        {
+            targetType = spins[0] == spins[1] ? spins[0] : spins[1];
+            targetRarity = CardRarity.Uncommon;
+        }
+        else if (spins[0] == spins[2])
+        {
+            targetType = spins[0];
+            targetRarity = CardRarity.Uncommon;
+        }
+        else
+        {
+            targetType = spins[UnityEngine.Random.Range(0, 3)];
+            targetRarity = CardRarity.Common;
         }
 
-        Debug.LogWarning("Kriterlere uygun kart bulunamadý.");
-        return null;
+        var validCards = list
+            .Where(x => x.CardData.CardType == targetType && x.CardData.CardRarity == targetRarity)
+            .ToList();
+
+        if (validCards.Count > 0)
+        {
+            CardViewSO selected = validCards[UnityEngine.Random.Range(0, validCards.Count)];
+            Debug.Log($"Spins: {spins[0]},{spins[1]},{spins[2]} : {targetRarity} / {targetType}");
+            return selected;
+        }
+
+        Debug.LogWarning($"Kritere uygun kart yok, fallback uygulandý.");
+        return list
+            .Where(x => x.CardData.CardType == targetType)
+            .OrderByDescending(x => x.CardData.CardRarity)
+            .FirstOrDefault();
     }
 
     public Vector2 GetRandomPointInCircle()

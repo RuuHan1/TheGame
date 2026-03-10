@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: TrippleCast
   m_EditorClassIdentifier: Assembly-CSharp::MultiCastUtility
   CardType: 3
+  CardTier: 0
+  CardRarity: 2
   multiCast: 2

@@ -31,6 +31,8 @@ public class ProjectileContainer
     public bool IsHoming = false;
     public float HomingStrength = 0;
     public float HomingRange = 0f;
+    public bool IsWall = false;
+    public float WallStopDelay = 0f;
     public void SetMultipliers()
     {
         Damage *= DamageMultiplier;
@@ -63,7 +65,10 @@ public class ProjectileContainer
         IsHoming = false;
         HomingStrength = 0;
         HomingRange = 0f;
+        IsWall = false;
+        WallStopDelay = 0f;
         OnHitPayloads.Clear();
+
     }
 
     public ProjectileContainer CopyContainer()
@@ -93,6 +98,8 @@ public class ProjectileContainer
         newContainer.IsHoming = IsHoming;
         newContainer.HomingStrength = HomingStrength;
         newContainer.HomingRange = HomingRange;
+        newContainer.IsWall = IsWall;
+        newContainer.WallStopDelay = WallStopDelay;
         if (OnHitPayloads != null)
         {
             foreach (var payload in this.OnHitPayloads)

@@ -8,8 +8,12 @@ public class Projectile : MonoBehaviour
     private bool isDespawned = false;
     private Rigidbody2D rb;
     private bool _hasExploded = false;
+    [Header("Hooming future")]
     private float _hoomingDelay = 0.3f;
     private float _elapsedTime = 0;
+
+    
+    [SerializeField] private LayerMask _enemyLayer;
     private void OnEnable()
     {
         isDespawned = false;
@@ -26,10 +30,17 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         _elapsedTime += Time.fixedDeltaTime;
-        if (_container.IsHoming && _elapsedTime >= _hoomingDelay)
+        _container.WallStopDelay -= Time.fixedDeltaTime;
+        if (_container.IsHoming && _elapsedTime >= _hoomingDelay && _container.SplitCount == 0)
         {
             ApplyHoming();
-
+            //bunu kaldirmam gerekebilir
+            _elapsedTime = 0; // Homing gï¿½ncelleme sï¿½resini sï¿½fï¿½rla
+        }
+        if (_container.IsWall && _container.WallStopDelay <= 0)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
         if (_container != null && _container.RotationSpeed != 0)
         {
@@ -155,14 +166,14 @@ public class Projectile : MonoBehaviour
 
         Rigidbody2D parentRb = GetComponent<Rigidbody2D>();
 
-        // Mevcut hareket yönü
+        // Mevcut hareket yï¿½nï¿½
         Vector2 baseDirection = parentRb.linearVelocity.normalized;
 
-        // Eðer velocity çok küçükse fallback olarak transform.right kullan
+        // Eï¿½er velocity ï¿½ok kï¿½ï¿½ï¿½kse fallback olarak transform.right kullan
         if (baseDirection.sqrMagnitude < 0.0001f)
             baseDirection = transform.right;
 
-        float totalSpread = _container.SplitSpreadAngle; // örn 50f
+        float totalSpread = _container.SplitSpreadAngle; // ï¿½rn 50f
         float angleStep = _container.SplitCount > 1
             ? totalSpread / (_container.SplitCount - 1)
             : 0f;
@@ -216,7 +227,7 @@ public class Projectile : MonoBehaviour
     private void ApplyHoming()
     {
         if (_container.RotationSpeed != 0) return;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _container.HomingRange);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _container.HomingRange,_enemyLayer);
 
         if (hits.Length == 0) return;
 
@@ -233,14 +244,22 @@ public class Projectile : MonoBehaviour
         }
 
         if (closest == null) return;
-
         Vector2 desired = (closest.position - transform.position).normalized * _container.Speed;
-        Vector2 steering = Vector2.Lerp(rb.linearVelocity.normalized, desired.normalized,
-                                         _container.HomingStrength * Time.fixedDeltaTime);
 
-        rb.linearVelocity = steering.normalized * _container.Speed;
+        // Normalized Lerp yerine direkt velocity ï¿½zerinde MoveTowards
+        Vector2 newVelocity = Vector2.MoveTowards(
+            rb.linearVelocity,
+            desired,
+            _container.HomingStrength * Time.fixedDeltaTime * _container.Speed);
 
-        float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
+        rb.linearVelocity = newVelocity;
+
+        float angle = Mathf.Atan2(newVelocity.y, newVelocity.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+    private void SetUpWall()
+    {
+        if(isDespawned) return;
+        rb.linearVelocity = Vector2.zero;
     }
 }

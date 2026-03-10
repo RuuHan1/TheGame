@@ -17,6 +17,7 @@ public class StatModifier : ModifierSO
         container.CastDelay += CastDelay;
         container.FragmentCount += splitCount;
         container.KnockbackForce += _knockbackForce;
+        container.IsHoming = _isHoming;
         container.HomingStrength += _homingStrength;
         container.HomingRange += _homingRange;
         container.SetMultipliers();
