@@ -22,9 +22,8 @@ public class EnemyManager : MonoBehaviour
 
     private int _recentKillCount = 0;
     private float _killWindowTimer = 0f;
-    private const float KillWindow = 1f;    
-    private const int ShakeThreshold = 3;
-    private const int MaxKillsForShake = 20;
+    private const float KillWindow = 1f;
+    private Vector3 _fixedOffset;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
@@ -36,7 +35,10 @@ public class EnemyManager : MonoBehaviour
 
     private void SetPlayerTarget(Transform transform)
     {
+        Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized;
+        _fixedOffset = (Vector3)randomPoint / 2;
         target = transform;
+        
     }
     private void Start()
     {
@@ -58,9 +60,14 @@ public class EnemyManager : MonoBehaviour
         {
 
             _killWindowTimer -= Time.deltaTime;
+            if (_recentKillCount >= 7)
+            {
+                GameEvents.DecreaseTimeScale_EnemyManager?.Invoke();
+            }
         }
         else
         {
+
             _recentKillCount = 0;
 
         }
@@ -76,6 +83,7 @@ public class EnemyManager : MonoBehaviour
         float dt = Time.deltaTime;
         Vector3 targetPos = target.position;
 
+        targetPos += _fixedOffset;
         float separationRadius = 1f;
         float separationStrength = 6f;
         float acceleration = 12f;
@@ -178,8 +186,8 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = target.position + (Vector3)randomPoint;
-        EnemyStatsSO enemyStatsSO; 
-        int dice = UnityEngine.Random.Range(0,11);
+        EnemyStatsSO enemyStatsSO;
+        int dice = UnityEngine.Random.Range(0, 11);
         enemyStatsSO = dice >= 10 ? _enemyStats[1] : _enemyStats[0];
         GameObject newEnemy = LeanPool.Spawn(enemyStatsSO.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
 

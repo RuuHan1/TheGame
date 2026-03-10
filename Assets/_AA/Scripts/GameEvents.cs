@@ -29,4 +29,6 @@ public static class GameEvents
     public static Action<string,Vector2> PlayVFX_Projectile;
     //Camera
     public static Action<float> ShakeCamera_EnemyManager;
+    //GameMAnager
+    public static Action DecreaseTimeScale_EnemyManager;
 }

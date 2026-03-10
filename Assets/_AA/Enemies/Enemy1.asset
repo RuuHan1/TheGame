@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b143e2bcf90133e419739a3f7d113ffe, type: 3}
   m_Name: Enemy1
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
-  MaxHealth: 5
-  MoveSpeed: 4
+  MaxHealth: 7
+  MoveSpeed: 4.5
   Damage: 5
   XpValue: 20
   EnemyPrefab: {fileID: 3723967031307314378, guid: d78f9dae0951b4f43936ef68c6a0961a, type: 3}

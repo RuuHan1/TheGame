@@ -25,9 +25,9 @@ MonoBehaviour:
   - Type: 0
     Weight: 20
   - Type: 1
-    Weight: 35
+    Weight: 40
   - Type: 2
-    Weight: 35
+    Weight: 30
   - Type: 3
     Weight: 10
   _possibleCardTypes: 00000000010000000200000003000000
