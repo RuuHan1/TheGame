@@ -114,31 +114,20 @@ public class SlotMachineManager : MonoBehaviour
     {
         CardType[] spins = new CardType[3];
         for (int i = 0; i < spins.Length; i++)
+        {
             spins[i] = GetCardType();
+        }
 
-        CardType targetType;
-        CardRarity targetRarity;
+        CardType targetType = spins[2]; // Her zaman orta spin (son dönen)
 
-        if (spins[0] == spins[1] && spins[1] == spins[2])
+        int matchCount = (spins[0] == spins[2] ? 1 : 0) + (spins[1] == spins[2] ? 1 : 0);
+
+        CardRarity targetRarity = matchCount switch
         {
-            targetType = spins[0];
-            targetRarity = CardRarity.Rare;
-        }
-        else if (spins[0] == spins[1] || spins[1] == spins[2])
-        {
-            targetType = spins[0] == spins[1] ? spins[0] : spins[1];
-            targetRarity = CardRarity.Uncommon;
-        }
-        else if (spins[0] == spins[2])
-        {
-            targetType = spins[0];
-            targetRarity = CardRarity.Uncommon;
-        }
-        else
-        {
-            targetType = spins[UnityEngine.Random.Range(0, 3)];
-            targetRarity = CardRarity.Common;
-        }
+            2 => CardRarity.Rare,       // spins[0] ve spins[1] ikisi de spins[2] ile ayný
+            1 => CardRarity.Uncommon,   // sadece biri spins[2] ile ayný
+            _ => CardRarity.Common      // hiçbiri eþleþmiyor
+        };
 
         var validCards = list
             .Where(x => x.CardData.CardType == targetType && x.CardData.CardRarity == targetRarity)

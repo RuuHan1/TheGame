@@ -2,6 +2,7 @@ using UnityEngine;
 using Lean.Pool;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private LayerMask enemyLayer;
@@ -17,17 +18,24 @@ public class Weapon : MonoBehaviour
     [SerializeField] private WeaponChangedEvent weaponChangedEvent;
     [SerializeField] private WeaponState weaponState;
     private WeaponInstance _weaponInstance;
+    
     private LineRenderer _lineRenderer;
     [SerializeField] private int segments = 60;
+    private bool _isRangeActive = false;
     private void OnEnable()
     {
         GameEvents.WeaponSlotChanged += OnWeaponSlotChanged;
         GameEvents.WeaponSlotCountChanged += OnWeaponSlotAmountChanged;
+        GameEvents.ActivateWeaponRange_PlayerHud += ToggleRangeCircle;
     }
+
+   
+
     private void OnDisable()
     {
         GameEvents.WeaponSlotChanged -= OnWeaponSlotChanged;
         GameEvents.WeaponSlotCountChanged -= OnWeaponSlotAmountChanged;
+        GameEvents.ActivateWeaponRange_PlayerHud -= ToggleRangeCircle;
     }
     private void Awake()
     {
@@ -40,7 +48,7 @@ public class Weapon : MonoBehaviour
     }
     private void Start()
     {
-
+        _lineRenderer.enabled = _isRangeActive;
         if (_weaponInstance != null)
         {
             GameEvents.CardAwarded?.Invoke(_weaponInstance.DefaultProjectile);
@@ -200,8 +208,7 @@ public class Weapon : MonoBehaviour
     }
     public void DrawRangeCircle(float radius)
     {
-        if (_lineRenderer == null) return;
-
+        if (_lineRenderer == null && !_lineRenderer.enabled) return;
         _lineRenderer.loop = true;
         _lineRenderer.positionCount = segments;
 
@@ -214,5 +221,10 @@ public class Weapon : MonoBehaviour
             float y = Mathf.Sin(angle) * radius;
             _lineRenderer.SetPosition(i, new Vector3(x, y, 0));
         }
+    }
+    private void ToggleRangeCircle()
+    {
+        _isRangeActive = !_isRangeActive;
+        _lineRenderer.enabled = _isRangeActive;
     }
 }

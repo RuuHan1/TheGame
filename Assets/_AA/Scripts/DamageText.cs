@@ -9,7 +9,7 @@ public class DamageText : MonoBehaviour
 
     private Sequence _sequence;
 
-    public void Initialize(float damageAmount,bool isCritical)
+    public void Initialize(float damageAmount, bool isCritical)
     {
         damageText.text = Mathf.RoundToInt(damageAmount).ToString();
         if (isCritical)
@@ -22,6 +22,23 @@ public class DamageText : MonoBehaviour
             damageText.color = Color.white;
             damageText.fontSize = 8;
         }
+        PlayAnimation();
+    }
+    public void Initialize(float damageAmount,Color color)
+    {
+        damageText.text = Mathf.RoundToInt(damageAmount).ToString();
+
+
+        damageText.color = color;
+        damageText.fontSize = 8;
+
+        PlayAnimation();
+    }
+    public void OnPlayerRegen(float healAmount)
+    {
+        damageText.text = "+" + Mathf.RoundToInt(healAmount).ToString();
+        damageText.color = Color.green;
+        damageText.fontSize = 8;
         PlayAnimation();
     }
     private void PlayAnimation()
@@ -42,5 +59,5 @@ public class DamageText : MonoBehaviour
     {
         _sequence?.Kill();
     }
-    
+
 }

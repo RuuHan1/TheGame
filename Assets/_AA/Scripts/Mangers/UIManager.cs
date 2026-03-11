@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
         GameEvents.PlayerHealthChanged += OnPlayerHealthChanged;
         GameEvents.PlayerXpChanged += OnPlayerXpChanged;
         GameEvents.SecondPassed += OnSecondPassed;
+        
     }
 
 
@@ -63,9 +64,9 @@ public class UIManager : MonoBehaviour
 
         damageText.GetComponent<DamageText>().Initialize(arg2, arg3);
     }
-    private void OnPlayerHealthChanged(float damage , float currentPlayerHealth)
+    private void OnPlayerHealthChanged( float currentPlayerHealth)
     {
-        float fillAmount = currentPlayerHealth - damage;
+        float fillAmount = currentPlayerHealth;
 
         fillAmount = fillAmount / 100f;
         //fillAmount = Mathf.Max(fillAmount,0);

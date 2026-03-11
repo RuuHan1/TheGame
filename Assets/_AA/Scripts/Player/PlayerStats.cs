@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.LowLevelPhysics2D.PhysicsShape;
 
 public class PlayerStats : MonoBehaviour, IDamagable
 {
@@ -17,6 +18,11 @@ public class PlayerStats : MonoBehaviour, IDamagable
     [SerializeField] private float healthRegenInterval = 1f;
     private float _healthRegenTimer = 0f;
 
+    [SerializeField] private float pickupCheckInterval = 0.3f; // Her 0.1s'de bir kontrol
+    [SerializeField] private ContactFilter2D _contactFilter;
+    private Collider2D[] _pickupBuffer = new Collider2D[40]; // Sabit buffer, GC yok
+    private float _nextPickupCheck;
+
     private void OnEnable()
     {
         GameEvents.XpCollected += CollectXp;
@@ -25,8 +31,9 @@ public class PlayerStats : MonoBehaviour, IDamagable
     private void Start()
     {
         CurrentHealth = MaxHealth;
-        GameEvents.PlayerHealthChanged?.Invoke(0, CurrentHealth);
-        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp,_level);
+
+        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
+        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp, _level);
     }
 
 
@@ -37,14 +44,23 @@ public class PlayerStats : MonoBehaviour, IDamagable
     }
     private void Update()
     {
-        if (Time.time < _healthRegenTimer) return;
-        RegenHealth();
+        if (Time.time >= _healthRegenTimer)
+        {
+            RegenHealth();
+
+        }
+        if (Time.time >= _nextPickupCheck)
+        {
+            CheckPickupRange();
+            _nextPickupCheck = Time.time + pickupCheckInterval;
+        }
     }
 
     public void CollectXp(float value)
     {
         _currentXp += value * xpGainMultiplier;
-        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel,_currentXp,_level);
+        GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp, _level);
+        Debug.Log("Collected XP: " + value + ". Current XP: " + _currentXp);
         while (_currentXp >= xpForNextLevel)
         {
             _currentXp -= xpForNextLevel;
@@ -79,28 +95,21 @@ public class PlayerStats : MonoBehaviour, IDamagable
         {
             CurrentHealth += healthRegenRate;
             CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
-            GameEvents.PlayerHealthChanged?.Invoke(0, CurrentHealth);
+            GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
+            GameEvents.PlayerHealthRegen_PlayerStats?.Invoke(healthRegenRate);
             _healthRegenTimer = Time.time + healthRegenInterval;
         }
 
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var collectable = collision.GetComponent<ICollectable>();
-        if (collectable != null)
-        {
-            collectable.Collect(this);
-        }
     }
 
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        CurrentHealth = Mathf.Max(CurrentHealth, 0);
+        //CurrentHealth = Mathf.Max(CurrentHealth, 0);
 
         _healthRegenTimer = Time.time + healthRegenInterval; // regen gecikmesi
 
-        GameEvents.PlayerHealthChanged?.Invoke(damage, CurrentHealth);
+        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
 
         if (CurrentHealth <= 0)
         {
@@ -110,6 +119,21 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     private void Die()
     {
-       Time.timeScale = 0f;
+        Time.timeScale = 0f;
+    }
+    private void CheckPickupRange()
+    {
+
+        int count = Physics2D.OverlapCircle(this.transform.position, pickupRadius, _contactFilter, _pickupBuffer);
+        for (int i = 0; i < count; i++)
+        {
+            var collectable = _pickupBuffer[i].GetComponent<ICollectable>();
+            if (collectable != null)
+            {
+                collectable?.Collect(this);
+
+            }
+
+        }
     }
 }

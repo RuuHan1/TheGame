@@ -11,7 +11,7 @@ public static class GameEvents
     public static Action<float> XpCollected;
     public static Action<Transform> PlayerLevelUp;
     public static Action<float> PlayerDamaged;
-    public static Action<float,float> PlayerHealthChanged;
+    public static Action<float> PlayerHealthChanged;
     public static Action<List<CardViewSO>> HandChanged;
     public static Action<List<CardViewSO>> WeaponSlotChanged;
     public static Action<bool> GameStatesChanged;
@@ -19,6 +19,9 @@ public static class GameEvents
     public static Action SlotMachineTaken;
     public static Action<CardViewSO> CardAwarded;
     //UI
+    public static Action ActivateWeaponRange_PlayerHud;
+    //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
+    public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin
     public static Action<float, float,int> PlayerXpChanged;
     //timer icin

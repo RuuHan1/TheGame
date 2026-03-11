@@ -1,4 +1,6 @@
+using DG.Tweening;
 using Lean.Pool;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,15 +34,34 @@ public class XpManager : MonoBehaviour
 
     }
 
-    public void XpCollected(int index,PlayerStats player)
+
+    //hatali
+    public void XpCollected(int index, PlayerStats player)
     {
         XpData data = xpsOnWorld[index];
         if (data.isCollected) return;
-        XpData xpData = xpsOnWorld[index];
-        xpData.isCollected = true;
-        GameEvents.XpCollected?.Invoke(xpData.value);
-        player.CollectXp(xpData.value);
-        LeanPool.Despawn(xpsInnstance[index].gameObject);
+        //XpData xpData = xpsOnWorld[index];
+        //xpData.isCollected = true;
+        //GameEvents.XpCollected?.Invoke(xpData.value);
+        MoveXp(data, player.transform, xpsInnstance[index].gameObject);
+        //LeanPool.Despawn(xpsInnstance[index].gameObject);
     }
+    public void MoveXp(XpData data,Transform playerTransform,GameObject xpObject)
+    {
+            data.isCollected = true;
+        xpObject.transform.DOMove(playerTransform.position, 0.6f)
+        .SetEase(Ease.InCubic)
+        .OnUpdate(() =>
+        {
+            // XpData pozisyonunu da güncelle
+            data.position = xpObject.transform.position;
+        })
+        .OnComplete(() =>
+        {
+            GameEvents.XpCollected?.Invoke(data.value);
+            LeanPool.Despawn(xpObject);
+        });
+    }
+    
 
 }

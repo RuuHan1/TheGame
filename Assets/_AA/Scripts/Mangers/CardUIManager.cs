@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class CardUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject handPanel;
+    //[SerializeField] private GameObject _handPanelBg;
     [SerializeField] private GameObject weaponSlotPanel;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private InputActionReference inputReference;
@@ -34,6 +35,7 @@ public class CardUIManager : MonoBehaviour
         GameEvents.GameStatesChanged?.Invoke(!active);
         handPanel.SetActive(!active);
         weaponSlotPanel.SetActive(!active);
+        //_handPanelBg.SetActive(!active);
     }
 
     private void InitializeHand(List<CardViewSO> cards)
