@@ -64,12 +64,9 @@ public class UIManager : MonoBehaviour
 
         damageText.GetComponent<DamageText>().Initialize(arg2, arg3);
     }
-    private void OnPlayerHealthChanged( float currentPlayerHealth)
+    private void OnPlayerHealthChanged( float currentPlayerHealth,float maxHealth)
     {
-        float fillAmount = currentPlayerHealth;
-
-        fillAmount = fillAmount / 100f;
-        //fillAmount = Mathf.Max(fillAmount,0);
+        float fillAmount = currentPlayerHealth/maxHealth;
         playerHealthImage.fillAmount = fillAmount;
 
     }

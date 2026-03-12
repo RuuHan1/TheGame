@@ -11,7 +11,7 @@ public static class GameEvents
     public static Action<float> XpCollected;
     public static Action<Transform> PlayerLevelUp;
     public static Action<float> PlayerDamaged;
-    public static Action<float> PlayerHealthChanged;
+    public static Action<float,float> PlayerHealthChanged;
     public static Action<List<CardViewSO>> HandChanged;
     public static Action<List<CardViewSO>> WeaponSlotChanged;
     public static Action<bool> GameStatesChanged;

@@ -40,28 +40,30 @@ public class XpManager : MonoBehaviour
     {
         XpData data = xpsOnWorld[index];
         if (data.isCollected) return;
-        //XpData xpData = xpsOnWorld[index];
-        //xpData.isCollected = true;
-        //GameEvents.XpCollected?.Invoke(xpData.value);
-        MoveXp(data, player.transform, xpsInnstance[index].gameObject);
-        //LeanPool.Despawn(xpsInnstance[index].gameObject);
+        XpData xpData = xpsOnWorld[index];
+        xpData.isCollected = true;
+        GameEvents.XpCollected?.Invoke(xpData.value);
+        //MoveXp(data, player.transform, index);
+        LeanPool.Despawn(xpsInnstance[index].gameObject);
     }
-    public void MoveXp(XpData data,Transform playerTransform,GameObject xpObject)
-    {
-            data.isCollected = true;
-        xpObject.transform.DOMove(playerTransform.position, 0.6f)
-        .SetEase(Ease.InCubic)
-        .OnUpdate(() =>
-        {
-            // XpData pozisyonunu da güncelle
-            data.position = xpObject.transform.position;
-        })
-        .OnComplete(() =>
-        {
-            GameEvents.XpCollected?.Invoke(data.value);
-            LeanPool.Despawn(xpObject);
-        });
-    }
-    
+    //public void MoveXp(XpData data, Transform playerTransform, int index)
+    //{
+    //    if (data.isCollected) return; // çift tetiklenmeyi engelle
+    //    data.isCollected = true;
+
+    //    GameObject xpObject = xpsInnstance[index].gameObject;
+
+    //    xpObject.transform.DOKill(); // önceki tween varsa temizle
+
+    //    xpObject.transform.DOMove(playerTransform.position, 0.6f)
+    //        .SetEase(Ease.InCubic)
+    //        .OnComplete(() =>
+    //        {
+    //            if (xpObject == null) return; // null guard
+    //            GameEvents.XpCollected?.Invoke(data.value);
+    //            LeanPool.Despawn(xpObject);
+    //        });
+    //}
+
 
 }

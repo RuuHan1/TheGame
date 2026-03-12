@@ -32,7 +32,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     {
         CurrentHealth = MaxHealth;
 
-        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
+        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth, MaxHealth);
         GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp, _level);
     }
 
@@ -86,6 +86,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
         MaxHealth += 10f;
         MoveSpeed += 0.5f;
         healthRegenRate += 0.2f;
+        pickupRadius += 0.2f;
     }
 
     private void RegenHealth()
@@ -95,7 +96,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
         {
             CurrentHealth += healthRegenRate;
             CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
-            GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
+            GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth,MaxHealth);
             GameEvents.PlayerHealthRegen_PlayerStats?.Invoke(healthRegenRate);
             _healthRegenTimer = Time.time + healthRegenInterval;
         }
@@ -105,11 +106,10 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        //CurrentHealth = Mathf.Max(CurrentHealth, 0);
 
-        _healthRegenTimer = Time.time + healthRegenInterval; // regen gecikmesi
+        _healthRegenTimer = Time.time + healthRegenInterval; 
 
-        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth);
+        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth,MaxHealth);
 
         if (CurrentHealth <= 0)
         {
