@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public float Timer { get; private set; } = 0f;
     private bool _isSlowMotionActive = false;
+    private bool _isGamePaused = false;
     private void OnEnable()
     {
         GameEvents.GameStatesChanged += OnGameStateChanged;
@@ -36,11 +37,12 @@ public class GameManager : MonoBehaviour
         if (obj)
         {
             Time.timeScale = 0f;
+            _isGamePaused = true;
         }
         else
         {
             Time.timeScale = 1f;
-
+            _isGamePaused = false;
         }
 
     }
@@ -56,10 +58,18 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator SlowMotionRoutine()
     {
+        if (_isGamePaused)
+        {
+            yield break;
+        }
         Time.timeScale = 0.7f;
         yield return new WaitForSeconds(0.3f);
+        if (_isGamePaused)
+        {
+            Time.timeScale = 0f;
+            yield break;
+        }
         Time.timeScale = 1f;
-        _isSlowMotionActive = false;
     }
 
 }
