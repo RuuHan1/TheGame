@@ -34,4 +34,5 @@ public static class GameEvents
     public static Action<float> ShakeCamera_EnemyManager;
     //GameMAnager
     public static Action DecreaseTimeScale_EnemyManager;
+    public static Action SpawnBoss_GameManager;
 }

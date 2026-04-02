@@ -6,21 +6,57 @@ public class BossData : ScriptableObject
 {
     [SerializeField] public float MaxHealth;
     [SerializeField] public float MovementSpeed;
-    //[SerializeField] public GameObject BossWeaponPrefab;
-    //[SerializeField] List<BossAction> BossActions = new();
     [SerializeField] public float MaxRange;
     [SerializeField] public float MeleeRange;
+    [SerializeField] public GameObject BossWeaponPrefab;
+    [SerializeField] public List<BossAction> BossActions = new();
+    public BossActionBase GetAction(BossState state)
+    {
+        List<BossActionBase> actions = new();
+        for (int i = 0; i < BossActions.Count; i++)
+        {
+            if (BossActions[i].State == state)
+            {
+                actions.Add(BossActions[i].BossAct);
+            }
+        }
+        if (actions.Count > 0)
+        {
+            return actions[Random.Range(0, actions.Count)];
+        }
+        return null;
+    }
+    public BossActionBase GetRandomAction(BossState state)
+    {
+        List<BossActionBase> actions = new();
+        for (int i = 0; i < BossActions.Count; i++)
+        {
+            if (BossActions[i].State == state)
+            {
+                actions.Add(BossActions[i].BossAct);
+               
+            }
+        }
+        if (actions.Count > 0)
+        {
+            return actions[Random.Range(0, actions.Count)];
+        }
+        return null;
+    }
 }
-//[System.Serializable]
-//public struct BossAction
-//{
-//    public BossActionType ActionType;
-//    public BossActionData BossActionData;
-//}
-public enum BossActionType
+
+
+[System.Serializable]
+public struct BossAction
 {
-    MeleeAttack,
-    RangedAttack,
-    MidleRangeAttack,
-    SummonMinions
+    public BossState State;
+    public BossActionBase BossAct;
 }
+
+//public enum BossActionType
+//{
+//    MeleeAttack,
+//    RangedAttack,
+//    MidleRangeAttack,
+//    SummonMinions
+//}

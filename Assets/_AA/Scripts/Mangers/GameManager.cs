@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class GameManager : MonoBehaviour
     public float Timer { get; private set; } = 0f;
     private bool _isSlowMotionActive = false;
     private bool _isGamePaused = false;
+    private bool _isBossSpawned = false;
     private void OnEnable()
     {
         GameEvents.GameStatesChanged += OnGameStateChanged;
@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         Timer += Time.deltaTime;
+        if(Timer >= 120f && !_isBossSpawned)
+        {
+            _isBossSpawned = true;
+            GameEvents.SpawnBoss_GameManager?.Invoke();
+        }
     }
     private void OnDecreaseTimeScale()
     {

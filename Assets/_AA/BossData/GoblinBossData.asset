@@ -15,4 +15,14 @@ MonoBehaviour:
   MaxHealth: 500
   MovementSpeed: 3
   MaxRange: 15
-  MeleeRange: 5
+  MeleeRange: 7
+  BossWeaponPrefab: {fileID: 2529539643860538934, guid: 7868f3e527a797c4ca76d838eaff5036, type: 3}
+  BossActions:
+  - State: 1
+    BossAct: {fileID: 11400000, guid: e8d0bdc19037bf04890da29c047286eb, type: 2}
+  - State: 2
+    BossAct: {fileID: 11400000, guid: 6605e9f7bf82f7246989140b7a04e241, type: 2}
+  - State: 2
+    BossAct: {fileID: 11400000, guid: 1c9b7ca846f29644098665cc4d3ce9c7, type: 2}
+  - State: 2
+    BossAct: {fileID: 11400000, guid: f1c7b8605ac58ef4fa8cf1a46b05033c, type: 2}
