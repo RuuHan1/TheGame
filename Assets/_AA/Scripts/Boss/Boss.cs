@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Boss : MonoBehaviour,IDamagable
 {
     [SerializeField] protected BossData _bossData;
+    [SerializeField] protected BossHealth _bossHealth;
     protected BossState _currentState = BossState.Chase;
     protected Transform _playerTransform;
     protected bool _isPerforming;
