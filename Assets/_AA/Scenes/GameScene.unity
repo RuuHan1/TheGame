@@ -1427,6 +1427,7 @@ Transform:
   - {fileID: 2015197233}
   - {fileID: 283865887}
   - {fileID: 476560006}
+  - {fileID: 1100929418}
   m_Father: {fileID: 878772801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550679694
@@ -2337,6 +2338,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1682857415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1100929417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1100929418}
+  - component: {fileID: 1100929419}
+  m_Layer: 0
+  m_Name: EnemyDeadPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1100929418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100929417}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 539135770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100929419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100929417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea08375da243a441b88d1e6b0713006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LeanPool::Lean.Pool.LeanGameObjectPool
+  prefab: {fileID: 4711959852869510909, guid: 2acd940e8b9cc5346a02720d4aaa0c0b, type: 3}
+  notification: 3
+  strategy: 0
+  preload: 200
+  capacity: 500
+  recycle: 1
+  persist: 0
+  stamp: 0
+  warnings: 1
+  spawnedClonesList: []
+  despawnedClones: []
+  delays: []
+  deactivatedChild: {fileID: 0}
 --- !u!1 &1237263323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2545,8 @@ MonoBehaviour:
     Prefab: {fileID: 5112403345868107898, guid: f86c57c413a8b3b4ebc2f842979d037c, type: 3}
   - Key: AddExplosionHit
     Prefab: {fileID: 1429954232896169633, guid: 5b5786a13db41024ea428d4252b805c2, type: 3}
+  - Key: EnemyDeathVfx
+    Prefab: {fileID: 4711959852869510909, guid: 2acd940e8b9cc5346a02720d4aaa0c0b, type: 3}
 --- !u!4 &1292786724
 Transform:
   m_ObjectHideFlags: 0

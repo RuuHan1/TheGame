@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer >= 10f && !_isBossSpawned)
+        if(Timer >= 300f && !_isBossSpawned)
         {
             _isBossSpawned = true;
             GameEvents.SpawnBoss_GameManager?.Invoke();

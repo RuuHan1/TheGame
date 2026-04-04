@@ -24,13 +24,22 @@ public class EnemyManager : MonoBehaviour
     private float _killWindowTimer = 0f;
     private const float KillWindow = 1f;
     private Vector3 _fixedOffset;
+    private bool _isBossSpawned = false;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
+        GameEvents.SpawnBoss_GameManager += OnBossSpawned;
     }
+
+    private void OnBossSpawned()
+    {
+        _isBossSpawned = true;
+    }
+
     private void OnDisable()
     {
         GameEvents.PlayerPosition -= SetPlayerTarget;
+            GameEvents.SpawnBoss_GameManager -= OnBossSpawned;
     }
 
     private void SetPlayerTarget(Transform transform)
@@ -51,7 +60,7 @@ public class EnemyManager : MonoBehaviour
         Move();
 
         _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0)
+        if (_spawnTimer <= 0 && !_isBossSpawned)
         {
             SpawnEnemy();
             _spawnTimer = SpawnRate / difficulty;
@@ -173,6 +182,7 @@ public class EnemyManager : MonoBehaviour
 
         enemies[index] = temp;
         LeanPool.Despawn(instances[index].gameObject);
+        GameEvents.PlayVFX_Enemy?.Invoke("EnemyDeathVfx", enemies[index].position);
         _recentKillCount++;
         _killWindowTimer = KillWindow;
 

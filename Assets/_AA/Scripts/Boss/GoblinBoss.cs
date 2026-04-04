@@ -2,6 +2,19 @@ using UnityEngine;
 
 public class GoblinBoss : Boss
 {
+    
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+    }
+    protected override void Start()
+    {
+        base.Start();
+    }
     private void Update()
     {
         CheckCurrentState();

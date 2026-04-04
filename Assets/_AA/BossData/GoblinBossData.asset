@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e337dae0e716244192bae16e125f108, type: 3}
   m_Name: GoblinBossData
   m_EditorClassIdentifier: Assembly-CSharp::BossData
-  MaxHealth: 500
+  MaxHealth: 3000
+  Damage: 20
   MovementSpeed: 3
   MaxRange: 15
   MeleeRange: 7

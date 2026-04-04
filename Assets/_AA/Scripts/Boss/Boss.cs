@@ -2,11 +2,26 @@ using UnityEngine;
 
 public abstract class Boss : MonoBehaviour,IDamagable
 {
-    [SerializeField] protected BossData _bossData;
-    [SerializeField] protected BossHealth _bossHealth;
+    [SerializeField] public BossData _bossData;
+    private BossHealth _bossHealth;
     protected BossState _currentState = BossState.Chase;
     protected Transform _playerTransform;
     protected bool _isPerforming;
+
+    protected virtual void OnEnable()
+    {
+        GameEvents.EnemySwordHit += OnEnemySwordHit;
+    }
+    protected virtual void OnDisable()
+    {
+        GameEvents.EnemySwordHit -= OnEnemySwordHit;
+    }
+
+    protected virtual void Start()
+    {
+        _bossHealth = GetComponent<BossHealth>();
+        _bossHealth.Initialize(_bossData.MaxHealth);
+    }
     protected abstract void CheckCurrentState();
     public virtual void SetTarget(Transform target) 
     {
@@ -42,7 +57,12 @@ public abstract class Boss : MonoBehaviour,IDamagable
 
     public void TakeDamage(float damage)
     {
-        throw new System.NotImplementedException();
+        _bossHealth.TakeDamage(damage);
+        GameEvents.OnEnemyDamaged?.Invoke(transform.position, damage, true);
+    }
+    protected void OnEnemySwordHit()
+    {
+        GameEvents.PlayerDamaged?.Invoke(_bossData.Damage);
     }
 }
 public enum BossState

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "BossData", menuName = "ScriptableObjects/BossData", order = 1)]
 public class BossData : ScriptableObject
 {
     [SerializeField] public float MaxHealth;
+    [SerializeField] public float Damage;
     [SerializeField] public float MovementSpeed;
     [SerializeField] public float MaxRange;
     [SerializeField] public float MeleeRange;

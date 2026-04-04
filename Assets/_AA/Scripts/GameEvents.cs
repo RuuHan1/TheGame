@@ -30,9 +30,12 @@ public static class GameEvents
     public static Action<int> WeaponSlotCountChanged;
     //vfx icin
     public static Action<string,Vector2> PlayVFX_Projectile;
+    public static Action<string,Vector2> PlayVFX_Enemy;
     //Camera
     public static Action<float> ShakeCamera_EnemyManager;
     //GameMAnager
     public static Action DecreaseTimeScale_EnemyManager;
     public static Action SpawnBoss_GameManager;
+    //EnemySword
+    public static Action EnemySwordHit;
 }

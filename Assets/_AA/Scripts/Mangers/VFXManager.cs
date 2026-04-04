@@ -23,10 +23,12 @@ public class VFXManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.PlayVFX_Projectile += OnPlayVFX;
+        GameEvents.PlayVFX_Enemy += OnPlayVFX;
     }
     private void OnDisable()
     {
         GameEvents.PlayVFX_Projectile -= OnPlayVFX;
+        GameEvents.PlayVFX_Enemy -= OnPlayVFX;
     }
     private void OnPlayVFX(string key,Vector2 position)
     {
