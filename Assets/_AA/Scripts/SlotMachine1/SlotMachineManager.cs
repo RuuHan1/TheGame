@@ -9,6 +9,7 @@ public class SlotMachineManager : MonoBehaviour
     [SerializeField] private CardLibrarySO _cardLibrary;
     [Header("Slot Machine Spawn Settings")]
     [SerializeField] private GameObject _slotMachinePrefab;
+    [SerializeField] private GameObject _slotMachineAnimPrefab;
     [SerializeField] private float _spawnDelay = 5f;
     [SerializeField] private float _spawnRadius = 10f;
     private float _spawnTimer;
@@ -61,7 +62,12 @@ public class SlotMachineManager : MonoBehaviour
 
     private void OnSlotMachineTaken()
     {
-        CardViewSO newCard = SpinWheel(_cardLibrary.CardViews);
+        var (newCard,spins) = SpinWheel(_cardLibrary.CardViews);
+        GameObject go = Instantiate(_slotMachineAnimPrefab,transform.position,Quaternion.identity);
+
+        go.GetComponentInChildren<Whell>().StartSpin(spins[1],5);
+        
+        
         if (newCard != null)
         {
             GameEvents.CardAwarded?.Invoke(newCard);
@@ -110,23 +116,19 @@ public class SlotMachineManager : MonoBehaviour
 
 
 
-    public CardViewSO SpinWheel(IReadOnlyList<CardViewSO> list)
+    public (CardViewSO card, CardType[] spins) SpinWheel(IReadOnlyList<CardViewSO> list)
     {
         CardType[] spins = new CardType[3];
         for (int i = 0; i < spins.Length; i++)
-        {
             spins[i] = GetCardType();
-        }
 
-        CardType targetType = spins[2]; // Her zaman orta spin (son dönen)
-
+        CardType targetType = spins[2];
         int matchCount = (spins[0] == spins[2] ? 1 : 0) + (spins[1] == spins[2] ? 1 : 0);
-
         CardRarity targetRarity = matchCount switch
         {
-            2 => CardRarity.Rare,       // spins[0] ve spins[1] ikisi de spins[2] ile ayný
-            1 => CardRarity.Uncommon,   // sadece biri spins[2] ile ayný
-            _ => CardRarity.Common      // hiçbiri eþleþmiyor
+            2 => CardRarity.Rare,
+            1 => CardRarity.Uncommon,
+            _ => CardRarity.Common
         };
 
         var validCards = list
@@ -136,15 +138,15 @@ public class SlotMachineManager : MonoBehaviour
         if (validCards.Count > 0)
         {
             CardViewSO selected = validCards[UnityEngine.Random.Range(0, validCards.Count)];
-            Debug.Log($"Spins: {spins[0]},{spins[1]},{spins[2]} : {targetRarity} / {targetType}");
-            return selected;
+            return (selected, spins); 
         }
 
-        Debug.LogWarning($"Kritere uygun kart yok, fallback uygulandý.");
-        return list
+        var fallback = list
             .Where(x => x.CardData.CardType == targetType)
             .OrderByDescending(x => x.CardData.CardRarity)
             .FirstOrDefault();
+
+        return (fallback, spins);
     }
 
     public Vector2 GetRandomPointInCircle()

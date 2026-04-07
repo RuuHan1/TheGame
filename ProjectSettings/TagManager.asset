@@ -48,5 +48,8 @@ TagManager:
   - name: Weapon
     uniqueID: 210172601
     locked: 0
+  - name: SlotMachine
+    uniqueID: 3864685133
+    locked: 0
   m_RenderingLayers:
   - Default
