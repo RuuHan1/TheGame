@@ -20,6 +20,7 @@ public static class GameEvents
     public static Action<CardViewSO> CardAwarded;
     //UI
     public static Action ActivateWeaponRange_PlayerHud;
+    public static Action<CardType[],CardViewSO> WhellSpinned_SlothMachineManager;
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin

@@ -9,7 +9,6 @@ public class SlotMachineManager : MonoBehaviour
     [SerializeField] private CardLibrarySO _cardLibrary;
     [Header("Slot Machine Spawn Settings")]
     [SerializeField] private GameObject _slotMachinePrefab;
-    [SerializeField] private GameObject _slotMachineAnimPrefab;
     [SerializeField] private float _spawnDelay = 5f;
     [SerializeField] private float _spawnRadius = 10f;
     private float _spawnTimer;
@@ -63,11 +62,9 @@ public class SlotMachineManager : MonoBehaviour
     private void OnSlotMachineTaken()
     {
         var (newCard,spins) = SpinWheel(_cardLibrary.CardViews);
-        GameObject go = Instantiate(_slotMachineAnimPrefab,transform.position,Quaternion.identity);
+        GameEvents.WhellSpinned_SlothMachineManager?.Invoke(spins,newCard);
 
-        go.GetComponentInChildren<Whell>().StartSpin(spins[1],5);
-        
-        
+
         if (newCard != null)
         {
             GameEvents.CardAwarded?.Invoke(newCard);

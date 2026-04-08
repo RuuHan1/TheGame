@@ -587,6 +587,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CloseMachineAnimation",
+                    "type": "Button",
+                    "id": "fa09ce67-6227-4efe-aab5-54bbfad601d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1027,6 +1036,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ToggleWeaponRangeCircle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1a3d2ad-a778-438b-b54d-4ea924da688d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseMachineAnimation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
