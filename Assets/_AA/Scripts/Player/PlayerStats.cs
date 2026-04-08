@@ -60,7 +60,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
     {
         _currentXp += value * xpGainMultiplier;
         GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp, _level);
-        Debug.Log("Collected XP: " + value + ". Current XP: " + _currentXp);
         while (_currentXp >= xpForNextLevel)
         {
             _currentXp -= xpForNextLevel;
@@ -74,6 +73,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
         xpForNextLevel += xpGapPerLevel * _level;
         IncreasePlayerStats();
         GameEvents.PlayerLevelUp?.Invoke(this.transform);
+        this.GetComponent<PlayerController>().SetMoveSpeed(MoveSpeed);
+
         //efekt icin event tetikle
         //Debug.Log("Level Up! Current Level: " + Level);
         //hangi ozelligini yukseltmek istiyorsan ona gore event tetikle
@@ -96,7 +97,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
         {
             CurrentHealth += healthRegenRate;
             CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
-            GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+            GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth, MaxHealth);
             GameEvents.PlayerHealthRegen_PlayerStats?.Invoke(healthRegenRate);
             _healthRegenTimer = Time.time + healthRegenInterval;
         }
@@ -107,9 +108,9 @@ public class PlayerStats : MonoBehaviour, IDamagable
     {
         CurrentHealth -= damage;
 
-        _healthRegenTimer = Time.time + healthRegenInterval; 
+        _healthRegenTimer = Time.time + healthRegenInterval;
 
-        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
         if (CurrentHealth <= 0)
         {
@@ -133,7 +134,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
                 collectable?.Collect(this);
 
             }
-
         }
     }
 }

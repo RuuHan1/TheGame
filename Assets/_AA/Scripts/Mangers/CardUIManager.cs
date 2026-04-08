@@ -32,7 +32,7 @@ public class CardUIManager : MonoBehaviour
     private void TogglePanels(InputAction.CallbackContext context)
     {
         bool active = handPanel.activeSelf;
-        GameEvents.GameStatesChanged?.Invoke(!active);
+        GameEvents.GamePaused?.Invoke(!active);
         handPanel.SetActive(!active);
         weaponSlotPanel.SetActive(!active);
         //_handPanelBg.SetActive(!active);

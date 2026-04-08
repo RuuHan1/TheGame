@@ -14,7 +14,7 @@ public static class GameEvents
     public static Action<float,float> PlayerHealthChanged;
     public static Action<List<CardViewSO>> HandChanged;
     public static Action<List<CardViewSO>> WeaponSlotChanged;
-    public static Action<bool> GameStatesChanged;
+    public static Action<bool> GamePaused;
     public static Action<int> WeaponChanged;
     public static Action SlotMachineTaken;
     public static Action<CardViewSO> CardAwarded;
@@ -39,4 +39,6 @@ public static class GameEvents
     public static Action SpawnBoss_GameManager;
     //EnemySword
     public static Action EnemySwordHit;
+    //
+    public static Action<string,bool> PopUpInfoPanel;
 }

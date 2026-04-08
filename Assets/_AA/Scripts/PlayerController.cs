@@ -4,12 +4,15 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float moveSpeed = 5f;
-    private Vector2 moveInput;
+    private Vector2 _moveInput;
     private Rigidbody2D rb;
 
 
 
-
+    public void SetMoveSpeed(float value)
+    {
+        moveSpeed = value;
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
-        FlipSprite(moveInput);
+        _moveInput = value.Get<Vector2>();
+        FlipSprite(_moveInput);
     }
 
     private void FlipSprite(Vector2 value)
@@ -38,6 +41,6 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + _moveInput * moveSpeed * Time.fixedDeltaTime);
     }
 }

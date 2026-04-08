@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private bool _isBossSpawned = false;
     private void OnEnable()
     {
-        GameEvents.GameStatesChanged += OnGameStateChanged;
+        GameEvents.GamePaused += OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager += OnDecreaseTimeScale;
     }
 
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        GameEvents.GameStatesChanged -= OnGameStateChanged;
+        GameEvents.GamePaused -= OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager -= OnDecreaseTimeScale;
     }
     private void Update()

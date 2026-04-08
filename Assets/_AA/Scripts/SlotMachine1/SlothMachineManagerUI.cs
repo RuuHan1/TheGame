@@ -30,7 +30,7 @@ public class SlothMachineManagerUI : MonoBehaviour
 
     private void HandleSpinEvent(CardType[] targets, CardViewSO viewSO)
     {
-        GameEvents.GameStatesChanged?.Invoke(true); // Oyun durumunu "duraklatýlmýþ" olarak deðiþtir
+        GameEvents.GamePaused?.Invoke(true); // Oyun durumunu "duraklatýlmýþ" olarak deðiþtir
         StartCoroutine(SpinAllWheelsRoutine(targets, viewSO));
     }
 
@@ -81,7 +81,7 @@ public class SlothMachineManagerUI : MonoBehaviour
         {
             return;
         }
-        GameEvents.GameStatesChanged?.Invoke(false);
+        GameEvents.GamePaused?.Invoke(false);
         _SlothMachinePanel.SetActive(false);
 
 

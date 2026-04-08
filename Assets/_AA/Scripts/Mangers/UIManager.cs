@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image _playerXpImage;
     [SerializeField] private TMP_Text _playerLevelText;
     private int _diedEnemies = 0;
+    [Header("Info Panel")]
+    [SerializeField] private TextMeshProUGUI _infoPanelText;
+    [SerializeField] private GameObject _infoTextBg;
     //[SerializeField] private GameObject weaponRechargeTime;
     private void OnEnable()
     {
@@ -27,7 +30,8 @@ public class UIManager : MonoBehaviour
         GameEvents.PlayerHealthChanged += OnPlayerHealthChanged;
         GameEvents.PlayerXpChanged += OnPlayerXpChanged;
         GameEvents.SecondPassed += OnSecondPassed;
-        
+        GameEvents.PopUpInfoPanel += OnPopUpInfoPanel;
+
     }
 
 
@@ -39,6 +43,7 @@ public class UIManager : MonoBehaviour
         GameEvents.PlayerHealthChanged -= OnPlayerHealthChanged;
         GameEvents.PlayerXpChanged -= OnPlayerXpChanged;
         GameEvents.SecondPassed -= OnSecondPassed;
+        GameEvents.PopUpInfoPanel -= OnPopUpInfoPanel;
     }
     private void OnSecondPassed()
     {
@@ -81,5 +86,15 @@ public class UIManager : MonoBehaviour
         }
         fillAmount = fillAmount / maxXp;
         _playerXpImage.fillAmount = fillAmount;
+    }
+
+    private void OnPopUpInfoPanel(string info,bool state)
+    {
+        _infoTextBg.SetActive(state);
+        _infoPanelText.text = info+"(Space)";
+        // Örneðin, bir UI panel prefab'ý kullanarak:
+        // GameObject popUpPanel = Instantiate(popUpPanelPrefab, uiCanvas.transform);
+        // popUpPanel.GetComponent<PopUpPanel>().Initialize(info);
+        // popUpPanel.transform.position = Camera.main.WorldToScreenPoint(worldPosition);
     }
 }
