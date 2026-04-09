@@ -1,20 +1,28 @@
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class BossSpawner : MonoBehaviour
+public class BossSpawner : MonoBehaviour, IInteractable
 {
     private Transform _target;
     [SerializeField] private GameObject _Boss;
     private bool _isInfoPanelOpen = false;
+    [SerializeField] private InputActionReference _interactAction;
+    private bool _bossDefeated = false;
     private void OnEnable()
     {
         GameEvents.PlayerPosition += SetPlayerTarget;
         GameEvents.SpawnBoss_GameManager += OnSpawnBoss;
+        _interactAction.action.performed += Interact;
+        GameEvents.BossDefeated_Boss += OnBossDefeated;
     }
 
     private void OnDisable()
     {
         GameEvents.PlayerPosition -= SetPlayerTarget;
         GameEvents.SpawnBoss_GameManager -= OnSpawnBoss;
+        _interactAction.action.performed -= Interact;
+        GameEvents.BossDefeated_Boss += OnBossDefeated;
     }
 
     private void SetPlayerTarget(Transform transform)
@@ -30,8 +38,17 @@ public class BossSpawner : MonoBehaviour
 
     public void ToggleInfoPanel()
     {
-        
-        GameEvents.PopUpInfoPanel?.Invoke("Spawn boss",_isInfoPanelOpen);
+        if (_bossDefeated)
+        {
+            GameEvents.PopUpInfoPanel?.Invoke("Boss defeated! For upstair.", _isInfoPanelOpen);
+            return;
+        }
+        else
+        {
+            GameEvents.PopUpInfoPanel?.Invoke("Spawn boss", _isInfoPanelOpen);
+
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -53,4 +70,22 @@ public class BossSpawner : MonoBehaviour
         }
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (_isInfoPanelOpen && !_bossDefeated)
+        {
+            OnSpawnBoss();
+        }
+        if (_bossDefeated)
+        {
+            GameEvents.GameFinished_BossSpawner?.Invoke();
+            GameEvents.GamePaused?.Invoke(true);
+        }
+    }
+    private void OnBossDefeated()
+    {
+        // Boss yenildiðinde yapýlacak iþlemler (örneðin, kapýyý açmak)
+        _bossDefeated = true;
+        Debug.Log("Boss defeated! Door is now open.");
+    }
 }

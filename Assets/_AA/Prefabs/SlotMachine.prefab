@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3197572958399293539}
   - component: {fileID: 2943689649684374053}
   - component: {fileID: 8529601767872880325}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SlotMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

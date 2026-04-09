@@ -17,6 +17,7 @@ public class GoblinBoss : Boss
     }
     private void Update()
     {
+        if (_currentState == BossState.Dead) return;
         CheckCurrentState();
         switch (_currentState)
         {

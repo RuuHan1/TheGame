@@ -18,5 +18,11 @@ public class BossHealth : MonoBehaviour
         _currentHealth -= damage;
         float fillAmount = _currentHealth / _maxHealth;
         _maskTransform.localScale = new Vector3(fillAmount, 1f, 1f);
+            if (_currentHealth <= 0)
+            {
+                _currentHealth = 0;
+                GameEvents.BossDefeated_Boss?.Invoke();
+            // Boss öldüðünde yapýlacak iþlemler
+        }
     }
 }

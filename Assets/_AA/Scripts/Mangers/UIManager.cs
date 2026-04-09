@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [Header("Info Panel")]
     [SerializeField] private TextMeshProUGUI _infoPanelText;
     [SerializeField] private GameObject _infoTextBg;
+    [SerializeField] private GameObject _endPanel;
     //[SerializeField] private GameObject weaponRechargeTime;
     private void OnEnable()
     {
@@ -31,7 +32,7 @@ public class UIManager : MonoBehaviour
         GameEvents.PlayerXpChanged += OnPlayerXpChanged;
         GameEvents.SecondPassed += OnSecondPassed;
         GameEvents.PopUpInfoPanel += OnPopUpInfoPanel;
-
+        GameEvents.GameFinished_BossSpawner += OnGameFinished;
     }
 
 
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
         GameEvents.PlayerXpChanged -= OnPlayerXpChanged;
         GameEvents.SecondPassed -= OnSecondPassed;
         GameEvents.PopUpInfoPanel -= OnPopUpInfoPanel;
+        GameEvents.GameFinished_BossSpawner -= OnGameFinished;
     }
     private void OnSecondPassed()
     {
@@ -96,5 +98,13 @@ public class UIManager : MonoBehaviour
         // GameObject popUpPanel = Instantiate(popUpPanelPrefab, uiCanvas.transform);
         // popUpPanel.GetComponent<PopUpPanel>().Initialize(info);
         // popUpPanel.transform.position = Camera.main.WorldToScreenPoint(worldPosition);
+    }
+    private void OnGameFinished()
+    {
+        _endPanel.SetActive(true);
+    }
+    public void OnNewRunButtonClicked()
+    {
+        GameEvents.NewRunClicked_UIManager?.Invoke();
     }
 }

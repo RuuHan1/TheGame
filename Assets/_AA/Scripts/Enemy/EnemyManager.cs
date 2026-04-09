@@ -97,7 +97,7 @@ public class EnemyManager : MonoBehaviour
         float separationStrength = 6f;
         float acceleration = 12f;
         float drag = 4f;
-
+        //seperation kodu optimize edilmeli, þu an O(n^2) ama çok fazla düþman olmayacaðý için þimdilik sorun olmaz
         for (int i = 0; i < enemies.Count; i++)
         {
             if (!enemies[i].isAlive)
@@ -199,13 +199,25 @@ public class EnemyManager : MonoBehaviour
         EnemyStatsSO enemyStatsSO;
         int dice = UnityEngine.Random.Range(0, 11);
         enemyStatsSO = dice >= 10 ? _enemyStats[1] : _enemyStats[0];
-        GameObject newEnemy = LeanPool.Spawn(enemyStatsSO.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
 
         float scaledHP = enemyStatsSO.MaxHealth * (1 + difficulty * hpScaling);
         float scaledSpeed = enemyStatsSO.MoveSpeed * (1 + difficulty * speedScaling);
         float scaledDamage = enemyStatsSO.Damage * (1 + difficulty * 0.2f);
 
-        enemies.Add(new EnemyData
+        int availableIndex = -1;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (!enemies[i].isAlive)
+            {
+                availableIndex = i;
+                break;
+            }
+        }
+
+        GameObject newEnemy = LeanPool.Spawn(enemyStatsSO.EnemyPrefab, spawnPos, Quaternion.identity, enemyPool);
+        EnemyInstance newInstance = newEnemy.GetComponent<EnemyInstance>();
+
+        EnemyData newData = new EnemyData
         {
             position = spawnPos,
             speed = scaledSpeed,
@@ -214,11 +226,21 @@ public class EnemyManager : MonoBehaviour
             isAlive = true,
             XpWorth = enemyStatsSO.XpValue,
             velocity = Vector3.zero,
-        });
-
-        instances.Add(newEnemy.GetComponent<EnemyInstance>());
-        instances[^1].manger = this;
-        instances[^1].index = enemies.Count - 1;
+        };
+        if (availableIndex != -1)
+        {
+            enemies[availableIndex] = newData;
+            instances[availableIndex] = newInstance;
+            newInstance.manger = this;
+            newInstance.index = availableIndex;
+        }
+        else
+        {
+            enemies.Add(newData);
+            instances.Add(newInstance);
+            newInstance.manger = this;
+            newInstance.index = enemies.Count - 1;
+        }
     }
     public void InvokePlayerDamaged(int index)
     {

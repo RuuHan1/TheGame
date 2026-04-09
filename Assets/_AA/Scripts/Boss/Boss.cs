@@ -7,14 +7,16 @@ public abstract class Boss : MonoBehaviour,IDamagable
     protected BossState _currentState = BossState.Chase;
     protected Transform _playerTransform;
     protected bool _isPerforming;
-
+    
     protected virtual void OnEnable()
     {
         GameEvents.EnemySwordHit += OnEnemySwordHit;
+        GameEvents.BossDefeated_Boss += OnBossDefeated;
     }
     protected virtual void OnDisable()
     {
         GameEvents.EnemySwordHit -= OnEnemySwordHit;
+        GameEvents.BossDefeated_Boss -= OnBossDefeated;
     }
 
     protected virtual void Start()
@@ -64,10 +66,17 @@ public abstract class Boss : MonoBehaviour,IDamagable
     {
         GameEvents.PlayerDamaged?.Invoke(_bossData.Damage);
     }
+    private void OnBossDefeated()
+    {
+        SetState(BossState.Dead);
+        // Play death animation or effects here
+        Destroy(gameObject, 2f); // Destroy the boss after a delay to allow death animation to play
+    }
 }
 public enum BossState
 {
     Chase,
     MeleeAttack,
     RangedAttack,
+    Dead
 }

@@ -21,6 +21,7 @@ public static class GameEvents
     //UI
     public static Action ActivateWeaponRange_PlayerHud;
     public static Action<CardType[],CardViewSO> WhellSpinned_SlothMachineManager;
+    public static Action NewRunClicked_UIManager;
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin
@@ -41,4 +42,7 @@ public static class GameEvents
     public static Action EnemySwordHit;
     //
     public static Action<string,bool> PopUpInfoPanel;
+    public static Action GameFinished_BossSpawner;
+    //
+    public static Action BossDefeated_Boss;
 }

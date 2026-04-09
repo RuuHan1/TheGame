@@ -12,20 +12,19 @@ public class SlothMachineManagerUI : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject _SlothMachinePanel;
     [SerializeField] private GameObject _CardPrefab;
-    [SerializeField] private InputActionAsset _inputActions;
+    [SerializeField] private InputActionReference _interactAction;
     private bool _isSpinning = false;
     private void OnEnable()
     {
-        _inputActions.Enable();
-        _inputActions.FindAction("CloseMachineAnimation").performed += OnCloseAnimationPanel;
+        _interactAction.action.Enable();
+        _interactAction.action.performed += OnCloseAnimationPanel;
         GameEvents.WhellSpinned_SlothMachineManager += HandleSpinEvent;
     }
 
     private void OnDisable()
     {
-        _inputActions.Disable();
         GameEvents.WhellSpinned_SlothMachineManager -= HandleSpinEvent;
-        _inputActions.FindAction("CloseMachineAnimation").performed -= OnCloseAnimationPanel;
+        _interactAction.action.performed -= OnCloseAnimationPanel;
     }
 
     private void HandleSpinEvent(CardType[] targets, CardViewSO viewSO)

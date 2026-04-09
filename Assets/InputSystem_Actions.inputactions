@@ -502,7 +502,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -589,7 +589,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CloseMachineAnimation",
+                    "name": "InteractAction",
                     "type": "Button",
                     "id": "fa09ce67-6227-4efe-aab5-54bbfad601d2",
                     "expectedControlType": "",
@@ -877,7 +877,7 @@
                 {
                     "name": "",
                     "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
@@ -1046,7 +1046,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CloseMachineAnimation",
+                    "action": "InteractAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -129,11 +129,15 @@ public class PlayerStats : MonoBehaviour, IDamagable
         for (int i = 0; i < count; i++)
         {
             var collectable = _pickupBuffer[i].GetComponent<ICollectable>();
+            //var interactable = _pickupBuffer[i].GetComponent<IInteractable>();
             if (collectable != null)
             {
                 collectable?.Collect(this);
-
             }
+            //if (interactable != null)
+            //{
+            //    interactable?.Interact();
+            //}
         }
     }
 }

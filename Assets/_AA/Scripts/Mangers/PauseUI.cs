@@ -9,10 +9,12 @@ public class PauseUI : MonoBehaviour
 
     private void OnEnable()
     {
+        _InputActions.action.Enable();
         _InputActions.action.performed += OnGamePaused;
     }
     private void OnDisable()
     {
+        _InputActions.action.Disable();
         _InputActions.action.performed -= OnGamePaused;
     }
     private void OnGamePaused(InputAction.CallbackContext context)

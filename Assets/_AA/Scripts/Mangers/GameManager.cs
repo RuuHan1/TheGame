@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.GamePaused += OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager += OnDecreaseTimeScale;
+        GameEvents.NewRunClicked_UIManager += OnNewRunClicked;
+
     }
 
 
@@ -22,45 +25,40 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.GamePaused -= OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager -= OnDecreaseTimeScale;
+        GameEvents.NewRunClicked_UIManager -= OnNewRunClicked;
     }
     private void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer >= 300f && !_isBossSpawned)
-        {
-            _isBossSpawned = true;
-            GameEvents.SpawnBoss_GameManager?.Invoke();
-        }
     }
     private void OnDecreaseTimeScale()
     {
         if (_isSlowMotionActive) return;
         StartCoroutine(SlowMotionRoutine());
     }
-    private void OnGameStateChanged(bool obj)
+    private void OnGameStateChanged(bool isPaused)
     {
-        if (obj)
+        _isGamePaused = isPaused;
+
+        if (isPaused)
         {
             Time.timeScale = 0f;
-            _isGamePaused = true;
         }
         else
         {
-            Time.timeScale = 1f;
-            _isGamePaused = false;
+            Time.timeScale = _isSlowMotionActive ? 0.7f : 1f;
         }
-
     }
     private IEnumerator TimerRoutine()
     {
         WaitForSeconds oneSecond = new WaitForSeconds(1f);
-
         while (true)
         {
             yield return oneSecond;
             GameEvents.SecondPassed?.Invoke();
         }
     }
+
     private IEnumerator SlowMotionRoutine()
     {
         if (_isGamePaused)
@@ -76,5 +74,8 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 1f;
     }
-
+    private void OnNewRunClicked()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
