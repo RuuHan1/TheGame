@@ -45,4 +45,6 @@ public static class GameEvents
     public static Action GameFinished_BossSpawner;
     //
     public static Action BossDefeated_Boss;
+    //sound
+    public static Action<SoundType> PlaySound;
 }
