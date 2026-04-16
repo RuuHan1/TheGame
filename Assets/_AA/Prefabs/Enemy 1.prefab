@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2467397791541093494}
   - component: {fileID: 3894952608574485565}
   - component: {fileID: 2774905694743759671}
-  - component: {fileID: 2124390446507845793}
+  - component: {fileID: 530449830715370141}
   m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6457721557234527202, guid: f5201ca7fac9f8a4e96f4b23cf0ee29e, type: 3}
+  m_Sprite: {fileID: -2210181825367113843, guid: 6fee3a23bbb81c8408b1c5bce6e0a333, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
   index: 0
   manger: {fileID: 0}
   damageInterval: 2
---- !u!70 &2124390446507845793
-CapsuleCollider2D:
+--- !u!60 &530449830715370141
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,5 +143,23 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.125, y: 1.4375}
-  m_Direction: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.82758623, y: 0.85714287}
+    oldSize: {x: 0.90625, y: 0.875}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.22328973, y: 0.088273525}
+      - {x: -0.75, y: -0.375}
+      - {x: -0.69991827, y: -0.4186684}
+      - {x: -0.26789498, y: -0.6932409}
+      - {x: -0.19177556, y: -0.7065959}
+      - {x: 0.15625, y: -0.40625}
+      - {x: 0.14375782, y: -0.38257658}
+      - {x: -0.18629909, y: 0.08493471}
+  m_UseDelaunayMesh: 1
