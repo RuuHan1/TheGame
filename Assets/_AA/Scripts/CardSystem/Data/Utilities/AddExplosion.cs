@@ -4,7 +4,7 @@ public class AddExplosion : UtilitySO
 {
 
     [SerializeField] private float explosionRadius = 0;
-    [SerializeField] private string VFXKey;
+    [SerializeField] private VFXType VFXKey;
     public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         if(container.Radius == 0)

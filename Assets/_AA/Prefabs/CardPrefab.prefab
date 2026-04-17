@@ -90,8 +90,6 @@ MonoBehaviour:
   cardBgImage: {fileID: 7399883593206350892}
   cardFgImage: {fileID: 704445761123414532}
   cardScaleSize: 1.2
-  hoverUpAmount: 100
-  hoverDelay: 0.1
   parentToReturnTo: {fileID: 0}
   placeholderParent: {fileID: 0}
 --- !u!1 &3877349836365069103
@@ -154,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7169812, g: 0.6008956, b: 0.15218942, a: 1}
+  m_Color: {r: 1, g: 0.7294118, b: 0.38823533, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

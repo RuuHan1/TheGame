@@ -31,8 +31,8 @@ public static class GameEvents
     //weapon slot sayisini degistiren kart kullaninca
     public static Action<int> WeaponSlotCountChanged;
     //vfx icin
-    public static Action<string,Vector2> PlayVFX_Projectile;
-    public static Action<string,Vector2> PlayVFX_Enemy;
+    public static Action<VFXType,Vector2> PlayVFX_Projectile;
+    public static Action<VFXType,Vector2> PlayVFX_Enemy;
     //Camera
     public static Action<float> ShakeCamera_EnemyManager;
     //GameMAnager
@@ -46,5 +46,5 @@ public static class GameEvents
     //
     public static Action BossDefeated_Boss;
     //sound
-    public static Action<SoundType> PlaySound;
+    public static Action<SfxType> PlaySound;
 }

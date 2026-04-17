@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4854309743752098469}
   - component: {fileID: -3556615058586331047}
   m_Layer: 12
-  m_Name: GoblinSword
+  m_Name: d20_bossWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

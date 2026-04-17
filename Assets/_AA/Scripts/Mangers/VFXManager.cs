@@ -1,50 +1,63 @@
 using Lean.Pool;
-using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public struct VFXData
+{
+    public VFXType Type;
+    public GameObject Prefab;
+}
 
 public class VFXManager : MonoBehaviour
 {
-    private Dictionary<string, GameObject> _vfxPrefabs = new ();
-    [SerializeField] private List<VFXPrefab> _vfxPrefabsList;
+    [SerializeField] private VFXData[] _vfxDataArray;
+    private GameObject[] _prefabs;
+
     private void Awake()
     {
-        foreach (var vfx in _vfxPrefabsList)
+        int enumCount = (int)VFXType.COUNT;
+        _prefabs = new GameObject[enumCount];
+
+        foreach (var data in _vfxDataArray)
         {
-            if (!_vfxPrefabs.ContainsKey(vfx.Key))
-            {
-                _vfxPrefabs.Add(vfx.Key, vfx.Prefab);
-            }
-            else
-            {
-                Debug.LogWarning($"Duplicate VFX key detected: {vfx.Key}. Skipping.");
-            }
+            int index = (int)data.Type;
+            _prefabs[index] = data.Prefab;
         }
     }
+
     private void OnEnable()
     {
         GameEvents.PlayVFX_Projectile += OnPlayVFX;
         GameEvents.PlayVFX_Enemy += OnPlayVFX;
     }
+
     private void OnDisable()
     {
         GameEvents.PlayVFX_Projectile -= OnPlayVFX;
         GameEvents.PlayVFX_Enemy -= OnPlayVFX;
     }
-    private void OnPlayVFX(string key,Vector2 position)
+
+    private void OnPlayVFX(VFXType type, Vector2 position)
     {
-        foreach (var vfx in _vfxPrefabs)
+        int index = (int)type;
+
+        if (_prefabs[index] == null)
         {
-            if (vfx.Key == key)
-            {
-                LeanPool.Spawn(vfx.Value, position, Quaternion.identity,this.transform);
-                break;
-            }
+            Debug.LogWarning($"Eksik VFX referansý: {type}");
+            return;
         }
+
+        LeanPool.Spawn(_prefabs[index], position, Quaternion.identity, transform);
     }
 }
-[System.Serializable]
-public struct VFXPrefab
+
+public enum VFXType
 {
-    public string Key;
-    public GameObject Prefab;
+    EnemyExplosion,
+    Vfx_Red,
+    Vfx_Blue,
+    Vfx_Yellow,
+    Vfx_AddExplosion,
+    LevelUp,
+    COUNT
 }

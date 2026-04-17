@@ -7,7 +7,14 @@ public class EnemyInstance : MonoBehaviour, IDamagable , IKnockbackable,ISlowabl
     [HideInInspector] public EnemyManager manger;
     [SerializeField] private float damageInterval = 1f; 
     private float nextDamageTime = 0f;
+    [HideInInspector] public TrailRenderer trail;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
 
+    private void Awake()
+    {
+        trail = GetComponent<TrailRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     public void ApplyKnockback(Vector3 force)
     {
         manger.ApplyKnockback(index, force);
@@ -35,5 +42,9 @@ public class EnemyInstance : MonoBehaviour, IDamagable , IKnockbackable,ISlowabl
 
             nextDamageTime = Time.time + damageInterval;
         }
+    }
+    private void OnDisable()
+    {
+        if (trail != null) trail.Clear();
     }
 }

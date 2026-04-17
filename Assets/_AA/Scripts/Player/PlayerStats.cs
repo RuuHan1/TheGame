@@ -22,11 +22,12 @@ public class PlayerStats : MonoBehaviour, IDamagable
     [SerializeField] private ContactFilter2D _contactFilter;
     private Collider2D[] _pickupBuffer = new Collider2D[40]; // Sabit buffer, GC yok
     private float _nextPickupCheck;
-
+    private InputSystem_Actions _actions;
     private void OnEnable()
     {
         GameEvents.XpCollected += CollectXp;
         GameEvents.PlayerDamaged += TakeDamage;
+        _actions = new InputSystem_Actions();
     }
     private void Start()
     {
@@ -120,7 +121,9 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        _actions.Disable();
         Time.timeScale = 0f;
+        
     }
     private void CheckPickupRange()
     {

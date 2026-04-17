@@ -58,6 +58,7 @@ public class Projectile : MonoBehaviour
 
         collider.GetComponent<IDamagable>()?.TakeDamage(_container.Damage);
         GameEvents.PlayVFX_Projectile?.Invoke(_container.VFXKey, hitPoint);
+        GameEvents.PlaySound?.Invoke(_container.SfxType);
         Vector3 knockbackDir = (collider.transform.position - transform.position).normalized;
         if (_container.KnockbackForce > 0)
         {
@@ -111,6 +112,7 @@ public class Projectile : MonoBehaviour
     {
         _container = container;
         //container.ResetConteiner();
+        GameEvents.PlaySound?.Invoke(SfxType.PlayerShoot);
         Invoke(nameof(TimedDespawn), _container.Lifetime);
         if (_container.AirSplitTime > 0 && !container.IsChildProjectile)
         {

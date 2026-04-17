@@ -24,7 +24,8 @@ public class ProjectileContainer
     public float RotationSpeed = 0;
     public bool IsChildProjectile = false;
     public float SplitSpreadAngle = 50f;
-    public string VFXKey;
+    public VFXType VFXKey;
+    public SfxType SfxType;
     public float KnockbackForce = 0;
     public float SlowMultiplier = 1f;
     public float SlowDuration = 0f;
@@ -58,7 +59,8 @@ public class ProjectileContainer
         SplitCount = 0;
         RotationSpeed = 0;
         SplitSpreadAngle = 50f;
-        VFXKey = null;
+        VFXKey =VFXType.Vfx_AddExplosion;
+        SfxType = SfxType.COUNT;
         KnockbackForce = 0;
         SlowMultiplier = 1f;
         SlowDuration = 0f;
@@ -100,6 +102,7 @@ public class ProjectileContainer
         newContainer.HomingRange = HomingRange;
         newContainer.IsWall = IsWall;
         newContainer.WallStopDelay = WallStopDelay;
+        newContainer.SfxType = SfxType;
         if (OnHitPayloads != null)
         {
             foreach (var payload in this.OnHitPayloads)

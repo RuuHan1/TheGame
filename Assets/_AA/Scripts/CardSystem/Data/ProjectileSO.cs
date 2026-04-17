@@ -8,7 +8,8 @@ public abstract class ProjectileSO : CardSO
     public float Speed;
     public float CastDelay = 0.5f;
     public float Radius = 0;
-    public string VFXKey;
+    public VFXType VFXKey;
+    public SfxType SfxType;
     public override void UpdateContainer(ProjectileContainer container, WeaponInstance weapon)
     {
         container.ProjectilePrefab = ProjectilePrefab;
@@ -17,6 +18,7 @@ public abstract class ProjectileSO : CardSO
         container.CastDelay += CastDelay;
         container.Radius = Radius;
         container.VFXKey = VFXKey;
+        container.SfxType = SfxType;
         if (CastDelay< 0) container.CastDelay = 0;
     }
     

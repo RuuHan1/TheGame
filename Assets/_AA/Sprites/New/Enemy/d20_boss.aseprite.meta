@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: d20_boss
     originalName: 
-    pivot: {x: 0.5, y: -0.04444445}
+    pivot: {x: 0.48417738, y: 0.5102995}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 

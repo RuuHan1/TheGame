@@ -20,6 +20,7 @@ MonoBehaviour:
   Speed: 12
   CastDelay: 1
   Radius: 1
-  VFXKey: IceBallHit
+  VFXKey: 2
+  SfxType: 2
   _slowMultiplier: 0.415
   _slowDuration: 2

@@ -20,4 +20,5 @@ MonoBehaviour:
   Speed: 5
   CastDelay: 2
   Radius: 2
-  VFXKey: LightningBallHit
+  VFXKey: 3
+  SfxType: 3

@@ -10,12 +10,13 @@ public class SlotMachineManager : MonoBehaviour
     [Header("Slot Machine Spawn Settings")]
     [SerializeField] private GameObject _slotMachinePrefab;
     [SerializeField] private float _spawnDelay = 5f;
-    [SerializeField] private float _spawnRadius = 10f;
     private float _spawnTimer;
     private float _diedEnemyCounter;
     private float _spawnRate = 20;
 
     private Transform _playerTransform;
+     private Transform _areaCenter;
+    [SerializeField] private float _areaRadius;
     private void OnEnable()
     {
         GameEvents.SlotMachineTaken += OnSlotMachineTaken;
@@ -43,6 +44,7 @@ public class SlotMachineManager : MonoBehaviour
     private void Start()
     {
         _spawnTimer = _spawnDelay; // Initialize the spawn timer
+        _areaCenter = transform;
     }
     private void Update()
     {
@@ -146,13 +148,17 @@ public class SlotMachineManager : MonoBehaviour
         return (fallback, spins);
     }
 
-    public Vector2 GetRandomPointInCircle()
+    //public Vector2 GetRandomPointInCircle()
+    //{
+    //    Vector2 randomOffset = Random.insideUnitCircle * _spawnRadius;
+    //    return (Vector2)_playerTransform.position + randomOffset;
+    //}
+    public Vector2 GetRandomPointInPlayArea()
     {
-        Vector2 randomOffset = Random.insideUnitCircle * _spawnRadius;
-        return (Vector2)_playerTransform.position + randomOffset;
+        return (Vector2)_areaCenter.position + Random.insideUnitCircle * _areaRadius;
     }
     private void SpawnSlotMachine()
     {
-        LeanPool.Spawn(_slotMachinePrefab, GetRandomPointInCircle(), Quaternion.identity,this.transform);
+        LeanPool.Spawn(_slotMachinePrefab, GetRandomPointInPlayArea(), Quaternion.identity,this.transform);
     }
 }

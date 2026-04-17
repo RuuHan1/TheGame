@@ -20,4 +20,5 @@ MonoBehaviour:
   Speed: 10
   CastDelay: 0.5
   Radius: 1
-  VFXKey: FireBallHit
+  VFXKey: 1
+  SfxType: 1

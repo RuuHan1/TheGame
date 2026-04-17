@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: d6_player
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.48223993, y: 0.48765558}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 

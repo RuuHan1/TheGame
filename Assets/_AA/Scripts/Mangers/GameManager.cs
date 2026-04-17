@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public float Timer { get; private set; } = 0f;
     private bool _isSlowMotionActive = false;
     private bool _isGamePaused = false;
-    private bool _isBossSpawned = false;
     private void OnEnable()
     {
         GameEvents.GamePaused += OnGameStateChanged;

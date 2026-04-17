@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5194226975834811258}
   - component: {fileID: 617639613635749905}
   m_Layer: 8
-  m_Name: GoblinBoss
+  m_Name: d20_boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,7 +424,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 1
   m_Sprite: {fileID: 3276988318551126229, guid: fcb782e2a24a8994287fc57527ff94eb, type: 3}
-  m_Color: {r: 0.81886786, g: 0.1772174, b: 0, a: 1}
+  m_Color: {r: 0.97647065, g: 0.38431376, b: 0.5019608, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public struct SoundData
 {
-    public SoundType Type;
+    public SfxType Type;
     public AudioClip Clip;
     [Tooltip("Ayný sesin üst üste binmesini engellemek için geçmesi gereken minimum süre (Saniye). Örn: 0.05")]
     public float Cooldown;
@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
         _sfxSource.spatialBlend = 0f;
 
-        int enumCount = (int)SoundType.COUNT;
+        int enumCount = (int)SfxType.COUNT;
 
         _clips = new AudioClip[enumCount];
         _cooldowns = new float[enumCount];
@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour
         GameEvents.PlaySound -= OnPlaySound;
     }
 
-    private void OnPlaySound(SoundType soundType)
+    private void OnPlaySound(SfxType soundType)
     {
         int index = (int)soundType;
 
@@ -67,12 +67,12 @@ public class SoundManager : MonoBehaviour
         _sfxSource.PlayOneShot(_clips[index]);
     }
 }
-public enum SoundType
+public enum SfxType
 {
-    EnemyHit,
     PlayerShoot,
-    Explosion,
-    LevelUp,
-    ButtonHover,
+    Sfx_redExplosion,
+    Sfx_blueExplosion,
+    Sfx_yellowExplosion,
+    Sfx_enemyExplosion,
     COUNT
 }

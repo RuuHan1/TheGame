@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     [HideInInspector] public Transform target;
     public float SpawnRate = 1f;
     private float _spawnTimer = 0f;
-    [SerializeField] private float spawnRadius = 10f;
+    //[SerializeField] private float spawnRadius = 10f;
     [SerializeField] private Transform enemyPool;
     [Header("Difficulty Scaling")]
     private float difficulty = 1f;
@@ -20,6 +20,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] float hpScaling = 0.7f;
     [SerializeField] float speedScaling = 0.2f;
 
+
+    [SerializeField] private float _areaRadius;
+    private Transform _areaCenter;
     private int _recentKillCount = 0;
     private float _killWindowTimer = 0f;
     private const float KillWindow = 1f;
@@ -52,6 +55,7 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         _spawnTimer = SpawnRate;
+        _areaCenter = transform;
     }
     void Update()
     {
@@ -155,6 +159,13 @@ public class EnemyManager : MonoBehaviour
                 continue;
             instances[i].transform.position =
                 enemies[i].position;
+            float vx = enemies[i].velocity.x;
+            if (Mathf.Abs(vx) > 0.1f)
+            {
+                instances[i].spriteRenderer.flipX = vx < 0;
+            }
+            bool isMoving = enemies[i].velocity.magnitude > 0.5f;
+            instances[i].trail.emitting = isMoving;
         }
     }
     public void EnemyTookDamage(int i, float dmg)
@@ -182,7 +193,8 @@ public class EnemyManager : MonoBehaviour
 
         enemies[index] = temp;
         LeanPool.Despawn(instances[index].gameObject);
-        GameEvents.PlayVFX_Enemy?.Invoke("EnemyDeathVfx", enemies[index].position);
+        GameEvents.PlayVFX_Enemy?.Invoke(VFXType.EnemyExplosion, enemies[index].position);
+        GameEvents.PlaySound?.Invoke(SfxType.Sfx_enemyExplosion);
         _recentKillCount++;
         _killWindowTimer = KillWindow;
 
@@ -191,11 +203,25 @@ public class EnemyManager : MonoBehaviour
         GameEvents.ShakeCamera_EnemyManager?.Invoke(force);
     }
 
+    public Vector2 GetRandomPointInPlayArea()
+    {
+        int maxAttempts = 30;
+        float minSafeDistance = 1.5f;
 
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            Vector2 randomPoint = (Vector2)_areaCenter.position + UnityEngine.Random.insideUnitCircle * _areaRadius;
+            float distanceToTarget = Vector2.Distance(target.transform.position, randomPoint);
+            if (distanceToTarget >= minSafeDistance)
+            {
+                return randomPoint;
+            }
+        }
+        return (Vector2)_areaCenter.position;
+    }
     private void SpawnEnemy()
     {
-        Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
-        Vector3 spawnPos = target.position + (Vector3)randomPoint;
+        Vector3 spawnPos = GetRandomPointInPlayArea();
         EnemyStatsSO enemyStatsSO;
         int dice = UnityEngine.Random.Range(0, 11);
         enemyStatsSO = dice >= 10 ? _enemyStats[1] : _enemyStats[0];
