@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PauseUI : MonoBehaviour
+public class PauseUI : UIPanel
 {
     [SerializeField] private GameObject _pausePanel;
     [SerializeField] private InputActionReference _InputActions;

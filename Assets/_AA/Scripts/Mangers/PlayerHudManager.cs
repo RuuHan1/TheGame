@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerHudManager : MonoBehaviour
+public class PlayerHudManager : UIPanel
 {
     [SerializeField] private InputActionReference _inputReference;
     [SerializeField] private GameObject _worldText;

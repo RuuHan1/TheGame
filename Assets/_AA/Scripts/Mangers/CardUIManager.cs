@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CardUIManager : MonoBehaviour
+public class CardUIManager : UIPanel
 {
     [SerializeField] private GameObject handPanel;
     //[SerializeField] private GameObject _handPanelBg;

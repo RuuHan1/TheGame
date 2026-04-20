@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SlothMachineManagerUI : MonoBehaviour
+public class SlothMachineManagerUI : UIPanel
 {
     [Header("Wheels")]
     [Tooltip("Sahnedeki 3 Whell scriptini buraya sürükleyin.")]

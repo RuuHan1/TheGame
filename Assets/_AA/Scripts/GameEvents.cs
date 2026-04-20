@@ -24,6 +24,7 @@ public static class GameEvents
     public static Action NewRunClicked_UIManager;
     public static Action<float> SfxSliderChanged;
     public static Action<float> MusicSliderChanged;
+    public static Action<UIPanel> AddPanelToStack; 
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin

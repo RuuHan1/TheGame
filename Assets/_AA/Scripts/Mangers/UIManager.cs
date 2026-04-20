@@ -1,7 +1,9 @@
 using Lean.Pool;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -22,9 +24,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _infoPanelText;
     [SerializeField] private GameObject _infoTextBg;
     [SerializeField] private GameObject _endPanel;
+
+    private Stack<UIPanel> _activePanels = new();
+    [Header("References")]
+    [Tooltip("Hiçbir panel açýk deðilken ESC'ye basýldýðýnda açýlacak varsayýlan menü.")]
+    [SerializeField] private UIPanel _pauseMenuPanel;
+    private InputSystem_Actions _inputActions;
     //[SerializeField] private GameObject weaponRechargeTime;
+
+    private void Start()
+    {
+        _inputActions = new InputSystem_Actions();
+    }
     private void OnEnable()
     {
+        _inputActions?.Enable();
         GameEvents.OnEnemyDamaged += HandleEnemyDamaged;
         GameEvents.EnemyDied += HandleEnemyDied;
         GameEvents.PlayerLevelUp += SpawnPlayerLevelUpText;
@@ -33,11 +47,15 @@ public class UIManager : MonoBehaviour
         GameEvents.SecondPassed += OnSecondPassed;
         GameEvents.PopUpInfoPanel += OnPopUpInfoPanel;
         GameEvents.GameFinished_BossSpawner += OnGameFinished;
+        _inputActions.UI.Cancel.performed += OnCancelPerformed;
+        GameEvents.AddPanelToStack += OnOpenPanel;
     }
+
 
 
     private void OnDisable()
     {
+        _inputActions?.Disable();
         GameEvents.OnEnemyDamaged -= HandleEnemyDamaged;
         GameEvents.EnemyDied -= HandleEnemyDied;
         GameEvents.PlayerLevelUp -= SpawnPlayerLevelUpText;
@@ -46,7 +64,12 @@ public class UIManager : MonoBehaviour
         GameEvents.SecondPassed -= OnSecondPassed;
         GameEvents.PopUpInfoPanel -= OnPopUpInfoPanel;
         GameEvents.GameFinished_BossSpawner -= OnGameFinished;
+        _inputActions.UI.Cancel.performed -= OnCancelPerformed;
+        GameEvents.AddPanelToStack -= OnOpenPanel;
     }
+
+    
+
     private void OnSecondPassed()
     {
         _secondsPassed++;
@@ -57,32 +80,32 @@ public class UIManager : MonoBehaviour
     private void SpawnPlayerLevelUpText(Transform playerTransform)
     {
         Vector2 spawnPos = playerTransform.position + Vector3.up;
-        GameObject levelUpText = LeanPool.Spawn(levelUpTextPrefab,spawnPos,Quaternion.identity,uIPrefabPool);
+        GameObject levelUpText = LeanPool.Spawn(levelUpTextPrefab, spawnPos, Quaternion.identity, uIPrefabPool);
     }
     private void HandleEnemyDied(int obj)
     {
         _diedEnemies++;
-        enemyDeathText.text = _diedEnemies.ToString();  
+        enemyDeathText.text = _diedEnemies.ToString();
     }
     private void HandleEnemyDamaged(Vector3 vector, float arg2, bool arg3)
     {
         Vector2 spawnPos = vector + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0f, 1f), 0);
-        GameObject damageText = LeanPool.Spawn(damageTextPrefab, spawnPos, Quaternion.identity,uIPrefabPool);
+        GameObject damageText = LeanPool.Spawn(damageTextPrefab, spawnPos, Quaternion.identity, uIPrefabPool);
 
         damageText.GetComponent<DamageText>().Initialize(arg2, arg3);
     }
-    private void OnPlayerHealthChanged( float currentPlayerHealth,float maxHealth)
+    private void OnPlayerHealthChanged(float currentPlayerHealth, float maxHealth)
     {
-        float fillAmount = currentPlayerHealth/maxHealth;
+        float fillAmount = currentPlayerHealth / maxHealth;
         playerHealthImage.fillAmount = fillAmount;
 
     }
-    private void OnPlayerXpChanged(float maxXp, float currentXp,int level)
+    private void OnPlayerXpChanged(float maxXp, float currentXp, int level)
     {
         _playerLevelText.text = $"Lvl.{level}";
         float fillAmount = currentXp;
         //if blogu test edilmedi
-        if(currentXp > maxXp)
+        if (currentXp > maxXp)
         {
             fillAmount = currentXp - maxXp;
         }
@@ -90,10 +113,10 @@ public class UIManager : MonoBehaviour
         _playerXpImage.fillAmount = fillAmount;
     }
 
-    private void OnPopUpInfoPanel(string info,bool state)
+    private void OnPopUpInfoPanel(string info, bool state)
     {
         _infoTextBg.SetActive(state);
-        _infoPanelText.text = info+"(Space)";
+        _infoPanelText.text = info + "(Space)";
         // Örneðin, bir UI panel prefab'ý kullanarak:
         // GameObject popUpPanel = Instantiate(popUpPanelPrefab, uiCanvas.transform);
         // popUpPanel.GetComponent<PopUpPanel>().Initialize(info);
@@ -107,4 +130,39 @@ public class UIManager : MonoBehaviour
     {
         GameEvents.NewRunClicked_UIManager?.Invoke();
     }
+
+    private void OnCancelPerformed(InputAction.CallbackContext context)
+    {
+        if (_activePanels.Count > 0)
+        {
+            CloseTopPanel();
+        }
+        else
+        {
+            if (_pauseMenuPanel != null)
+            {
+                OnOpenPanel(_pauseMenuPanel);
+            }
+
+        }
+    }
+
+    public void OnOpenPanel(UIPanel newPanel)
+    {
+        if (_activePanels.Count > 0 && _activePanels.Peek() == newPanel) return;
+
+        newPanel.ShowPanel();
+        _activePanels.Push(newPanel);
+    }
+
+    public void CloseTopPanel()
+    {
+        if (_activePanels.Count > 0)
+        {
+            UIPanel topPanel = _activePanels.Pop();
+            topPanel.HidePanel();
+        }
+    }
+
+
 }
