@@ -135,7 +135,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
             //var interactable = _pickupBuffer[i].GetComponent<IInteractable>();
             if (collectable != null)
             {
-                collectable?.Collect(this);
+                collectable.Collect(this);
+                GameEvents.TriggerPlaySound(SfxType.Sfx_xpCollected);
             }
             //if (interactable != null)
             //{

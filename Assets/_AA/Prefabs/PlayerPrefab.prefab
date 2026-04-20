@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2762720699707464030, guid: 3e92c4d6d07c2ee40af8b1f4c020d6f6, type: 3}
+  m_Sprite: {fileID: 2183105323130858881, guid: d98f444cc444e3344bf77d3935678dd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,7 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _moveSpeed: 5
-  _trailOrigin: {fileID: 0}
 --- !u!50 &335968553876619647
 Rigidbody2D:
   serializedVersion: 5
@@ -507,7 +506,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.015540063, y: 0.011958659}
+  m_Offset: {x: 0.015540063, y: 0.13}
   m_Radius: 0.45
 --- !u!1 &6107993622125665767
 GameObject:
@@ -575,7 +574,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.15}
   m_Radius: 0.32
 --- !u!1 &6753324854552481322
 GameObject:

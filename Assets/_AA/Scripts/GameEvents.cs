@@ -22,6 +22,8 @@ public static class GameEvents
     public static Action ActivateWeaponRange_PlayerHud;
     public static Action<CardType[],CardViewSO> WhellSpinned_SlothMachineManager;
     public static Action NewRunClicked_UIManager;
+    public static Action<float> SfxSliderChanged;
+    public static Action<float> MusicSliderChanged;
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin
@@ -47,4 +49,10 @@ public static class GameEvents
     public static Action BossDefeated_Boss;
     //sound
     public static Action<SfxType> PlaySound;
+    public static event Action<MusicType> PlayMusic;
+    public static event Action<bool> StopMusic; // bool = fade?
+
+    public static void TriggerPlaySound(SfxType type) => PlaySound?.Invoke(type);
+    public static void TriggerPlayMusic(MusicType type) => PlayMusic?.Invoke(type);
+    public static void TriggerStopMusic(bool fade = true) => StopMusic?.Invoke(fade);
 }

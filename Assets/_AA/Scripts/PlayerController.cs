@@ -20,7 +20,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnEnable()
     {
+        //GameEvents.PlayerPosition?.Invoke(transform);
+        //Debug.Log("Invoked");
+    }
+    private void Start()
+    {
         GameEvents.PlayerPosition?.Invoke(transform);
+
     }
 
     private void OnMove(InputValue value)

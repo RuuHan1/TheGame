@@ -3,6 +3,7 @@ using Lean.Pool;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using DG.Tweening;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private LayerMask enemyLayer;
@@ -18,10 +19,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] private WeaponChangedEvent weaponChangedEvent;
     [SerializeField] private WeaponState weaponState;
     private WeaponInstance _weaponInstance;
-    
+
     private LineRenderer _lineRenderer;
     [SerializeField] private int segments = 60;
     private bool _isRangeActive = false;
+    private Collider2D[] _enemyBuffer = new Collider2D[100];
+    private ContactFilter2D _contactFilter;
+
     private void OnEnable()
     {
         GameEvents.WeaponSlotChanged += OnWeaponSlotChanged;
@@ -29,7 +33,7 @@ public class Weapon : MonoBehaviour
         GameEvents.ActivateWeaponRange_PlayerHud += ToggleRangeCircle;
     }
 
-   
+
 
     private void OnDisable()
     {
@@ -43,6 +47,12 @@ public class Weapon : MonoBehaviour
         {
             _weaponInstance = new WeaponInstance(_currentWeaponSO);
         }
+        _contactFilter = new ContactFilter2D
+        {
+            useLayerMask = true,
+            layerMask = enemyLayer,
+            //useTriggers = true  // trigger collider kullanýyorsan
+        };
         _lineRenderer = GetComponentInParent<LineRenderer>();
 
     }
@@ -79,17 +89,39 @@ public class Weapon : MonoBehaviour
     {
         if (_isFiring) return;
 
-        DrawRangeCircle(range);
-        var enemy = Physics2D.OverlapCircle(transform.position, range, enemyLayer);
-        if (enemy == null) return;
-        Transform enemyObj = enemy.GetComponent<Transform>();
-        StartCoroutine(Fire(enemyObj.position));
+        int count = Physics2D.OverlapCircle(
+               transform.position, range, _contactFilter, _enemyBuffer);
 
+        if (count == 0) return;
+
+#if UNITY_EDITOR
+    if (count == _enemyBuffer.Length)
+        Debug.LogWarning($"{name}: Enemy buffer dolu, boyutu artýr!");
+    DrawRangeCircle(range);
+#endif
+
+        Transform closestEnemy = null;
+        float minDistanceSqr = float.MaxValue; // Mathf.Infinity yerine daha temiz
+        Vector3 currentPosition = transform.position;
+
+        for (int i = 0; i < count; i++)
+        {
+            float dSqr = (_enemyBuffer[i].transform.position - currentPosition).sqrMagnitude;
+            if (dSqr < minDistanceSqr)
+            {
+                minDistanceSqr = dSqr;
+                closestEnemy = _enemyBuffer[i].transform;
+            }
+        }
+
+        if (closestEnemy != null)
+            StartCoroutine(Fire(closestEnemy)); // pozisyon deðil Transform
     }
 
 
-    public IEnumerator Fire(Vector2 pos)
+    public IEnumerator Fire(Transform enemyTransform)
     {
+        Vector2 pos =   new Vector2(enemyTransform.position.x,enemyTransform.position.y);
         _isFiring = true;
 
         var containers = _weaponInstance.Containers;
@@ -140,7 +172,7 @@ public class Weapon : MonoBehaviour
 
     private void SpawnBullet(ProjectileContainer container, Vector2 targetPos, float angleOffset)
     {
-        GameObject bullet = LeanPool.Spawn(container.ProjectilePrefab,bulletSpawnPoint.position,Quaternion.identity);
+        GameObject bullet = LeanPool.Spawn(container.ProjectilePrefab, bulletSpawnPoint.position, Quaternion.identity);
         var bulletComp = bullet.GetComponent<Projectile>();
         var rb = bullet.GetComponent<Rigidbody2D>();
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxHealth: 3000
   Damage: 20
   MovementSpeed: 3
-  MaxRange: 15
+  MaxRange: 11
   MeleeRange: 7
   BossWeaponPrefab: {fileID: 2529539643860538934, guid: 7868f3e527a797c4ca76d838eaff5036, type: 3}
   BossActions:

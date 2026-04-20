@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyData> enemies = new();
     public List<EnemyInstance> instances = new();
     [SerializeField] private List<EnemyStatsSO> _enemyStats = new();
-    [HideInInspector] public Transform target;
+    [HideInInspector] private Transform _target;
     public float SpawnRate = 1f;
     private float _spawnTimer = 0f;
     //[SerializeField] private float spawnRadius = 10f;
@@ -49,7 +49,7 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = UnityEngine.Random.insideUnitCircle.normalized;
         _fixedOffset = (Vector3)randomPoint / 2;
-        target = transform;
+        _target = transform;
         
     }
     private void Start()
@@ -91,10 +91,10 @@ public class EnemyManager : MonoBehaviour
     }
     private void Move()
     {
-        if (target == null) return;
+        if (_target == null) return;
 
         float dt = Time.deltaTime;
-        Vector3 targetPos = target.position;
+        Vector3 targetPos = _target.position;
 
         targetPos += _fixedOffset;
         float separationRadius = 1f;
@@ -211,7 +211,7 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < maxAttempts; i++)
         {
             Vector2 randomPoint = (Vector2)_areaCenter.position + UnityEngine.Random.insideUnitCircle * _areaRadius;
-            float distanceToTarget = Vector2.Distance(target.transform.position, randomPoint);
+            float distanceToTarget = Vector2.Distance(_target.transform.position, randomPoint);
             if (distanceToTarget >= minSafeDistance)
             {
                 return randomPoint;
