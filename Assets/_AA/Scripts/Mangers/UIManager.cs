@@ -1,6 +1,7 @@
 using Lean.Pool;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,16 +30,12 @@ public class UIManager : MonoBehaviour
     [Header("References")]
     [Tooltip("Hiçbir panel açýk deðilken ESC'ye basýldýðýnda açýlacak varsayýlan menü.")]
     [SerializeField] private UIPanel _pauseMenuPanel;
-    private InputSystem_Actions _inputActions;
-    //[SerializeField] private GameObject weaponRechargeTime;
 
     private void Start()
     {
-        _inputActions = new InputSystem_Actions();
     }
     private void OnEnable()
     {
-        _inputActions?.Enable();
         GameEvents.OnEnemyDamaged += HandleEnemyDamaged;
         GameEvents.EnemyDied += HandleEnemyDied;
         GameEvents.PlayerLevelUp += SpawnPlayerLevelUpText;
@@ -47,15 +44,14 @@ public class UIManager : MonoBehaviour
         GameEvents.SecondPassed += OnSecondPassed;
         GameEvents.PopUpInfoPanel += OnPopUpInfoPanel;
         GameEvents.GameFinished_BossSpawner += OnGameFinished;
-        _inputActions.UI.Cancel.performed += OnCancelPerformed;
         GameEvents.AddPanelToStack += OnOpenPanel;
+        GameEvents.EscapePressed += OnCancelPerformed;
     }
 
 
 
     private void OnDisable()
     {
-        _inputActions?.Disable();
         GameEvents.OnEnemyDamaged -= HandleEnemyDamaged;
         GameEvents.EnemyDied -= HandleEnemyDied;
         GameEvents.PlayerLevelUp -= SpawnPlayerLevelUpText;
@@ -64,11 +60,12 @@ public class UIManager : MonoBehaviour
         GameEvents.SecondPassed -= OnSecondPassed;
         GameEvents.PopUpInfoPanel -= OnPopUpInfoPanel;
         GameEvents.GameFinished_BossSpawner -= OnGameFinished;
-        _inputActions.UI.Cancel.performed -= OnCancelPerformed;
         GameEvents.AddPanelToStack -= OnOpenPanel;
+        GameEvents.EscapePressed -= OnCancelPerformed;
+
     }
 
-    
+
 
     private void OnSecondPassed()
     {
@@ -131,7 +128,7 @@ public class UIManager : MonoBehaviour
         GameEvents.NewRunClicked_UIManager?.Invoke();
     }
 
-    private void OnCancelPerformed(InputAction.CallbackContext context)
+    private void OnCancelPerformed()
     {
         if (_activePanels.Count > 0)
         {
@@ -153,6 +150,7 @@ public class UIManager : MonoBehaviour
 
         newPanel.ShowPanel();
         _activePanels.Push(newPanel);
+        UpdatePauseState();
     }
 
     public void CloseTopPanel()
@@ -161,8 +159,12 @@ public class UIManager : MonoBehaviour
         {
             UIPanel topPanel = _activePanels.Pop();
             topPanel.HidePanel();
+            UpdatePauseState();
         }
     }
-
-
+    private void UpdatePauseState()
+    {
+        bool isPaused = _activePanels?.Count > 0;
+        GameEvents.GamePaused?.Invoke(isPaused);
+    }
 }

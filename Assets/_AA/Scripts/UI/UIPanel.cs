@@ -12,6 +12,6 @@ public abstract class UIPanel : MonoBehaviour
     }
     public virtual void AddPanelToStack()
     {
-        GameEvents.AddPanelToStack(this);
+        GameEvents.AddPanelToStack?.Invoke(this);
     }
 }

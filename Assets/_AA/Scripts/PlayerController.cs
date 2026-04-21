@@ -13,25 +13,27 @@ public class PlayerController : MonoBehaviour
     {
         _moveSpeed = value;
     }
+    private void OnEnable()
+    {
+        GameEvents.OnMoveInput += OnMove;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnMoveInput -= OnMove;
+    }
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _trail = GetComponent<TrailRenderer>();
-    }
-    private void OnEnable()
-    {
-        //GameEvents.PlayerPosition?.Invoke(transform);
-        //Debug.Log("Invoked");
     }
     private void Start()
     {
         GameEvents.PlayerPosition?.Invoke(transform);
 
     }
-
-    private void OnMove(InputValue value)
+    private void OnMove(Vector2 value)
     {
-        _moveInput = value.Get<Vector2>();
+        _moveInput = value;
         FlipSprite(_moveInput);
     }
 
