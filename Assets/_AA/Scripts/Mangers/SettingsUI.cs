@@ -23,12 +23,10 @@ public class SettingsUI : UIPanel
     private void OnSfxChanged(float value)
     {
         GameEvents.SfxSliderChanged?.Invoke(value);
-        PlayerPrefs.SetFloat("SfxVolume", value);
     }
 
     private void OnMusicChanged(float value)
     {
         GameEvents.MusicSliderChanged?.Invoke(value);
-        PlayerPrefs.SetFloat("MusicVolume", value);
     }
 }

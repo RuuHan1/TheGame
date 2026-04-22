@@ -35,6 +35,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
         GameEvents.PlayerHealthChanged?.Invoke(CurrentHealth, MaxHealth);
         GameEvents.PlayerXpChanged?.Invoke(xpForNextLevel, _currentXp, _level);
+        GameEvents.TriggerPlayMusic(MusicType.Gameplay);
     }
 
 

@@ -271,8 +271,8 @@ public class SoundManager : MonoBehaviour
     }
     public void OnMusicSliderChanged(float value)
     {
-        SfxVolume = value;
-        PlayerPrefs.SetFloat("SfxVolume", value);
+        MusicVolume = value;
+        PlayerPrefs.SetFloat("MusicVolume", value);
     }
     //public void SetSfxVolume(float value)
     //{
