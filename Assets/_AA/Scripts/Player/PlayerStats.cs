@@ -123,7 +123,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     private void Die()
     {
         _actions.Disable();
-        Time.timeScale = 0f;
+        GameEvents.PlayerDied?.Invoke();
         
     }
     private void CheckPickupRange()

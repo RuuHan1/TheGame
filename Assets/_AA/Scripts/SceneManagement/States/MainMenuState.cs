@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,16 +12,23 @@ public class MainMenuState : ISceneState
     public void Enter()
     {
         SceneManager.LoadScene("MainMenu");
+
+        GameEvents.PlayButtonClicked += OnPlayClicked;
+    }
+
+    private void OnPlayClicked(int obj)
+    {
+        Debug.Log("registered");
+        _controller.ChangeState(new LoadingState(_controller,"GameScene",new GameplayState(_controller,obj)));
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        GameEvents.PlayButtonClicked -= OnPlayClicked;
     }
 
     public void Tick()
     {
-        throw new System.NotImplementedException();
     }
     public void StartGame(int difficulty)
     {

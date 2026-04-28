@@ -15,6 +15,10 @@ public class SceneController : MonoBehaviour
         _isInitialized = true;
         DontDestroyOnLoad(this.gameObject);
     }
+    private void Start()
+    {
+        ChangeState(new MainMenuState(this));
+    }
     private void Update()
     {
         _currentState?.Tick();
