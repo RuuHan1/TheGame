@@ -16,4 +16,4 @@ MonoBehaviour:
   CardTier: 0
   CardRarity: 2
   splitCount: 2
-  splitTime: 0.2
+  splitTime: 0.1

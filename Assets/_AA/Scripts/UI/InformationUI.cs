@@ -5,7 +5,7 @@ using TMPro;
 public class InformationUI : UIPanel
 {
     [Header("Data")]
-    [SerializeField] private RunDataSO _runCardData;
+    [SerializeField] private RunDataSO _runData;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject _cardPrefab; // Kart arayüz prefabý
@@ -27,13 +27,13 @@ public class InformationUI : UIPanel
 
     private void UpdateStatsUI()
     {
-        // Not: Bu verilerin kaynaðý mevcut RunCardDataSO içinde yok. 
-        // Ya SO geniþletilmeli ya da ilgili sistemden (örn: StatsManager.Instance) çekilmelidir.
+        _killCountText.text = _runData.KillCount.ToString();
+        _levelText.text = _runData.LevelReached.ToString();
+        float time = _runData.SurvivalTime;
+        int minutes = Mathf.FloorToInt(time / 60f);
+        int seconds = Mathf.FloorToInt(time % 60f);
 
-        // Örnek kullaným:
-        // _killCountText.text = _runCardData.killCount.ToString();
-        // _timeText.text = FormatTime(_runCardData.survivalTime);
-        // _levelText.text = _runCardData.levelReached.ToString();
+        _timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void UpdateCardsUI()
@@ -41,8 +41,8 @@ public class InformationUI : UIPanel
         ClearGrid(_weaponCardsGrid);
         ClearGrid(_handCardsGrid);
 
-        PopulateGrid(_runCardData.WeaponCards, _weaponCardsGrid);
-        PopulateGrid(_runCardData.HandCards, _handCardsGrid);
+        PopulateGrid(_runData.WeaponCards, _weaponCardsGrid);
+        PopulateGrid(_runData.HandCards, _handCardsGrid);
     }
 
     private void ClearGrid(Transform grid)

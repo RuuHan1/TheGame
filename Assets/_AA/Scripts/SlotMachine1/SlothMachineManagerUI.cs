@@ -12,19 +12,17 @@ public class SlothMachineManagerUI : UIPanel
     [Header("UI References")]
     [SerializeField] private GameObject _SlothMachinePanel;
     [SerializeField] private GameObject _CardPrefab;
-    [SerializeField] private InputActionReference _interactAction;
     private bool _isSpinning = false;
     private void OnEnable()
     {
-        _interactAction.action.Enable();
-        _interactAction.action.performed += OnCloseAnimationPanel;
+        GameEvents.Interact += OnCloseAnimationPanel;
         GameEvents.WhellSpinned_SlothMachineManager += HandleSpinEvent;
     }
 
     private void OnDisable()
     {
         GameEvents.WhellSpinned_SlothMachineManager -= HandleSpinEvent;
-        _interactAction.action.performed -= OnCloseAnimationPanel;
+        GameEvents.Interact -= OnCloseAnimationPanel;
     }
 
     private void HandleSpinEvent(CardType[] targets, CardViewSO viewSO)
@@ -74,7 +72,7 @@ public class SlothMachineManagerUI : UIPanel
 
         _isSpinning = false;
     }
-    private void OnCloseAnimationPanel(InputAction.CallbackContext context)
+    private void OnCloseAnimationPanel()
     {
         if (_isSpinning)
         {
@@ -82,7 +80,5 @@ public class SlothMachineManagerUI : UIPanel
         }
         GameEvents.GamePaused?.Invoke(false);
         _SlothMachinePanel.SetActive(false);
-
-
     }
 }

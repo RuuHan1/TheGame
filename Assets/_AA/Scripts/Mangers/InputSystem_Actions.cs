@@ -172,6 +172,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleHandPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f7f162a-9b30-4f5b-bdf5-39d37b285ec3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleWeaponRangeCircle"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce2c08e2-5c4d-4dee-8341-8d4346c2d5d8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InteractAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1543bae-0639-456d-a68e-eb5bc4707628"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -559,6 +586,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e54a7661-dd9e-4d73-ac03-8c81a74c0fa4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ToggleHandPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e99a8d85-6205-4f7f-9386-63320ddc432b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ToggleWeaponRangeCircle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""998be8a3-caf8-413c-93a0-f4e7deafa6f4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""InteractAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -652,33 +712,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be"",
                     ""expectedControlType"": ""Quaternion"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleHandPanel"",
-                    ""type"": ""Button"",
-                    ""id"": ""4f064b81-ae5e-4540-ad41-a8900313710f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleWeaponRangeCircle"",
-                    ""type"": ""Button"",
-                    ""id"": ""e6c3930b-c676-468d-9966-5a1689b1583b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""InteractAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""fa09ce67-6227-4efe-aab5-54bbfad601d2"",
-                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1102,39 +1135,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bc2da576-23a2-4585-b669-70cc6b251836"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ToggleHandPanel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2d3a8d0-97a2-4a3f-bb8f-f37df54561a1"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ToggleWeaponRangeCircle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b1a3d2ad-a778-438b-b54d-4ea924da688d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""InteractAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1213,6 +1213,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_ToggleHandPanel = m_Player.FindAction("ToggleHandPanel", throwIfNotFound: true);
+        m_Player_ToggleWeaponRangeCircle = m_Player.FindAction("ToggleWeaponRangeCircle", throwIfNotFound: true);
+        m_Player_InteractAction = m_Player.FindAction("InteractAction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1225,9 +1228,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_ToggleHandPanel = m_UI.FindAction("ToggleHandPanel", throwIfNotFound: true);
-        m_UI_ToggleWeaponRangeCircle = m_UI.FindAction("ToggleWeaponRangeCircle", throwIfNotFound: true);
-        m_UI_InteractAction = m_UI.FindAction("InteractAction", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1318,6 +1318,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Previous;
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_ToggleHandPanel;
+    private readonly InputAction m_Player_ToggleWeaponRangeCircle;
+    private readonly InputAction m_Player_InteractAction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1365,6 +1368,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleHandPanel".
+        /// </summary>
+        public InputAction @ToggleHandPanel => m_Wrapper.m_Player_ToggleHandPanel;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleWeaponRangeCircle".
+        /// </summary>
+        public InputAction @ToggleWeaponRangeCircle => m_Wrapper.m_Player_ToggleWeaponRangeCircle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InteractAction".
+        /// </summary>
+        public InputAction @InteractAction => m_Wrapper.m_Player_InteractAction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1418,6 +1433,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @ToggleHandPanel.started += instance.OnToggleHandPanel;
+            @ToggleHandPanel.performed += instance.OnToggleHandPanel;
+            @ToggleHandPanel.canceled += instance.OnToggleHandPanel;
+            @ToggleWeaponRangeCircle.started += instance.OnToggleWeaponRangeCircle;
+            @ToggleWeaponRangeCircle.performed += instance.OnToggleWeaponRangeCircle;
+            @ToggleWeaponRangeCircle.canceled += instance.OnToggleWeaponRangeCircle;
+            @InteractAction.started += instance.OnInteractAction;
+            @InteractAction.performed += instance.OnInteractAction;
+            @InteractAction.canceled += instance.OnInteractAction;
         }
 
         /// <summary>
@@ -1456,6 +1480,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @ToggleHandPanel.started -= instance.OnToggleHandPanel;
+            @ToggleHandPanel.performed -= instance.OnToggleHandPanel;
+            @ToggleHandPanel.canceled -= instance.OnToggleHandPanel;
+            @ToggleWeaponRangeCircle.started -= instance.OnToggleWeaponRangeCircle;
+            @ToggleWeaponRangeCircle.performed -= instance.OnToggleWeaponRangeCircle;
+            @ToggleWeaponRangeCircle.canceled -= instance.OnToggleWeaponRangeCircle;
+            @InteractAction.started -= instance.OnInteractAction;
+            @InteractAction.performed -= instance.OnInteractAction;
+            @InteractAction.canceled -= instance.OnInteractAction;
         }
 
         /// <summary>
@@ -1503,9 +1536,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_ToggleHandPanel;
-    private readonly InputAction m_UI_ToggleWeaponRangeCircle;
-    private readonly InputAction m_UI_InteractAction;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1557,18 +1587,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/TrackedDeviceOrientation".
         /// </summary>
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/ToggleHandPanel".
-        /// </summary>
-        public InputAction @ToggleHandPanel => m_Wrapper.m_UI_ToggleHandPanel;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/ToggleWeaponRangeCircle".
-        /// </summary>
-        public InputAction @ToggleWeaponRangeCircle => m_Wrapper.m_UI_ToggleWeaponRangeCircle;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/InteractAction".
-        /// </summary>
-        public InputAction @InteractAction => m_Wrapper.m_UI_InteractAction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1625,15 +1643,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
-            @ToggleHandPanel.started += instance.OnToggleHandPanel;
-            @ToggleHandPanel.performed += instance.OnToggleHandPanel;
-            @ToggleHandPanel.canceled += instance.OnToggleHandPanel;
-            @ToggleWeaponRangeCircle.started += instance.OnToggleWeaponRangeCircle;
-            @ToggleWeaponRangeCircle.performed += instance.OnToggleWeaponRangeCircle;
-            @ToggleWeaponRangeCircle.canceled += instance.OnToggleWeaponRangeCircle;
-            @InteractAction.started += instance.OnInteractAction;
-            @InteractAction.performed += instance.OnInteractAction;
-            @InteractAction.canceled += instance.OnInteractAction;
         }
 
         /// <summary>
@@ -1675,15 +1684,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
-            @ToggleHandPanel.started -= instance.OnToggleHandPanel;
-            @ToggleHandPanel.performed -= instance.OnToggleHandPanel;
-            @ToggleHandPanel.canceled -= instance.OnToggleHandPanel;
-            @ToggleWeaponRangeCircle.started -= instance.OnToggleWeaponRangeCircle;
-            @ToggleWeaponRangeCircle.performed -= instance.OnToggleWeaponRangeCircle;
-            @ToggleWeaponRangeCircle.canceled -= instance.OnToggleWeaponRangeCircle;
-            @InteractAction.started -= instance.OnInteractAction;
-            @InteractAction.performed -= instance.OnInteractAction;
-            @InteractAction.canceled -= instance.OnInteractAction;
         }
 
         /// <summary>
@@ -1852,6 +1852,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleHandPanel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleHandPanel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleWeaponRangeCircle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleWeaponRangeCircle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InteractAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteractAction(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -1930,26 +1951,5 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ToggleHandPanel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnToggleHandPanel(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ToggleWeaponRangeCircle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnToggleWeaponRangeCircle(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "InteractAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnInteractAction(InputAction.CallbackContext context);
     }
 }

@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class CardManager : MonoBehaviour
 {
     [SerializeField] private CardLibrarySO _cardLibrary;
-    [SerializeField] private RunDataSO _runCardDataSO;
     [SerializeField] private List<CardSO> _allCardDatas;
     [HideInInspector] public IReadOnlyList<CardSO> AllCards => _allCardDatas;
     //sadece izlemek icin ,  daha sonra private yapilabilir
@@ -37,8 +36,6 @@ public class CardManager : MonoBehaviour
     private void UpdateHand(List<CardViewSO> list)
     {
         Hand = new List<CardViewSO>(list);
-        _runCardDataSO.HandCards.Clear();
-        _runCardDataSO.HandCards.AddRange(list);
     }
 
     public void AddCardToHand(CardViewSO card)
@@ -49,8 +46,6 @@ public class CardManager : MonoBehaviour
     private void UpdateWeapon(List<CardViewSO> list)
     {
         WeaponSlot = new List<CardViewSO>(list);
-        _runCardDataSO.WeaponCards.Clear();
-        _runCardDataSO.WeaponCards.AddRange(list);
     }
 
 

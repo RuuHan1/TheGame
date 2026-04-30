@@ -72,7 +72,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
         _level++;
         xpForNextLevel += xpGapPerLevel * _level;
         IncreasePlayerStats();
-        GameEvents.PlayerLevelUp?.Invoke(this.transform);
+        GameEvents.PlayerLevelUp?.Invoke(this.transform,_level);
         this.GetComponent<PlayerController>().SetMoveSpeed(MoveSpeed);
 
         //efekt icin event tetikle

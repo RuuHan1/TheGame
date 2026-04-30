@@ -7,17 +7,17 @@ public class RunDataSO : ScriptableObject
     [HideInInspector]public List<CardViewSO> WeaponCards = new();
     [HideInInspector]public List<CardViewSO> HandCards = new();
     [Header("Run Stats Data")]
-    public int killCount;
-    public float survivalTime;
-    public int levelReached;
+    [HideInInspector] public int KillCount;
+    [HideInInspector] public float SurvivalTime;
+    [HideInInspector] public int LevelReached;
 
     public void ResetData()
     {
         WeaponCards.Clear();
         HandCards.Clear();
 
-        killCount = 0;
-        survivalTime = 0f;
-        levelReached = 1;
+        KillCount = 0;
+        SurvivalTime = 0f;
+        LevelReached = 1;
     }
 }

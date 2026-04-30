@@ -40,12 +40,12 @@ public class BossSpawner : MonoBehaviour, IInteractable
     {
         if (_bossDefeated)
         {
-            GameEvents.PopUpInfoPanel?.Invoke("Boss defeated! For upstair.", _isInfoPanelOpen);
+            GameEvents.ToggleInfoPanel?.Invoke("Boss defeated! For upstair.", _isInfoPanelOpen);
             return;
         }
         else
         {
-            GameEvents.PopUpInfoPanel?.Invoke("Spawn boss", _isInfoPanelOpen);
+            GameEvents.ToggleInfoPanel?.Invoke("Spawn boss", _isInfoPanelOpen);
 
         }
 

@@ -9,7 +9,7 @@ public static class GameEvents
     public static Action<Transform> PlayerPosition;
     public static Action<Vector3, float> EnemyDiedXp;
     public static Action<float> XpCollected;
-    public static Action<Transform> PlayerLevelUp;
+    public static Action<Transform,int> PlayerLevelUp;
     public static Action<float> PlayerDamaged;
     public static Action<float,float> PlayerHealthChanged;
     public static Action<List<CardViewSO>> HandChanged;
@@ -31,12 +31,14 @@ public static class GameEvents
     public static Action<float> LoadingProgressUpdated_LoadingState;
     public static Action<List<CardViewSO>> EndGameWeaponCardsReceived_CardPanel;
     public static Action<List<CardViewSO>> EndGameHandCardsReceived_CardPanel;
+    public static Action ToggleCardPanel;
+    public static Action Interact;
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin
     public static Action<float, float,int> PlayerXpChanged;
     //timer icin
-    public static Action SecondPassed;
+    public static Action<int> SecondPassed;
     //weapon slot sayisini degistiren kart kullaninca
     public static Action<int> WeaponSlotCountChanged;
     //vfx icin
@@ -50,7 +52,7 @@ public static class GameEvents
     //EnemySword
     public static Action EnemySwordHit;
     //
-    public static Action<string,bool> PopUpInfoPanel;
+    public static Action<string,bool> ToggleInfoPanel;
     public static Action GameFinished_BossSpawner;
     //
     public static Action BossDefeated_Boss;

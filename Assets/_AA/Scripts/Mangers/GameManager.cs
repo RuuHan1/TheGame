@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public float Timer { get; private set; } = 0f;
+    public int Timer { get; private set; } = 0;
     private bool _isSlowMotionActive = false;
     private bool _isGamePaused = false;
-    [SerializeField] private RunDataSO _runCardDataSO;
     private void OnEnable()
     {
         GameEvents.GamePaused += OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager += OnDecreaseTimeScale;
-        GameEvents.NewRunClicked_UIManager += OnNewRunClicked;
         GameEvents.PlayerDied += OnPlayerDeath;
 
     }
@@ -22,7 +20,6 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.GamePaused -= OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager -= OnDecreaseTimeScale;
-        GameEvents.NewRunClicked_UIManager -= OnNewRunClicked;
         GameEvents.PlayerDied -= OnPlayerDeath;
 
     }
@@ -32,17 +29,10 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged(true);
     }
 
-    private void Awake()
-    {
-        _runCardDataSO.ResetData();
-    }
+
     private void Start()
     {
         StartCoroutine(TimerRoutine());
-    }
-    private void Update()
-    {
-        Timer += Time.deltaTime;
     }
     private void OnDecreaseTimeScale()
     {
@@ -68,7 +58,8 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return oneSecond;
-            GameEvents.SecondPassed?.Invoke();
+            Timer++;
+            GameEvents.SecondPassed?.Invoke(Timer);
         }
     }
 
@@ -87,8 +78,5 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 1f;
     }
-    private void OnNewRunClicked()
-    {
-        SceneManager.LoadScene(0);
-    }
+
 }

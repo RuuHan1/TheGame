@@ -8,23 +8,20 @@ public class CardUIManager : UIPanel
     //[SerializeField] private GameObject _handPanelBg;
     [SerializeField] private GameObject _weaponSlotPanel;
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private InputActionReference inputReference;
 
     private void OnEnable()
     {
         GameEvents.HandChanged += InitializeHand;
-        inputReference.action.Enable();
-        inputReference.action.performed += TogglePanels;
+        GameEvents.ToggleCardPanel += OnToggleCardPanel;
     }
 
     private void OnDisable()
     {
         GameEvents.HandChanged -= InitializeHand;
-        inputReference.action.Disable();
-        inputReference.action.performed -= TogglePanels;
+        GameEvents.ToggleCardPanel -= OnToggleCardPanel;
     }
 
-    private void TogglePanels(InputAction.CallbackContext context)
+    private void OnToggleCardPanel()
     {
         bool active = _handPanel.activeSelf;
         GameEvents.GamePaused?.Invoke(!active);
