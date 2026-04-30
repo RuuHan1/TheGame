@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b143e2bcf90133e419739a3f7d113ffe, type: 3}
   m_Name: DefaultEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
-  MaxHealth: 10
+  MaxHealth: 7
   MoveSpeed: 2
   Damage: 10
   XpValue: 5

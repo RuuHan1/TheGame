@@ -29,7 +29,8 @@ public static class GameEvents
     public static Action EscapePressed;
     public static Action<int> PlayButtonClicked;
     public static Action<float> LoadingProgressUpdated_LoadingState;
-
+    public static Action<List<CardViewSO>> EndGameWeaponCardsReceived_CardPanel;
+    public static Action<List<CardViewSO>> EndGameHandCardsReceived_CardPanel;
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin

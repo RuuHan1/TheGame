@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class CardUIManager : UIPanel
 {
-    [SerializeField] private GameObject handPanel;
+    [SerializeField] private GameObject _handPanel;
     //[SerializeField] private GameObject _handPanelBg;
-    [SerializeField] private GameObject weaponSlotPanel;
+    [SerializeField] private GameObject _weaponSlotPanel;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private InputActionReference inputReference;
 
@@ -15,7 +15,6 @@ public class CardUIManager : UIPanel
         GameEvents.HandChanged += InitializeHand;
         inputReference.action.Enable();
         inputReference.action.performed += TogglePanels;
-
     }
 
     private void OnDisable()
@@ -25,34 +24,29 @@ public class CardUIManager : UIPanel
         inputReference.action.performed -= TogglePanels;
     }
 
-    private void Start()
-    {
-        
-    }
     private void TogglePanels(InputAction.CallbackContext context)
     {
-        bool active = handPanel.activeSelf;
+        bool active = _handPanel.activeSelf;
         GameEvents.GamePaused?.Invoke(!active);
-        handPanel.SetActive(!active);
-        weaponSlotPanel.SetActive(!active);
-        //_handPanelBg.SetActive(!active);
+        _handPanel.SetActive(!active);
+        _weaponSlotPanel.SetActive(!active);
     }
 
     private void InitializeHand(List<CardViewSO> cards)
     {
-        foreach (Transform t in handPanel.transform)
+        foreach (Transform t in _handPanel.transform)
             Destroy(t.gameObject);
 
         foreach (var card in cards)
         {
-            GameObject go = Instantiate(cardPrefab, handPanel.transform);
+            GameObject go = Instantiate(cardPrefab, _handPanel.transform);
             go.transform.localScale = Vector3.one;
 
             CardVisualizer visual = go.GetComponent<CardVisualizer>();
             visual.cardData = card;
             visual.Setup(card);
             
-            CardPanel panel = handPanel.GetComponent<CardPanel>();
+            CardPanel panel = _handPanel.GetComponent<CardPanel>();
             if (panel != null)
             {
                 visual.SetCurrentSlot(panel);

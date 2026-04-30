@@ -12,7 +12,6 @@ public class CardPanel : MonoBehaviour, IDropHandler
     [SerializeField] private WeaponState weaponState;
     [SerializeField] private WeaponChangedEvent weaponChangedEvent;
 
-
     private void OnEnable()
     {
         weaponChangedEvent.OnEventRaised += OnWeaponChanged;
@@ -83,15 +82,17 @@ public class CardPanel : MonoBehaviour, IDropHandler
 
     private void SendEvent()
     {
-        List<CardViewSO> data = new();
-
-        foreach (var card in cardsOnList)
-            data.Add(card.cardData);
+        //calismassa lsiteyi new leyip dene
+        List<CardViewSO> data = GetCurrentCardData();
 
         if (isWeaponSlot)
+        {
             GameEvents.WeaponSlotChanged?.Invoke(data);
+        }
         else
+        {
             GameEvents.HandChanged?.Invoke(data);
+        }
     }
 
     private int GetDropIndex(PointerEventData eventData)
@@ -105,6 +106,15 @@ public class CardPanel : MonoBehaviour, IDropHandler
         }
 
         return transform.childCount;
+    }
+    private List<CardViewSO> GetCurrentCardData()
+    {
+        List<CardViewSO> data = new();
+        foreach (var card in cardsOnList)
+        {
+            data.Add(card.cardData);
+        }
+        return data;
     }
 
     

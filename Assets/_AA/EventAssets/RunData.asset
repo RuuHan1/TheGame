@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49aa8d94f6a435f4e88e3079f1179eec, type: 3}
-  m_Name: AddSlot
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponSlotCountModifier
-  CardType: 1
-  CardTier: 0
-  CardRarity: 1
-  slotCountIncrease: 2
+  m_Script: {fileID: 11500000, guid: 9f3ed750b6631e5438a637584a81199f, type: 3}
+  m_Name: RunData
+  m_EditorClassIdentifier: Assembly-CSharp::RunCardDataSO
+  WeaponCards: []
+  HandCards: []

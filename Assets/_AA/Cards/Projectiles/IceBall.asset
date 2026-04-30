@@ -19,7 +19,7 @@ MonoBehaviour:
   Damage: 15
   Speed: 12
   CastDelay: 1
-  Radius: 1
+  Radius: 1.5
   VFXKey: 2
   SfxType: 2
   _slowMultiplier: 0.415

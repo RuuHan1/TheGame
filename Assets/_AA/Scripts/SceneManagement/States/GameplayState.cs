@@ -38,13 +38,13 @@ public class GameplayState : ISceneState
     private void OnPlayerDied()
     {
 
-        _controller.ChangeState(
-            new LoadingState(
-                _controller,
-                "MainMenu",
-                new MainMenuState(_controller)
-            )
-        );
+        //_controller.ChangeState(
+        //    new LoadingState(
+        //        _controller,
+        //        "MainMenu",
+        //        new MainMenuState(_controller)
+        //    )
+        //);
     }
 
 }

@@ -19,6 +19,6 @@ MonoBehaviour:
   Damage: 20
   Speed: 10
   CastDelay: 0.5
-  Radius: 1
+  Radius: 2.03
   VFXKey: 1
   SfxType: 1

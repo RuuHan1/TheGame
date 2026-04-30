@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,24 +8,37 @@ public class GameManager : MonoBehaviour
     public float Timer { get; private set; } = 0f;
     private bool _isSlowMotionActive = false;
     private bool _isGamePaused = false;
+    [SerializeField] private RunDataSO _runCardDataSO;
     private void OnEnable()
     {
         GameEvents.GamePaused += OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager += OnDecreaseTimeScale;
         GameEvents.NewRunClicked_UIManager += OnNewRunClicked;
+        GameEvents.PlayerDied += OnPlayerDeath;
 
     }
 
-
-    private void Start()
-    {
-        StartCoroutine(TimerRoutine());
-    }
     private void OnDisable()
     {
         GameEvents.GamePaused -= OnGameStateChanged;
         GameEvents.DecreaseTimeScale_EnemyManager -= OnDecreaseTimeScale;
         GameEvents.NewRunClicked_UIManager -= OnNewRunClicked;
+        GameEvents.PlayerDied -= OnPlayerDeath;
+
+    }
+
+    private void OnPlayerDeath()
+    {
+        OnGameStateChanged(true);
+    }
+
+    private void Awake()
+    {
+        _runCardDataSO.ResetData();
+    }
+    private void Start()
+    {
+        StartCoroutine(TimerRoutine());
     }
     private void Update()
     {

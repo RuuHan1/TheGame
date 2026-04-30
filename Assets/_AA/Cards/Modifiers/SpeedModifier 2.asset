@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatModifier
   CardType: 1
   CardTier: 0
-  CardRarity: 0
+  CardRarity: 2
   DamageMultiplier: 0
   SpeedMultiplier: 0.5
   CastDelay: 0

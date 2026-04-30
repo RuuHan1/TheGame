@@ -20,14 +20,12 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     [SerializeField] private float pickupCheckInterval = 0.3f; // Her 0.1s'de bir kontrol
     [SerializeField] private ContactFilter2D _contactFilter;
-    private Collider2D[] _pickupBuffer = new Collider2D[40]; // Sabit buffer, GC yok
+    private Collider2D[] _pickupBuffer = new Collider2D[100]; 
     private float _nextPickupCheck;
-    private InputSystem_Actions _actions;
     private void OnEnable()
     {
         GameEvents.XpCollected += CollectXp;
         GameEvents.PlayerDamaged += TakeDamage;
-        _actions = new InputSystem_Actions();
     }
     private void Start()
     {
@@ -122,7 +120,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     private void Die()
     {
-        _actions.Disable();
         GameEvents.PlayerDied?.Invoke();
         
     }

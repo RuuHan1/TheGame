@@ -77,6 +77,7 @@ public class SoundManager : MonoBehaviour
         GameEvents.StopMusic += OnStopMusic;
         GameEvents.SfxSliderChanged += OnSfxSliderChanged;
         GameEvents.MusicSliderChanged += OnMusicSliderChanged;
+        GameEvents.PlayerDied += OnPlayerDeath;
     }
 
     private void OnDisable()
@@ -86,7 +87,12 @@ public class SoundManager : MonoBehaviour
         GameEvents.StopMusic -= OnStopMusic;
         GameEvents.SfxSliderChanged -= OnSfxSliderChanged;
         GameEvents.MusicSliderChanged -= OnMusicSliderChanged;
+        GameEvents.PlayerDied += OnPlayerDeath;
+    }
 
+    private void OnPlayerDeath()
+    {
+        OnStopMusic(true);
     }
 
     private void OnPlaySound(SfxType soundType)
@@ -215,7 +221,6 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator FadeRoutine(AudioClip newClip, float targetBaseVolume)
     {
-        // Mevcut sesi kýs
         if (_musicSource.isPlaying)
         {
             float startVolume = _musicSource.volume;
@@ -228,15 +233,11 @@ public class SoundManager : MonoBehaviour
                 yield return null;
             }
         }
-
-        // Yeni sesi baþlat ve aç
         _musicSource.clip = newClip;
         _musicSource.volume = 0f;
         _musicSource.Play();
-
         float targetVolume = targetBaseVolume * _musicVolume;
         float t2 = 0f;
-
         while (t2 < 1f)
         {
             t2 += Time.deltaTime / _fadeDuration;

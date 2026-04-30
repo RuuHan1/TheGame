@@ -199,7 +199,7 @@ public class EnemyManager : MonoBehaviour
         _killWindowTimer = KillWindow;
 
         float t = Mathf.Clamp01((float)_recentKillCount / 20f); // 20 kill = max force
-        float force = Mathf.Lerp(0.1f, 3f, t);
+        float force = Mathf.Lerp(0.1f, 1.5f, t);
         GameEvents.ShakeCamera_EnemyManager?.Invoke(force);
     }
 

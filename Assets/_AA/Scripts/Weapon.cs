@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
     private bool _isRangeActive = false;
     private Collider2D[] _enemyBuffer = new Collider2D[100];
     private ContactFilter2D _contactFilter;
-
+    private int _totalModifierCardCount = 0;
     private void OnEnable()
     {
         GameEvents.WeaponSlotChanged += OnWeaponSlotChanged;
@@ -51,7 +51,6 @@ public class Weapon : MonoBehaviour
         {
             useLayerMask = true,
             layerMask = enemyLayer,
-            //useTriggers = true  // trigger collider kullanýyorsan
         };
         _lineRenderer = GetComponentInParent<LineRenderer>();
 
@@ -121,7 +120,7 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator Fire(Transform enemyTransform)
     {
-        Vector2 pos =   new Vector2(enemyTransform.position.x,enemyTransform.position.y);
+        Vector2 pos = new Vector2(enemyTransform.position.x, enemyTransform.position.y);
         _isFiring = true;
 
         var containers = _weaponInstance.Containers;
@@ -158,7 +157,9 @@ public class Weapon : MonoBehaviour
 
                 SpawnBullet(container, pos, angleOffset);
             }
-
+            float t = Mathf.Clamp01((float)_totalModifierCardCount / 8f);
+            float force = Mathf.Lerp(0.05f, 0.6f, t);
+            GameEvents.ShakeCamera_EnemyManager?.Invoke(force);
             float delay = Mathf.Max(0.05f, containers[i].CastDelay);
             yield return new WaitForSeconds(delay);
 
@@ -225,6 +226,10 @@ public class Weapon : MonoBehaviour
             }
 
         }
+        _totalModifierCardCount = 0;
+        foreach (var card in _cardsInSlots)
+            if (card.CardType != CardType.Projectile)
+                _totalModifierCardCount++;
 
     }
     public void OnWeaponSlotAmountChanged(int count)
