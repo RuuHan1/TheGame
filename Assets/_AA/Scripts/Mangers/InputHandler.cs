@@ -15,6 +15,8 @@ public class InputHandler : MonoBehaviour
         _inputActions.Player.ToggleWeaponRangeCircle.performed += OnWeaponRangeBtnPerformed;
         _inputActions.Player.ToggleHandPanel.performed  += OnHandPanelBtnPerformed;
         _inputActions.Player.InteractAction.performed += OnInteractBtnPerformed;
+        _inputActions.UI.Submit.performed += OnInteractBtnPerformedUI;
+        GameEvents.TogglePlayerInput += OnTogglePlayerInput;
     }
 
 
@@ -28,6 +30,27 @@ public class InputHandler : MonoBehaviour
         _inputActions.Player.ToggleWeaponRangeCircle.performed -= OnWeaponRangeBtnPerformed;
         _inputActions.Player.ToggleHandPanel.performed -= OnHandPanelBtnPerformed;
         _inputActions.Player.InteractAction.performed -= OnInteractBtnPerformed;
+        _inputActions.UI.Submit.performed += OnInteractBtnPerformedUI;
+        GameEvents.TogglePlayerInput += OnTogglePlayerInput;
+
+    }
+
+    private void OnTogglePlayerInput(bool obj)
+    {
+        if (obj) 
+        {
+            _inputActions.Player.Enable();
+        }
+        else
+        {
+            _inputActions.Player.Disable();
+        }
+    }
+
+    private void OnInteractBtnPerformedUI(InputAction.CallbackContext context)
+    {
+        GameEvents.InteractUI?.Invoke();
+        _inputActions.Player.Enable();
     }
 
     private void OnInteractBtnPerformed(InputAction.CallbackContext context)

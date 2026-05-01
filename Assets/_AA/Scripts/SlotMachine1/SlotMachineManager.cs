@@ -10,9 +10,9 @@ public class SlotMachineManager : MonoBehaviour
     [Header("Slot Machine Spawn Settings")]
     [SerializeField] private GameObject _slotMachinePrefab;
     [SerializeField] private float _spawnDelay = 5f;
+    [SerializeField]private float _spawnRate = 20;
     private float _spawnTimer;
     private float _diedEnemyCounter;
-    private float _spawnRate = 20;
 
     private Transform _playerTransform;
      private Transform _areaCenter;
@@ -37,7 +37,7 @@ public class SlotMachineManager : MonoBehaviour
         {
             SpawnSlotMachine();
             _diedEnemyCounter = 0;
-            _spawnRate += 5; // Increase the spawn rate for the next slot machine
+            _spawnRate += 10; // Increase the spawn rate for the next slot machine
         }
     }
 

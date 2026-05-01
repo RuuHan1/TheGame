@@ -66,4 +66,8 @@ public class InformationUI : UIPanel
             }
         }
     }
+    public void OnMainMenuBtnClick()
+    {
+        GameEvents.GoMainMenu?.Invoke();
+    }
 }

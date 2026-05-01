@@ -19,6 +19,8 @@ public static class GameEvents
     public static Action SlotMachineTaken;
     public static Action<CardViewSO> CardAwarded;
     public static Action PlayerDied;
+    public static Action<bool> TogglePlayerInput;
+    public static Action<bool> ToggleUIInput;
     //UI
     public static Action ActivateWeaponRange_PlayerHud;
     public static Action<CardType[],CardViewSO> WhellSpinned_SlothMachineManager;
@@ -33,6 +35,9 @@ public static class GameEvents
     public static Action<List<CardViewSO>> EndGameHandCardsReceived_CardPanel;
     public static Action ToggleCardPanel;
     public static Action Interact;
+    public static Action InteractUI;
+    public static Action GoMainMenu;
+
     //regen icin,PlayerHealthChanged kullanamiyorum cunku Ondan current healtimi gondermem gerekiyor.
     public static Action<float> PlayerHealthRegen_PlayerStats; 
     //xp ve level icin
@@ -46,7 +51,7 @@ public static class GameEvents
     public static Action<VFXType,Vector2> PlayVFX_Enemy;
     //Camera
     public static Action<float> ShakeCamera_EnemyManager;
-    //GameMAnager
+    //GameManager
     public static Action DecreaseTimeScale_EnemyManager;
     public static Action SpawnBoss_GameManager;
     //EnemySword

@@ -15,19 +15,20 @@ public class SlothMachineManagerUI : UIPanel
     private bool _isSpinning = false;
     private void OnEnable()
     {
-        GameEvents.Interact += OnCloseAnimationPanel;
+        GameEvents.InteractUI += OnCloseAnimationPanel;
         GameEvents.WhellSpinned_SlothMachineManager += HandleSpinEvent;
     }
 
     private void OnDisable()
     {
         GameEvents.WhellSpinned_SlothMachineManager -= HandleSpinEvent;
-        GameEvents.Interact -= OnCloseAnimationPanel;
+        GameEvents.InteractUI -= OnCloseAnimationPanel;
     }
 
     private void HandleSpinEvent(CardType[] targets, CardViewSO viewSO)
     {
-        GameEvents.GamePaused?.Invoke(true); // Oyun durumunu "duraklatýlmýþ" olarak deðiþtir
+        GameEvents.TogglePlayerInput?.Invoke(false);
+        GameEvents.GamePaused?.Invoke(true);
         StartCoroutine(SpinAllWheelsRoutine(targets, viewSO));
     }
 
@@ -62,7 +63,6 @@ public class SlothMachineManagerUI : UIPanel
         // Tüm çarklarýn tamamen durmasý için son bir bekleme
         yield return new WaitForSecondsRealtime(1.0f);
 
-        // Sonuç kartýný göster
         _CardPrefab.SetActive(true);
         CardVisualizer visualizer = _CardPrefab.GetComponent<CardVisualizer>();
         if (visualizer != null)
@@ -79,6 +79,7 @@ public class SlothMachineManagerUI : UIPanel
             return;
         }
         GameEvents.GamePaused?.Invoke(false);
+        GameEvents.TogglePlayerInput?.Invoke(true);
         _SlothMachinePanel.SetActive(false);
     }
 }
